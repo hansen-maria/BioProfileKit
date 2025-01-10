@@ -279,3 +279,5 @@ Temporary Items
 /.idea/misc.xml
 /.idea/inspectionProfiles/profiles_settings.xml
 /.idea/vcs.xml
+!/test_data/
+/test_data/iedb.tsv
