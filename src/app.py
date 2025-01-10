@@ -1,5 +1,4 @@
 #! usr/bin/env Python3
-import pathlib
 
 import dash
 import dash_bootstrap_components as dbc
@@ -15,7 +14,11 @@ def main():
 
 
 def create_app():
-    file = '/Users/yuki/PycharmProjects/BioProfileKit/test_data/iedb.tsv'
+    from pathlib import Path
+
+    base_path = Path(__file__).parent
+    file = str((base_path / "../test_data/iedb.tsv").resolve())
+
     df = read_file(file)
     app = Dash(__name__, external_stylesheets=[dbc.themes.FLATLY], use_pages=True,pages_folder="pages",
                suppress_callback_exceptions=True)
