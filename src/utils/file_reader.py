@@ -8,7 +8,7 @@ from functools import reduce
 def read_file(file: str) -> pd.DataFrame:
     file = pathlib.Path(file).absolute()
     ext = pathlib.Path(file.__str__()).suffix
-    if ext != '.csv' or '.tsv' or '.json':
+    if not ext in (".csv", ".tsv", ".json"):
         raise ValueError(f'File {file} is not a .csv or .tsv file')
     #ToDo: Index Col => determine if exist or not
     if ext == ".tsv":
