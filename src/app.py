@@ -16,12 +16,13 @@ def main():
 
     env = Environment(loader=FileSystemLoader('templates'))
     landing_template = env.get_template('LandingPage.jinja')
-    overview_template = env.get_template('Overview.jinja')
-    with open("renders/overview.html", 'w') as output:
-        print(overview_template.render(general=general), file = output)
+    numeric_template = env.get_template('numeric_overview.jinja')
 
     with open("renders/index.html", 'w') as output:
-        print(landing_template.render(landingPageOf='BioProfileKit', file=general.filename), file = output)
+        print(landing_template.render(), file = output)
+
+    with open("renders/numeric_data.html", "w") as output:
+        print(numeric_template.render(general=general), file = output)
 
 
 if __name__ == '__main__':
