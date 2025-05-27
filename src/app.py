@@ -9,7 +9,9 @@ def main():
     file = "../test_data/iedb.tsv"
     df = read_file(file)
     general = overview(df, file)
-
+    dups = df[df.duplicated(keep=False)]
+    #ToDo: Pagination
+    test_html = dups.to_html(classes="table table-hover", border="0")
     #for i in df.columns:
     #    print(column_overview(df, i))
     Path("renders").mkdir(parents=True, exist_ok=True)
@@ -22,7 +24,7 @@ def main():
         print(landing_template.render(), file = output)
 
     with open("renders/numeric_data.html", "w") as output:
-        print(numeric_template.render(general=general), file = output)
+        print(numeric_template.render(general=general, dups=test_html), file = output)
 
 
 if __name__ == '__main__':
