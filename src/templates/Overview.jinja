@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head><title>Overview</title>
+    </head>
+    <body>
+    <table>
+        <TR>
+            <TD>Filename</TD>
+            <TD>{{ general.filename }}</TD>
+        </TR>
+        <TR>
+            <TD>Row number</TD>
+            <TD>{{ general.rows }}</TD>
+        </TR>
+        <TR>
+            <td>Column number</td>
+            <TD>{{ general.cols }}</TD>
+        </TR>
+        <TR>
+            <td>Missing values</td>
+            <td>{{ general.nulls }}</td>
+        </TR>
+        <TR>
+            <td>Missing values (%)</td>
+            <td>{{ general.nulls_percentage }}</td>
+        </TR>
+        <TR>
+            <td>Duplicate rows</td>
+            <td>{{ general.dup_row }}</td>
+        </TR>
+        <TR>
+            <td>Duplicate columns</td>
+            <td>{{ general.dup_col }}</td>
+        </TR>
+        <TR>
+            <td>Memory usage</td>
+            <td>{{ general.memory }}</td>
+        </TR>
+        <TR>
+            <td>Alerts</td>
+            <td>{{ general.alters }}</td>
+        </TR>
+    </table>
+
+    </body>
+</html>
