@@ -2,6 +2,10 @@ import pandas as pd
 import numpy as np
 from dataclasses import dataclass
 
+from pandas.core.dtypes.common import is_numeric_dtype, infer_dtype_from_object
+from pandas.api.types import infer_dtype
+from .sequence_enum import Sequence
+
 """
 Numerical data:
 - min/max/mean/median-range
@@ -34,6 +38,7 @@ class ColumnOverview:
     missing: int
     missing_per: float
     type: str
+    sequence: str
 
 def overview(df: pd.DataFrame, file)-> NumericalData:
 
@@ -57,4 +62,19 @@ def column_overview(df: pd.DataFrame, col) -> ColumnOverview:
         missing=int(df[col].isnull().sum()),
         missing_per = round(float(df[col].isnull().sum()  * 100 / df[col].size),2),
         type=str(df[col].dtype),
+        sequence=check_sequence(df, col),
     )
+
+def check_sequence(df, col):
+    #ToDo: Erweiterte Checks
+    if df[col].name in df.select_dtypes(include='number').columns or infer_dtype(df[col]).__contains__('mixed'):
+        return "None"
+
+    if (df[col].str.len() > 1).all() and df[col].dropna().astype(str).str.fullmatch(Sequence.DNA.value.pattern, case=False).all():
+        return "dna"
+    elif (df[col].str.len() > 1).all() and df[col].dropna().astype(str).str.fullmatch(Sequence.RNA.value.pattern, case=False).all():
+        return "rna"
+    elif (df[col].str.len() > 1).all() and df[col].dropna().astype(str).str.fullmatch(Sequence.PROTEIN.value.pattern, case=False).all():
+        return "protein"
+    else:
+        return "None"
