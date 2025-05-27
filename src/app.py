@@ -1,10 +1,15 @@
 #! usr/bin/env Python3
 
 from jinja2 import Environment, FileSystemLoader
-
+from qc_eda.basic.numerical_data import overview
+from utils.file_reader import read_file
+from pathlib import Path
+import pandas as pd
 
 def main():
-    from pathlib import Path
+    file = "../test_data/iedb.tsv"
+    df = read_file(file)
+    print(overview(df, file))
     Path("renders").mkdir(parents=True, exist_ok=True)
 
     env = Environment(loader=FileSystemLoader('templates'))
