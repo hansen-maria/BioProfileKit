@@ -11,7 +11,7 @@ def main():
     general = overview(df, file)
     dups = df[df.duplicated(keep=False)]
     #ToDo: Pagination
-    test_html = dups.to_html(classes="table table-hover", border="0")
+    test_html = dups.to_html(classes="table table-hover table-responsive nowrap", border="0", table_id="dup_table")
     #for i in df.columns:
     #    print(column_overview(df, i))
     Path("renders").mkdir(parents=True, exist_ok=True)
