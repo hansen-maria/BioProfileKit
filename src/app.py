@@ -1,9 +1,14 @@
 #! usr/bin/env Python3
 
+import pyximport
+pyximport.install()
+
 from jinja2 import Environment, FileSystemLoader
 from qc_eda.basic.numerical_data import overview,column_overview
 from utils.file_reader import read_file
 from pathlib import Path
+
+
 
 def main():
     file = "../test_data/iedb.tsv"
@@ -12,8 +17,9 @@ def main():
     dups = df[df.duplicated(keep=False)]
     #ToDo: Pagination
     test_html = dups.to_html(classes="table table-hover table-responsive nowrap", border="0", table_id="dup_table")
-    #for i in df.columns:
-    #    print(column_overview(df, i))
+
+    for i in df.columns:
+        print(column_overview(df, i))
     Path("renders").mkdir(parents=True, exist_ok=True)
 
     env = Environment(loader=FileSystemLoader('templates'))
