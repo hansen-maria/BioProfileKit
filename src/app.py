@@ -35,7 +35,7 @@ def main():
     with open("renders/numeric_data.html", "w") as output:
         print(numeric_template.render(general=general, dups=test_html), file = output)
 
-    with open("renders/numeric_columns.html", "w") as output:
+    with open("renders/columns.html", "w") as output:
         print(columns.render(columns=df.columns), file = output)
 
 
