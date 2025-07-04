@@ -1,11 +1,13 @@
 #! usr/bin/env Python3
 
 import pyximport
+
+from utils.file_reader import read_file
+
 pyximport.install()
 
 from jinja2 import Environment, FileSystemLoader
 from qc_eda.basic.numerical_data import overview,column_overview
-from utils.file_reader import read_file
 from pathlib import Path
 
 
