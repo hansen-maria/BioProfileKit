@@ -18,7 +18,8 @@ def main():
     general = overview(df, file)
     dups = df[df.duplicated(keep=False)]
     #ToDo: Pagination
-    test_html = dups.to_html(classes="table table-hover table-responsive nowrap", border="0", table_id="dup_table")
+    dups = dups.reset_index()
+    test_html = dups.to_html(classes="table table-hover table-responsive nowrap", border="0", table_id="dup_table", index=False)
 
     for i in df.columns:
         print(column_overview(df, i))

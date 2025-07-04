@@ -5,6 +5,10 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
 
+#dup_table tbody td:first-child {
+    font-weight: bold;
+}
+
 [data-cb-theme=internal] {
     --cb-blue-1: #00447B;
     --cb-blue-2: #0F65A0;
