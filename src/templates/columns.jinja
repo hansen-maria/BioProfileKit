@@ -40,7 +40,7 @@
             <!-- Heading Row-->
             <div class="row gx-4 gx-lg-5 align-items-center my-5">
                 <div class="col-12">
-                    <h1 class="font-weight-light">Column Analysis</h1>
+                    <h1 class="font-weight-light">Column Analysis <span class="badge badge-secondary">New</span></h1>
                     <p style="text-align: justify">
                         Get a compact, numerical summary of all analyses carried out. Visualizations and key figures
                         provide a quick overview of key results and developments-ideal for evaluation at a glance.
@@ -53,7 +53,11 @@
             <!-- Toggle All Elements -->
             <div class="row">
                 <p class="d-inline-flex gap-1">
-                    <button class="btn btn-cb-primary" type="button" data-bs-toggle="collapse" data-bs-target=".multi-collapse" aria-expanded="false" aria-controls="{% for col in columns %}multiCollapse{{ col.name | replace(' ', '') | capitalize }} {% endfor %}">Toggle all elements</button>
+                    <button class="btn btn-cb-primary" type="button" data-bs-toggle="collapse"
+                            data-bs-target=".multi-collapse" aria-expanded="false"
+                            aria-controls="{% for col in columns %}multiCollapse{{ col.name | replace(' ', '') | capitalize }} {% endfor %}">
+                        Toggle all elements
+                    </button>
                 </p>
             </div>
 
@@ -68,14 +72,36 @@
                             {{ col.name.replace('_', ' ').title() }}
                         </button>
                     </p>
-                    <div class="collapse multi-collapse mb-4"
+                    <div class="collapse multi-collapse "
                          id="multiCollapse{{ col.name | replace(' ', '') | capitalize }}">
-                        <div class="card card-body">
+                        <div class="card card-body d-flex justify-content-between align-items-start mb-4">
+                            <div class="position-absolute top-0 end-0 m-2 d-flex flex-column align-items-end gap-1">
+                                {% if col.unique == 1 %}
+                                    <span class="badge bg-danger">Constant</span>
+                                {% endif %}
+                                {% if col.missing_per > 15 %}
+                                    <span class="badge bg-danger">Missing</span>
+                                {% elif 5 < col.missing_per < 15 %}
+                                    <span class="badge bg-warning">Missing</span>
+                                {% elif 0.1 < col.missing_per < 5 %}
+                                    <span class="badge text-bg-light">Missing</span>
+                                {% endif %}
+                                {% if col.sequence != 'None' %}
+                                    <span class="badge bg-success">Sequence</span>
+                                {% elif col.type == 'object' %}
+                                    <span class="badge bg-dark">Object</span>
+                                {% elif col.type == 'int64' or 'float64' %}
+                                    <span class="badge bg-primary">Number</span>
+                                {% endif %}
+                            </div>
+
                             <strong>Column:</strong> {{ col.name }}<br>
-                            <strong>Number of Values:</strong> {{ col.number }} rows<br>
-                            <strong>Number of Unique:</strong> {{ col.unique }} unique<br>
+                            <strong>Number of Values:</strong> {{ col.number }}<br>
+                            <strong>Number of Unique:</strong> {{ col.unique }}<br>
                             <strong>Number of Missing:</strong> {{ col.missing }} ({{ col.missing_per }}%)<br>
-                            <strong>Type:</strong> {{ col.type }}<br>
+                            {% if col.type != 'object' %}
+                                <strong>Number type:</strong> {{ col.type }}<br>
+                            {% endif %}
                             {% if col.sequence != 'None' %}
                                 <strong>Sequence type:</strong> {{ col.sequence }}
                             {% endif %}
