@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="Overview of Analysis - BioProfileKit" />
-    <meta name="author" content="JLU" />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content="Overview of Analysis - BioProfileKit"/>
+    <meta name="author" content="JLU"/>
     <title>Columns</title>
     <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="../static/assets/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="../static/assets/favicon.ico"/>
     <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="../static/css/bootstrap.css" rel="stylesheet" />
-    <link href="../static/css/cb.css" rel="stylesheet" />
+    <link href="../static/css/bootstrap.css" rel="stylesheet"/>
+    <link href="../static/css/cb.css" rel="stylesheet"/>
 
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.7/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.0/css/responsive.bootstrap5.min.css">
@@ -20,7 +20,9 @@
 <nav class="navbar navbar-expand-lg navbar-cb-dark bg-dark">
     <div class="container px-5">
         <a class="navbar-brand" href="index.html">BioProfileKit</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
+                class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
@@ -40,7 +42,8 @@
                 <div class="col-12">
                     <h1 class="font-weight-light">Column Analysis</h1>
                     <p style="text-align: justify">
-                        Get a compact, numerical summary of all analyses carried out. Visualizations and key figures provide a quick overview of key results and developments-ideal for evaluation at a glance.
+                        Get a compact, numerical summary of all analyses carried out. Visualizations and key figures
+                        provide a quick overview of key results and developments-ideal for evaluation at a glance.
                     </p>
                 </div>
             </div>
@@ -50,242 +53,37 @@
             <!-- Toggle All Elements -->
             <div class="row">
                 <p class="d-inline-flex gap-1">
-                    <button class="btn btn-cb-primary" type="button" data-bs-toggle="collapse" data-bs-target=".multi-collapse" aria-expanded="false" aria-controls="multiCollapseEpitopetypes multiCollapsePeptides multiCollapseReferenceNames multiCollapseStarts multiCollapseEnds multiCollapseProteins multiCollapseSourceOrganisms">Toggle all elements</button>
+                    <button class="btn btn-cb-primary" type="button" data-bs-toggle="collapse" data-bs-target=".multi-collapse" aria-expanded="false" aria-controls="{% for col in columns %}multiCollapse{{ col.name | replace(' ', '') | capitalize }} {% endfor %}">Toggle all elements</button>
                 </p>
             </div>
 
-            <!-- Epitope Types -->
-            <div class="row mt-3">
-                <p class="d-inline-flex gap-1">
-                    <a class="btn btn-cb-primary" data-bs-toggle="collapse" href="#multiCollapseEpitopetypes" role="button" aria-expanded="false" aria-controls="multiCollapseEpitopetypes">Toggle Epitope Types</a>
-                </p>
-                <div class="collapse multi-collapse" id="multiCollapseEpitopetypes">
-                    <div class="card card-body">
-                        Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.
+            <!-- Toggle Elements -->
+            {% for col in columns %}
+                <div class="row mt-3">
+                    <p class="d-inline-flex gap-1 mb-4">
+                        <button class="btn btn-cb-primary" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#multiCollapse{{ col.name | replace(' ', '') | capitalize }}"
+                                aria-expanded="false"
+                                aria-controls="multiCollapse{{ col.name | replace(' ', '') | capitalize }}">
+                            {{ col.name.replace('_', ' ').title() }}
+                        </button>
+                    </p>
+                    <div class="collapse multi-collapse mb-4"
+                         id="multiCollapse{{ col.name | replace(' ', '') | capitalize }}">
+                        <div class="card card-body">
+                            <strong>Column:</strong> {{ col.name }}<br>
+                            <strong>Number of Values:</strong> {{ col.number }} rows<br>
+                            <strong>Number of Unique:</strong> {{ col.unique }} unique<br>
+                            <strong>Number of Missing:</strong> {{ col.missing }} ({{ col.missing_per }}%)<br>
+                            <strong>Type:</strong> {{ col.type }}<br>
+                            {% if col.sequence != 'None' %}
+                                <strong>Sequence type:</strong> {{ col.sequence }}
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
-            </div>
+            {% endfor %}
 
-            <!-- Peptides -->
-            <div class="row mt-3">
-                <p class="d-inline-flex gap-1">
-                    <button class="btn btn-cb-primary" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapsePeptides" aria-expanded="false" aria-controls="multiCollapsePeptides">Toggle Peptides</button>
-                </p>
-                <div class="collapse multi-collapse" id="multiCollapsePeptides">
-                    <div class="card card-body">
-                        Some placeholder content for the second collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.
-                    </div>
-                </div>
-            </div>
-
-            <!-- Reference Names -->
-            <div class="row mt-3">
-                <p class="d-inline-flex gap-1">
-                    <button class="btn btn-cb-primary" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseReferenceNames" aria-expanded="false" aria-controls="multiCollapseReferenceNames">Toggle Reference Names</button>
-                </p>
-                <div class="collapse multi-collapse" id="multiCollapseReferenceNames">
-                    <div class="card card-body">
-                        Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.
-                    </div>
-                </div>
-            </div>
-
-
-            <!-- Starts -->
-            <div class="row mt-3">
-                <p class="d-inline-flex gap-1">
-                    <button class="btn btn-cb-primary" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseStarts" aria-expanded="false" aria-controls="multiCollapseStarts">Toggle Starts</button>
-                </p>
-                <div class="collapse multi-collapse" id="multiCollapseStarts">
-                    <div class="card card-body">
-                        Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.
-                    </div>
-                </div>
-            </div>
-
-
-            <!-- Ends -->
-            <div class="row mt-3">
-                <p class="d-inline-flex gap-1">
-                    <button class="btn btn-cb-primary" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseEnds" aria-expanded="false" aria-controls="multiCollapseEnds">Toggle Ends</button>
-                </p>
-                <div class="collapse multi-collapse" id="multiCollapseEnds">
-                    <div class="card card-body">
-                        Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.
-                    </div>
-                </div>
-            </div>
-
-
-            <!-- Proteins -->
-            <div class="row mt-3">
-                <p class="d-inline-flex gap-1">
-                    <button class="btn btn-cb-primary" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseProteins" aria-expanded="false" aria-controls="multiCollapseProteins">Toggle Proteins</button>
-                </p>
-                <div class="collapse multi-collapse" id="multiCollapseProteins">
-                    <div class="card card-body">
-                        Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.
-                    </div>
-                </div>
-            </div>
-
-
-            <!-- Source Organisms -->
-            <div class="row mt-3">
-                <p class="d-inline-flex gap-1">
-                    <button class="btn btn-cb-primary" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseSourceOrganisms" aria-expanded="false" aria-controls="multiCollapseSourceOrganisms">Toggle Source Organisms</button>
-                </p>
-                <div class="collapse multi-collapse" id="multiCollapseSourceOrganisms">
-                    <div class="card card-body">
-                        Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.
-                    </div>
-                </div>
-            </div>
-
-
-            <!-- Hosts -->
-            <div class="row mt-3">
-                <p class="d-inline-flex gap-1">
-                    <button class="btn btn-cb-primary" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseHosts" aria-expanded="false" aria-controls="multiCollapseHosts">Toggle Hosts</button>
-                </p>
-                <div class="collapse multi-collapse" id="multiCollapseHosts">
-                    <div class="card card-body">
-                        Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.
-                    </div>
-                </div>
-            </div>
-
-
-            <!-- Methods -->
-            <div class="row mt-3">
-                <p class="d-inline-flex gap-1">
-                    <button class="btn btn-cb-primary" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseMethods" aria-expanded="false" aria-controls="multiCollapseMethods">Toggle Methods</button>
-                </p>
-                <div class="collapse multi-collapse" id="multiCollapseMethods">
-                    <div class="card card-body">
-                        Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.
-                    </div>
-                </div>
-            </div>
-
-
-            <!-- Responses Measured -->
-            <div class="row mt-3">
-                <p class="d-inline-flex gap-1">
-                    <button class="btn btn-cb-primary" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseResponseMeasured" aria-expanded="false" aria-controls="multiCollapseResponseMeasured">Toggle Responses Measured</button>
-                </p>
-                <div class="collapse multi-collapse" id="multiCollapseResponseMeasured">
-                    <div class="card card-body">
-                        Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.
-                    </div>
-                </div>
-            </div>
-
-
-
-            <!-- Units -->
-            <div class="row mt-3">
-                <p class="d-inline-flex gap-1">
-                    <button class="btn btn-cb-primary" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseUnits" aria-expanded="false" aria-controls="multiCollapseUnits">Toggle Units</button>
-                </p>
-                <div class="collapse multi-collapse" id="multiCollapseUnits">
-                    <div class="card card-body">
-                        Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.
-                    </div>
-                </div>
-            </div>
-
-
-            <!-- Qualitative -->
-            <div class="row mt-3">
-                <p class="d-inline-flex gap-1">
-                    <button class="btn btn-cb-primary" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseQualitative" aria-expanded="false" aria-controls="multiCollapseQualitative">Toggle Qualitative</button>
-                </p>
-                <div class="collapse multi-collapse" id="multiCollapseQualitative">
-                    <div class="card card-body">
-                        Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.
-                    </div>
-                </div>
-            </div>
-
-
-
-            <!-- Inequalities -->
-            <div class="row mt-3">
-                <p class="d-inline-flex gap-1">
-                    <button class="btn btn-cb-primary" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseInequality" aria-expanded="false" aria-controls="multiCollapseInequality">Toggle Inequalities</button>
-                </p>
-                <div class="collapse multi-collapse" id="multiCollapseInequality">
-                    <div class="card card-body">
-                        Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.
-                    </div>
-                </div>
-            </div>
-
-
-            <!-- Quantitative -->
-            <div class="row mt-3">
-                <p class="d-inline-flex gap-1">
-                    <button class="btn btn-cb-primary" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseQuantitative" aria-expanded="false" aria-controls="multiCollapseQuantitative">Toggle Quantitative</button>
-                </p>
-                <div class="collapse multi-collapse" id="multiCollapseQuantitative">
-                    <div class="card card-body">
-                        Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.
-                    </div>
-                </div>
-            </div>
-
-
-            <!-- MHC Alleles -->
-            <div class="row mt-3">
-                <p class="d-inline-flex gap-1">
-                    <button class="btn btn-cb-primary" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseMHCAlleles" aria-expanded="false" aria-controls="multiCollapseMHCAlleles">Toggle MHC Alleles</button>
-                </p>
-                <div class="collapse multi-collapse" id="multiCollapseMHCAlleles">
-                    <div class="card card-body">
-                        Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.
-                    </div>
-                </div>
-            </div>
-
-
-            <!-- MHC Classes -->
-            <div class="row mt-3">
-                <p class="d-inline-flex gap-1">
-                    <button class="btn btn-cb-primary" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseMHCClasses" aria-expanded="false" aria-controls="multiCollapseMHCClasses">Toggle MHC Classes</button>
-                </p>
-                <div class="collapse multi-collapse" id="multiCollapseMHCClasses">
-                    <div class="card card-body">
-                        Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.
-                    </div>
-                </div>
-            </div>
-
-
-            <!-- Bind Classes -->
-            <div class="row mt-3">
-                <p class="d-inline-flex gap-1">
-                    <button class="btn btn-cb-primary" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseBindClasses" aria-expanded="false" aria-controls="multiCollapseBindClasses">Toggle Bind Classes</button>
-                </p>
-                <div class="collapse multi-collapse" id="multiCollapseBindClasses">
-                    <div class="card card-body">
-                        Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.
-                    </div>
-                </div>
-            </div>
-
-
-            <!-- Lengths -->
-            <div class="row mt-3 mb-3">
-                <p class="d-inline-flex gap-1">
-                    <button class="btn btn-cb-primary" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseLengths" aria-expanded="false" aria-controls="multiCollapseLengths">Toggle Lengths</button>
-                </p>
-                <div class="collapse multi-collapse mb-3" id="multiCollapseLengths">
-                    <div class="card card-body">
-                        Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
     <!-- Footer-->
@@ -306,7 +104,7 @@
 <script src="https://cdn.datatables.net/responsive/3.0.4/js/responsive.bootstrap5.min.js"></script>
 
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('#dup_table').DataTable({
             "paging": true,
             "searching": true,
@@ -315,9 +113,9 @@
             "lengthChange": false,
             "responsive": false,
             "scrollX": 1200,
-            "scroller":true,
+            "scroller": true,
             "scrollCollapse": true,
-            "pageLength":15,
+            "pageLength": 15,
             stateSave: true
         });
     });

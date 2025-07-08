@@ -21,8 +21,10 @@ def main():
     dups = dups.reset_index()
     test_html = dups.to_html(classes="table table-hover table-responsive nowrap", border="0", table_id="dup_table", index=False)
 
-    for i in df.columns:
-        print(column_overview(df, i))
+    #for i in df.columns:
+    #    print(column_overview(df, i))
+    column_overviews = [column_overview(df, col) for col in df.columns]
+
     Path("renders").mkdir(parents=True, exist_ok=True)
 
     env = Environment(loader=FileSystemLoader('templates'))
@@ -37,7 +39,7 @@ def main():
         print(numeric_template.render(general=general, dups=test_html), file = output)
 
     with open("renders/columns.html", "w") as output:
-        print(columns.render(columns=df.columns), file = output)
+        print(columns.render(columns=column_overviews), file = output)
 
 
 if __name__ == '__main__':
