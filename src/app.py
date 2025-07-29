@@ -11,7 +11,6 @@ from qc_eda.basic.numerical_data import overview,column_overview
 from pathlib import Path
 
 
-
 def main():
     file = "../test_data/iedb.tsv"
     df = read_file(file)

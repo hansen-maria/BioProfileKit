@@ -12054,4 +12054,10 @@ textarea.form-control-lg {
   }
 }
 
+.plot-container {
+    max-width: 100%;
+    overflow-x: auto;
+    padding: 0;
+}
+
 /*# sourceMappingURL=bootstrap.css.map */

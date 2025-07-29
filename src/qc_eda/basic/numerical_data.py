@@ -2,11 +2,12 @@ import pandas as pd
 import numpy as np
 from dataclasses import dataclass
 
+from matplotlib.pyplot import autoscale
 from pandas.core.dtypes.common import is_numeric_dtype, infer_dtype_from_object
 from pandas.api.types import infer_dtype
 from .sequence_enum import Sequence
 from .wrapper_utils import fast_check_sequence
-
+import plotly.express as px
 """
 Numerical data:
 - min/max/mean/median-range
@@ -40,6 +41,7 @@ class ColumnOverview:
     missing_per: float
     type: str
     sequence: str
+    describe_plot: str | None
 
 def overview(df: pd.DataFrame, file)-> NumericalData:
 
@@ -64,7 +66,34 @@ def column_overview(df: pd.DataFrame, col) -> ColumnOverview:
         missing_per = round(float(df[col].isnull().sum()  * 100 / df[col].size),2),
         type=str(df[col].dtype),
         sequence=check_sequence(df, col),
+        describe_plot=plot_overview(df[col])
+        #px.histogram(df, x=col, nbins=10).to_html(full_html=False)
     )
+
+def plot_overview(col):
+    if col.dtype != 'object':
+        bins = None if col.nunique() < 10 else 10
+        print(bins, col.nunique())
+        fig = px.histogram(col, nbins=bins, height=350, color_discrete_sequence=['#0F65A0'])
+
+        fig.update_layout(bargap=0.2, plot_bgcolor='white')
+        fig.update_xaxes(
+            mirror=True,
+            ticks='outside',
+            showline=True,
+            linecolor='black',
+            gridcolor='lightgrey'
+        )
+        fig.update_yaxes(
+            mirror=True,
+            ticks='outside',
+            showline=True,
+            linecolor='black',
+            gridcolor='lightgrey'
+        )
+        return fig.to_html(full_html=False, include_plotlyjs='cdn')
+    return None
+
 
 def check_sequence(df, col):
     if df[col].name in df.select_dtypes(include='number').columns or infer_dtype(df[col]).__contains__('mixed'):

@@ -94,17 +94,31 @@
                                     <span class="badge bg-primary">Number</span>
                                 {% endif %}
                             </div>
+                            <div class="row">
+                                <!-- Linke Spalte: Textinfos -->
+                                <div class="row-col-md-6-content-start">
+                                    <strong>Column:</strong> {{ col.name }}<br>
+                                    <strong>Number of Values:</strong> {{ col.number }}<br>
+                                    <strong>Number of Unique:</strong> {{ col.unique }}<br>
+                                    <strong>Number of Missing:</strong> {{ col.missing }} ({{ col.missing_per }}%)<br>
+                                    {% if col.type != 'object' %}
+                                        <strong>Number type:</strong> {{ col.type }}<br>
+                                    {% endif %}
+                                    {% if col.sequence != 'None' %}
+                                        <strong>Sequence type:</strong> {{ col.sequence }}<br>
+                                    {% endif %}
+                                </div>
 
-                            <strong>Column:</strong> {{ col.name }}<br>
-                            <strong>Number of Values:</strong> {{ col.number }}<br>
-                            <strong>Number of Unique:</strong> {{ col.unique }}<br>
-                            <strong>Number of Missing:</strong> {{ col.missing }} ({{ col.missing_per }}%)<br>
-                            {% if col.type != 'object' %}
-                                <strong>Number type:</strong> {{ col.type }}<br>
-                            {% endif %}
-                            {% if col.sequence != 'None' %}
-                                <strong>Sequence type:</strong> {{ col.sequence }}
-                            {% endif %}
+                                <!-- Rechte Spalte: Plot -->
+                                <div class="row-col-md-6-content-center">
+                                    {% if col.describe_plot %}
+                                        <div class="plot-container mb-4" style="max-height: 300px;  overflow: hidden;">
+                                            {{ col.describe_plot | safe }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
