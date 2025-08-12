@@ -20,8 +20,8 @@ def main():
     dups = dups.reset_index()
     test_html = dups.to_html(classes="table table-hover table-responsive nowrap", border="0", table_id="dup_table", index=False)
 
-    #for i in df.columns:
-    #    print(column_overview(df, i))
+    print(df.info())
+
     column_overviews = [column_overview(df, col) for col in df.columns]
 
     Path("renders").mkdir(parents=True, exist_ok=True)

@@ -44,7 +44,6 @@ class ColumnOverview:
     describe_plot: str | None
 
 def overview(df: pd.DataFrame, file)-> NumericalData:
-
     return NumericalData(
         filename=file,
         rows = df.shape[0],
@@ -67,15 +66,12 @@ def column_overview(df: pd.DataFrame, col) -> ColumnOverview:
         type=str(df[col].dtype),
         sequence=check_sequence(df, col),
         describe_plot=plot_overview(df[col])
-        #px.histogram(df, x=col, nbins=10).to_html(full_html=False)
     )
 
 def plot_overview(col):
     if col.dtype != 'object':
         bins = None if col.nunique() < 10 else 10
-        print(bins, col.nunique())
         fig = px.histogram(col, nbins=bins, height=350, color_discrete_sequence=['#0F65A0'])
-
         fig.update_layout(bargap=0.2, plot_bgcolor='white')
         fig.update_xaxes(
             mirror=True,

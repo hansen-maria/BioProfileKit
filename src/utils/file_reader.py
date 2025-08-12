@@ -3,21 +3,33 @@
 import pandas as pd
 import pathlib
 from functools import reduce
+import csv
 
 
 def read_file(file: str) -> pd.DataFrame | None:
     file = pathlib.Path(file).absolute()
     ext = pathlib.Path(file.__str__()).suffix
+
+
+    with open(file, encoding="utf-8") as csv_file:
+        csv_bytes = "".join(csv_file.readline() for _ in range(10))
+        dialect = csv.Sniffer().sniff(csv_bytes)
+        header = csv.Sniffer().has_header(csv_bytes)
+        csv_file.seek(0)
+        print(dialect.mro())
+
+    head_col = 0 if header else None
+    idx_col = 0 if header else None
+
     if not ext in (".csv", ".tsv", ".json"):
         raise ValueError(f'File {file} is not a .csv or .tsv file')
-    #ToDo: Index Col => determine if exist or not
-    if ext == ".tsv":
-        df = pd.read_csv(file.__str__(), header=0, index_col=0, sep="\t", engine="pyarrow")
-        print(df.head())
+
+    if ext == ".csv" or ext == ".tsv":
+        df = pd.read_csv(file.__str__(), header=head_col, index_col=idx_col, sep=dialect.delimiter, engine="pyarrow")
+        if head_col is None:
+            df = df.add_prefix("Unknown_")
         return df
-    elif ext == ".csv":
-        df = pd.read_csv(file.__str__(), header=0, index_col=0, sep=",", engine="pyarrow")
-        return df
+
     elif ext == ".json":
         df = pd.read_json(file.__str__(), orient='values')
         cols = [i for i in df.columns if isinstance(df[i][0], dict)]
@@ -32,6 +44,7 @@ def read_file(file: str) -> pd.DataFrame | None:
                     tmp = pd.json_normalize(df[i])
                     data_frames.append(tmp)
                 df = reduce(lambda left, right: pd.merge(left, right, left_index=True, right_index=True), data_frames)
+        return df
 
-    return df
+    return None
 
