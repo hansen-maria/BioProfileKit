@@ -40,7 +40,7 @@
             <!-- Heading Row-->
             <div class="row gx-4 gx-lg-5 align-items-center my-5">
                 <div class="col-12">
-                    <h1 class="font-weight-light">Column Analysis <span class="badge badge-secondary">New</span></h1>
+                    <h1 class="font-weight-light">Column Analysis</h1>
                     <p style="text-align: justify">
                         Get a compact, numerical summary of all analyses carried out. Visualizations and key figures
                         provide a quick overview of key results and developments-ideal for evaluation at a glance.
@@ -49,6 +49,69 @@
             </div>
             <!-- Content Row-->
             <!-- TODO: EXAMPLE TABLE -->
+            <div class="row gx-4 gx-lg-5">
+                <div class="col-12">
+                    <table class="table table-hover">
+                        <thead></thead>
+                        <tbody>
+                        <TR>
+                            <TD>Minimum</TD>
+                            {% for ov in overview %}
+                                <TD>{{ ov.min }}</TD>
+                            {% endfor %}
+                        </TR>
+                        <TR>
+                            <TD>Maximum</TD>
+                            {% for ov in overview %}
+                                <TD>{{ ov.max }}</TD>
+                            {% endfor %}
+                        </TR>
+                        <TR>
+                            <td>Mean</td>
+                            {% for ov in overview %}
+                                <TD>{{ ov.mean }}</TD>
+                            {% endfor %}
+                        </TR>
+                        <TR>
+                            <td>Median</td>
+                            {% for ov in overview %}
+                                <td>{{ ov.median }}</td>
+                            {% endfor %}
+                        </TR>
+                        <TR>
+                            <td>Mode</td>
+                            {% for ov in overview %}
+                                <td>{{ ov.mode }}</td>
+                            {% endfor %}
+                        </TR>
+                        <TR>
+                            <td>Standard Deviation</td>
+                            {% for ov in overview %}
+                                <td>{{ ov.std }}</td>
+                            {% endfor %}
+                        </TR>
+                        <TR>
+                            <td>Sum</td>
+                            {% for ov in overview %}
+                                <td>{{ ov.sum }}</td>
+                            {% endfor %}
+                        </TR>
+                        <TR>
+                            <td>Kurtosis</td>
+                            {% for ov in overview %}
+                                <td>{{ ov.kurtosis }}</td>
+                            {% endfor %}
+                        </TR>
+                        <TR>
+                            <td>Skewness</td>
+                            {% for ov in overview %}
+                                <td>{{ ov.skewness }}</td>
+                            {% endfor %}
+                        </TR>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
             <!-- Toggle All Elements -->
             <div class="row">
