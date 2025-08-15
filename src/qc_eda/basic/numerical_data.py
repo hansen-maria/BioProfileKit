@@ -13,21 +13,11 @@ import plotly.express as px
 from scipy import stats
 
 """
-Numerical data:
-- min/max/mean/median-range
-- quartiles
-- mode
-- std
-- sum
-- median absolute deviation
-- coefficient of variation
-- kurtosis
-- skewness
+ToDo Numerical data:
+- quartiles 
 - cardinalities
-x missing values 
 - constant values
 - duplicated columns
-x duplicated rows
 - correlation
 - memory usage per column
 - distribution <-- skewness
