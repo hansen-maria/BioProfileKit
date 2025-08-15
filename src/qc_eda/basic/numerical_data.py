@@ -4,11 +4,14 @@ from dataclasses import dataclass
 import seaborn as sns
 from matplotlib import pyplot as plt
 from matplotlib.pyplot import autoscale
+from numpy import ndarray
 from pandas.core.dtypes.common import is_numeric_dtype, infer_dtype_from_object
 from pandas.api.types import infer_dtype
 from .sequence_enum import Sequence
 from .wrapper_utils import fast_check_sequence
 import plotly.express as px
+from scipy import stats
+
 """
 Numerical data:
 - min/max/mean/median-range
@@ -67,8 +70,8 @@ class NumericColumns:
     sum: float
     kurtosis: float
     skewness: float
-    #coefficient_of_variation: float
-    #median_absolute_deviation: float
+    coefficient_of_variation: ndarray
+    mad: float
     mode: float
     #cardinalities: list[int]
 
@@ -108,6 +111,8 @@ def numeric_columns(df: pd.DataFrame, col) -> NumericColumns:
         sum=round(df[col].sum(),2),
         kurtosis=round(df[col].kurtosis(),2),
         skewness=round(df[col].skew(),2),
+        mad = stats.median_abs_deviation(df[col],nan_policy='omit'), #Ignore NaN values, set Warning
+        coefficient_of_variation=round(stats.variation(df[col],nan_policy='omit'),2)
     )
 
 
