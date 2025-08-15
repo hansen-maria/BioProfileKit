@@ -108,6 +108,34 @@
                                 <td>{{ ov.skewness }}</td>
                             {% endfor %}
                         </TR>
+                        <TR>
+                            <td>Median Abs Deviation</td>
+                            {% for ov in overview %}
+                                <td>{{ ov.mad }}</td>
+                            {% endfor %}
+                        </TR>
+                        <TR>
+                            <td>Coefficients of Variation</td>
+                            {% for ov in overview %}
+                                <td>{{ ov.coefficient_of_variation }}</td>
+                            {% endfor %}
+                        </TR>
+                        <TR>
+                            <td>Quantiles</td>
+                            {% for ov in overview %}
+                                <td>
+                                    25 %: {{ ov.quantiles.0 }}<br>
+                                    50 %: {{ ov.quantiles.1 }}<br>
+                                    75 %: {{ ov.quantiles.2 }}
+                                </td>
+                            {% endfor %}
+                        </TR>
+                        <TR>
+                            <td>Memory</td>
+                            {% for ov in overview %}
+                                <td>{{ ov.memory }}</td>
+                            {% endfor %}
+                        </TR>
                         </tbody>
                     </table>
                 </div>
