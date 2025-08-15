@@ -140,3 +140,13 @@ ul.pagination li.page-item .page-link.ellipsis {
     border: 1px solid #932263;
     pointer-events: none;
 }
+
+.cb-pink-link {
+    color: var(--cb-pink-1) !important;
+    text-decoration: none;
+}
+
+.cb-pink-link:hover {
+    color: var(--cb-pink-2) !important;
+    text-decoration: underline;
+}

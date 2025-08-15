@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.7/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.0/css/responsive.bootstrap5.min.css">
 </head>
-<body>
+<body data-cb-theme="internal">
 <!-- Responsive navbar-->
 <nav class="navbar navbar-expand-lg navbar-cb-dark bg-dark">
     <div class="container px-5">
@@ -184,7 +184,11 @@
                                     {% if col.correlation %}
                                         <strong>Correlates with:</strong><br>
                                         {% for corr in col.correlation %}
-                                            &emsp;{{ corr.0.replace('_', ' ') | capitalize }}: {{ corr.1 }}<br>
+                                            &emsp;
+                                            <a href="#multiCollapse{{ corr.0.replace(' ', '') | capitalize }}"
+                                               class="cb-pink-link">
+                                                {{ corr.0.replace('_', ' ') | capitalize }}
+                                            </a>: {{ corr.1 }}<br>
                                         {% endfor %}
                                     {% endif %}
                                 </div>
