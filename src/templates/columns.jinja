@@ -171,7 +171,10 @@
                                         <strong>Sequence type:</strong> {{ col.sequence }}<br>
                                     {% endif %}
                                     {% if col.correlation %}
-                                        <strong>Correlates with:</strong> {{ col.correlation.0.0.replace('_', ' ') }} ({{ col.correlation.0.1 }})<br>
+                                        <strong>Correlates with:</strong><br>
+                                        {% for corr in col.correlation %}
+                                            &emsp;{{ corr.0.replace('_', ' ') | capitalize }}: {{ corr.1 }}<br>
+                                        {% endfor %}
                                     {% endif %}
                                 </div>
 
