@@ -1,0 +1,48 @@
+[build-system]
+requires = [
+    "setuptools>=75.1.0",
+    "wheel>=0.44.0",
+    "cython>=3.1.2",
+    "numpy>=2.3.2"
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "BioProfileKit"
+version = "0.1"
+description = "BioProfileKit analysis biological tabular data"
+readme = "README.md"
+authors = [
+    {name = "Sonja Diedrich", email = "sonja.diedrich@computational.bio.uni-giessen.de"},
+    {name = "Maria Hansen", email = "maria.hansen@computational.bio.uni-giessen.de"}
+]
+license = "MIT"
+requires-python = ">=3.13"
+
+dependencies = [
+    "cython==3.1.2",
+    "click>=8.2.2",
+    "Jinja2==3.1.6",
+    "numpy==2.3.2",
+    "pandas==2.3.1",
+    "plotly==6.3.0",
+    "scipy==1.16.1",
+    "termcolor==3.1.0"
+]
+
+[project.optional-dependencies]
+cli = ["click"]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+namespaces = false
+
+[tool.setuptools.package-data]
+"src" = ["src/templates/*.jinja"]
+
+[project.scripts]
+bioprofilekit = "app:cli"
+

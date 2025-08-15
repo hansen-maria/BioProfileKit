@@ -4,9 +4,9 @@ import pandas as pd
 import pathlib
 from functools import reduce
 import csv
+import click
 
-
-def read_file(file: str) -> pd.DataFrame | None:
+def read_file(file: click.Path) -> pd.DataFrame | None:
     file = pathlib.Path(file).absolute()
     ext = pathlib.Path(file.__str__()).suffix
 
@@ -16,7 +16,6 @@ def read_file(file: str) -> pd.DataFrame | None:
         dialect = csv.Sniffer().sniff(csv_bytes)
         header = csv.Sniffer().has_header(csv_bytes)
         csv_file.seek(0)
-        print(dialect.mro())
 
     head_col = 0 if header else None
     idx_col = 0 if header else None

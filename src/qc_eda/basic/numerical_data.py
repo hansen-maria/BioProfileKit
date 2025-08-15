@@ -1,18 +1,13 @@
-from statistics import quantiles
+from dataclasses import dataclass
 
 import pandas as pd
-import numpy as np
-from dataclasses import dataclass
-import seaborn as sns
-from matplotlib import pyplot as plt
-from matplotlib.pyplot import autoscale
+import plotly.express as px
 from numpy import ndarray
-from pandas.core.dtypes.common import is_numeric_dtype, infer_dtype_from_object
 from pandas.api.types import infer_dtype
+from scipy import stats
+
 from .sequence_enum import Sequence
 from .wrapper_utils import fast_check_sequence
-import plotly.express as px
-from scipy import stats
 
 """
 ToDo Numerical data:
@@ -47,7 +42,6 @@ class ColumnOverview:
     sequence: str
     describe_plot: str | None
     constant: bool
-    # skewness: bool | None
     #constant_values: bool
     correlation: list[str] | None
 
