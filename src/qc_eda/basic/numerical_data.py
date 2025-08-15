@@ -1,3 +1,5 @@
+from statistics import quantiles
+
 import pandas as pd
 import numpy as np
 from dataclasses import dataclass
@@ -14,12 +16,12 @@ from scipy import stats
 
 """
 ToDo Numerical data:
-- quartiles 
-- cardinalities
-- constant values
-- duplicated columns
+x quantiles 
+- cardinalities --> später
+x constant values
+- duplicated columns --> später
 - correlation
-- memory usage per column
+x memory usage per column
 - distribution <-- skewness
 """
 @dataclass
@@ -44,9 +46,10 @@ class ColumnOverview:
     type: str
     sequence: str
     describe_plot: str | None
+    constant: bool
     # skewness: bool | None
     #constant_values: bool
-    #correlation: list[str] | None
+    correlation: list[str] | None
 
 
 @dataclass
@@ -60,9 +63,11 @@ class NumericColumns:
     sum: float
     kurtosis: float
     skewness: float
-    coefficient_of_variation: ndarray
+    coefficient_of_variation: float
     mad: float
     mode: float
+    quantiles: ndarray
+    memory: int
     #cardinalities: list[int]
 
 def overview(df: pd.DataFrame, file)-> NumericalData:
@@ -74,7 +79,7 @@ def overview(df: pd.DataFrame, file)-> NumericalData:
         nulls_percentage = round(sum(df.isnull().sum())  * 100 / df.size, 2),
         dup_row = int(df.duplicated().sum()),
         dup_col = int(df.columns.duplicated().sum()),
-        memory = int(df.memory_usage().sum()),
+        memory = int(df.memory_usage(deep=True).sum()),
         alerts = 0
     )
 
@@ -88,6 +93,9 @@ def column_overview(df: pd.DataFrame, col) -> ColumnOverview:
         type=str(df[col].dtype),
         sequence=check_sequence(df, col),
         describe_plot=plot_overview(df[col]),
+        constant= True if (df[col].nunique()==1) else False,
+        correlation=get_correlation(df, col)
+
     )
 
 def numeric_columns(df: pd.DataFrame, col) -> NumericColumns:
@@ -102,9 +110,21 @@ def numeric_columns(df: pd.DataFrame, col) -> NumericColumns:
         kurtosis=round(df[col].kurtosis(),2),
         skewness=round(df[col].skew(),2),
         mad = stats.median_abs_deviation(df[col],nan_policy='omit'), #Ignore NaN values, set Warning
-        coefficient_of_variation=round(stats.variation(df[col],nan_policy='omit'),2)
+        coefficient_of_variation=round(stats.variation(df[col],nan_policy='omit'),2),
+        quantiles=stats.quantile(df[col],[0.25,0.5,0.75]),
+        memory = df[col].memory_usage(deep=True)
     )
 
+def get_correlation(df: pd.DataFrame, col) -> list | None:
+    ncols = df.select_dtypes(include='number').columns
+    if col in ncols:
+        corr = df[ncols].corrwith(df[col],method='pearson')
+        corr.drop(labels=col,inplace=True)
+        corr = corr.drop(corr[corr < .3].index)
+        if corr.empty:
+            return None
+        return list(zip(corr.index,corr))
+    return None
 
 # ToDo: move to plot_utils
 def plot_overview(col):
