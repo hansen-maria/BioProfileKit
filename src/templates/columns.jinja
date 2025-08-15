@@ -156,6 +156,17 @@
                                 {% elif col.type == 'int64' or 'float64' %}
                                     <span class="badge bg-primary">Number</span>
                                 {% endif %}
+                                {% if col.correlation %}
+                                    {% for corr in col.correlation %}
+                                        {% if corr.1 < 0.5 %}
+                                            <span class="badge bg-danger">Low Correlation</span>
+                                        {% elif 0.5 <= corr.1 < 0.7 %}
+                                            <span class="badge bg-warning">Moderate Correlation</span>
+                                        {% else %}
+                                            <span class="badge bg-success">High Correlation</span>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
                             </div>
                             <div class="row">
                                 <!-- Linke Spalte: Textinfos -->
