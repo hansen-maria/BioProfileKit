@@ -170,6 +170,9 @@
                                     {% if col.sequence != 'None' %}
                                         <strong>Sequence type:</strong> {{ col.sequence }}<br>
                                     {% endif %}
+                                    {% if col.correlation %}
+                                        <strong>Correlates with:</strong> {{ col.correlation.0.0.replace('_', ' ') }} ({{ col.correlation.0.1 }})<br>
+                                    {% endif %}
                                 </div>
 
                                 <!-- Rechte Spalte: Plot -->

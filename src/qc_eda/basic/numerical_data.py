@@ -20,7 +20,7 @@ x quantiles
 - cardinalities --> später
 x constant values
 - duplicated columns --> später
-- correlation
+x correlation
 x memory usage per column
 - distribution <-- skewness
 """

@@ -13,8 +13,11 @@ from pathlib import Path
 
 def main():
     file = "../test_data/iedb.tsv"
-    df = read_file(file)
-    general = overview(df, file)
+    file2 = "../data/covtype.csv"
+    file3 = "../data/upstream_sd.complete.tsv"
+    file4 = "../data/diabetes+130-us+hospitals+for+years+1999-2008/diabetic_data.csv"
+    df = read_file(file4)
+    general = overview(df, file4)
     dups = df[df.duplicated(keep=False)]
     #ToDo: Pagination
     dups = dups.reset_index()
@@ -41,7 +44,7 @@ def main():
         print(numeric_template.render(general=general, dups=test_html), file = output)
 
     with open("renders/columns.html", "w") as output:
-        print(columns.render(columns=column_overviews), file = output)
+        print(columns.render(columns=column_overviews, overview=numeric_overviews), file = output)
 
 
 if __name__ == '__main__':
