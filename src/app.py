@@ -7,7 +7,7 @@ from utils.file_reader import read_file
 pyximport.install()
 
 from jinja2 import Environment, FileSystemLoader
-from qc_eda.basic.numerical_data import overview,column_overview
+from qc_eda.basic.numerical_data import overview,column_overview, numeric_columns
 from pathlib import Path
 
 
@@ -23,6 +23,9 @@ def main():
     print(df.info())
 
     column_overviews = [column_overview(df, col) for col in df.columns]
+    numeric_overviews = [numeric_columns(df, col) for col in df.select_dtypes(include='number').columns]
+
+    print(numeric_overviews)
 
     Path("renders").mkdir(parents=True, exist_ok=True)
 

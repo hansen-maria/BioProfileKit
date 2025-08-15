@@ -1,7 +1,8 @@
 import pandas as pd
 import numpy as np
 from dataclasses import dataclass
-
+import seaborn as sns
+from matplotlib import pyplot as plt
 from matplotlib.pyplot import autoscale
 from pandas.core.dtypes.common import is_numeric_dtype, infer_dtype_from_object
 from pandas.api.types import infer_dtype
@@ -19,6 +20,14 @@ Numerical data:
 - coefficient of variation
 - kurtosis
 - skewness
+- cardinalities
+x missing values 
+- constant values
+- duplicated columns
+x duplicated rows
+- correlation
+- memory usage per column
+- distribution <-- skewness
 """
 @dataclass
 class NumericalData:
@@ -42,6 +51,26 @@ class ColumnOverview:
     type: str
     sequence: str
     describe_plot: str | None
+    # skewness: bool | None
+    #constant_values: bool
+    #correlation: list[str] | None
+
+
+@dataclass
+class NumericColumns:
+    min: float
+    max: float
+    mean: float
+    median: float
+    mode: float
+    std: float
+    sum: float
+    kurtosis: float
+    skewness: float
+    #coefficient_of_variation: float
+    #median_absolute_deviation: float
+    mode: float
+    #cardinalities: list[int]
 
 def overview(df: pd.DataFrame, file)-> NumericalData:
     return NumericalData(
@@ -65,9 +94,24 @@ def column_overview(df: pd.DataFrame, col) -> ColumnOverview:
         missing_per = round(float(df[col].isnull().sum()  * 100 / df[col].size),2),
         type=str(df[col].dtype),
         sequence=check_sequence(df, col),
-        describe_plot=plot_overview(df[col])
+        describe_plot=plot_overview(df[col]),
     )
 
+def numeric_columns(df: pd.DataFrame, col) -> NumericColumns:
+    return NumericColumns(
+        min=round(df[col].min(),2),
+        max=round(df[col].max(),2),
+        mean=round(df[col].mean(),2),
+        median=round(df[col].median(),2),
+        mode=round(df[col].mode().iloc[0],2),
+        std=round(df[col].std(),2),
+        sum=round(df[col].sum(),2),
+        kurtosis=round(df[col].kurtosis(),2),
+        skewness=round(df[col].skew(),2),
+    )
+
+
+# ToDo: move to plot_utils
 def plot_overview(col):
     if col.dtype != 'object':
         bins = None if col.nunique() < 10 else 10
@@ -90,7 +134,7 @@ def plot_overview(col):
         return fig.to_html(full_html=False, include_plotlyjs='cdn')
     return None
 
-
+# ToDo: move to sequence_utils
 def check_sequence(df, col):
     if df[col].name in df.select_dtypes(include='number').columns or infer_dtype(df[col]).__contains__('mixed'):
         return "None"
