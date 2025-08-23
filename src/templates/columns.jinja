@@ -152,116 +152,141 @@
                 </p>
             </div>
 
-            <!-- Toggle Elements -->
-            {% for col in columns %}
-                <div class="row mt-3">
-                    <p class="d-inline-flex gap-1 mb-4">
-                        <button class="btn btn-cb-primary" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#multiCollapse{{ col.name | replace(' ', '') | capitalize }}"
-                                aria-expanded="false"
-                                aria-controls="multiCollapse{{ col.name | replace(' ', '') | capitalize }}">
-                            {{ col.name.replace('_', ' ').title() }}
-                        </button>
-                    </p>
-                    <div class="collapse multi-collapse "
-                         id="multiCollapse{{ col.name | replace(' ', '') | capitalize }}">
-                        <div class="card card-body d-flex justify-content-between align-items-start mb-4">
-                            <div class="position-absolute top-0 end-0 m-2 d-flex flex-column align-items-end gap-1">
-                                {% if col.unique == 1 %}
-                                    <span class="badge bg-danger">Constant</span>
-                                {% endif %}
-                                {% if col.missing_per > 15 %}
-                                    <span class="badge bg-danger">Missing</span>
-                                {% elif 5 < col.missing_per < 15 %}
-                                    <span class="badge bg-warning">Missing</span>
-                                {% elif 0.1 < col.missing_per < 5 %}
-                                    <span class="badge text-bg-light">Missing</span>
-                                {% endif %}
-                                {% if col.sequence != 'None' %}
-                                    <span class="badge bg-success">Sequence</span>
-                                {% elif col.type == 'object' %}
-                                    <span class="badge bg-dark">Object</span>
-                                {% elif col.type == 'int64' or 'float64' %}
-                                    <span class="badge bg-primary">Number</span>
-                                {% endif %}
-                                {% if col.correlation %}
-                                    {% for corr in col.correlation %}
-                                        {% if corr.1 < 0.5 %}
-                                            <span class="badge bg-danger">Low Correlation</span>
-                                        {% elif 0.5 <= corr.1 < 0.7 %}
-                                            <span class="badge bg-warning">Moderate Correlation</span>
-                                        {% else %}
-                                            <span class="badge bg-success">High Correlation</span>
-                                        {% endif %}
-                                    {% endfor %}
-                                {% endif %}
+            {% set items_per_page = 20 %}
+            {% set total_pages = (columns|length / items_per_page)|round(0, 'ceil')|int %}
+
+            {% if total_pages > 1 %}
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center">
+                <span class="text-muted me-3">
+                    Showing <span id="current-range">1-{{ [items_per_page, columns|length]|min }}</span>
+                    of {{ columns|length }} columns
+                </span>
                             </div>
-                            <div class="row">
-                                <!-- Linke Spalte: Textinfos -->
-                                <div class="row-col-md-6-content-start">
-                                    <strong>Column:</strong> {{ col.name }}<br>
-                                    <strong>Number of Values:</strong> {{ col.number }}<br>
-                                    <strong>Number of Unique:</strong> {{ col.unique }}<br>
-                                    <strong>Number of Missing:</strong> {{ col.missing }} ({{ col.missing_per }}%)<br>
-                                    {% if col.type != 'object' %}
-                                        <strong>Number type:</strong> {{ col.type }}<br>
+                            <nav aria-label="Column pagination">
+                                <ul class="pagination pagination-sm mb-0" id="column-pagination">
+                                    <!-- Pagination wird via JavaScript generiert -->
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+            <!-- Toggle Elements Container -->
+            <div id="columns-container">
+                {% for col in columns %}
+                    <div class="column-item row mt-3" data-page="{{ ((loop.index0 // items_per_page)) + 1 }}"
+                         style="display: {% if loop.index0 < items_per_page %}block{% else %}none{% endif %};">
+                        <p class="d-inline-flex gap-1 mb-4">
+                            <button class="btn btn-cb-primary" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#multiCollapse{{ col.name | replace(' ', '') | capitalize }}"
+                                    aria-expanded="false"
+                                    aria-controls="multiCollapse{{ col.name | replace(' ', '') | capitalize }}">
+                                {{ col.name.replace('_', ' ').title() }}
+                            </button>
+                        </p>
+                        <div class="collapse multi-collapse "
+                             id="multiCollapse{{ col.name | replace(' ', '') | capitalize }}">
+                            <div class="card card-body d-flex justify-content-between align-items-start mb-4">
+                                <div class="position-absolute top-0 end-0 m-2 d-flex flex-column align-items-end gap-1">
+                                    {% if col.unique == 1 %}
+                                        <span class="badge bg-danger">Constant</span>
+                                    {% endif %}
+                                    {% if col.missing_per > 15 %}
+                                        <span class="badge bg-danger">Missing</span>
+                                    {% elif 5 < col.missing_per < 15 %}
+                                        <span class="badge bg-warning">Missing</span>
+                                    {% elif 0.1 < col.missing_per < 5 %}
+                                        <span class="badge text-bg-light">Missing</span>
                                     {% endif %}
                                     {% if col.sequence != 'None' %}
-                                        <strong>Sequence type:</strong> {{ col.sequence }}<br>
+                                        <span class="badge bg-success">Sequence</span>
+                                    {% elif col.type == 'object' %}
+                                        <span class="badge bg-dark">Object</span>
+                                    {% elif col.type == 'int64' or 'float64' %}
+                                        <span class="badge bg-primary">Number</span>
                                     {% endif %}
                                     {% if col.correlation %}
-                                        <strong>Correlates with:</strong><br>
                                         {% for corr in col.correlation %}
-                                            &emsp;
-                                            <a href="#multiCollapse{{ corr.0.replace(' ', '') | capitalize }}"
-                                               class="cb-pink-link">
-                                                {{ corr.0.replace('_', ' ') | capitalize }}
-                                            </a>: {{ corr.1 }}<br>
+                                            {% if corr.1 < 0.5 %}
+                                                <span class="badge bg-danger">Low Correlation</span>
+                                            {% elif 0.5 <= corr.1 < 0.7 %}
+                                                <span class="badge bg-warning">Moderate Correlation</span>
+                                            {% else %}
+                                                <span class="badge bg-success">High Correlation</span>
+                                            {% endif %}
                                         {% endfor %}
                                     {% endif %}
                                 </div>
+                                <div class="row w-100">
+                                    <!-- Linke Spalte: Textinfos -->
+                                    <div class="col-md-6">
+                                        <strong>Column:</strong> {{ col.name }}<br>
+                                        <strong>Number of Values:</strong> {{ col.number }}<br>
+                                        <strong>Number of Unique:</strong> {{ col.unique }}<br>
+                                        <strong>Number of Missing:</strong> {{ col.missing }} ({{ col.missing_per }}%)<br>
+                                        {% if col.type != 'object' %}
+                                            <strong>Number type:</strong> {{ col.type }}<br>
+                                        {% endif %}
+                                        {% if col.sequence != 'None' %}
+                                            <strong>Sequence type:</strong> {{ col.sequence }}<br>
+                                        {% endif %}
+                                        {% if col.correlation %}
+                                            <strong>Correlates with:</strong><br>
+                                            {% for corr in col.correlation %}
+                                                &emsp;
+                                                <a href="#multiCollapse{{ corr.0.replace(' ', '') | capitalize }}"
+                                                   class="cb-pink-link">
+                                                    {{ corr.0.replace('_', ' ') | capitalize }}
+                                                </a>: {{ corr.1 }}<br>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
 
-                                <!-- Rechte Spalte: Plot -->
-                                <div class="row-col-md-6-content-center">
-                                    {% if col.describe_plot %}
-                                        <div class="plot-container mb-4" style="max-height: 300px;  overflow: hidden;">
-                                            {{ col.describe_plot | safe }}
-                                        </div>
-                                    {% endif %}
+                                    <!-- Rechte Spalte: Plot -->
+                                    <div class="col-md-6 d-flex justify-content-center">
+                                        {% if col.describe_plot %}
+                                            <div class="plot-container mb-4" style="max-height: 300px; overflow: hidden;">
+                                                {{ col.describe_plot | safe }}
+                                            </div>
+                                        {% endif %}
+                                    </div>
                                 </div>
-                            </div>
 
-                        <!-- Neue Sektion für Top 20 Sequenzen (nur bei Sequenzspalten) -->
-                            {% if col.sequence != 'None' and col.dna_rna_data %}
-                                <div class="row w-100 mt-4">
-                                    <div class="col-12">
-                                        <h5>Top 20 Sequences Analysis</h5>
+                                <!-- Neue Sektion für Top 20 Sequenzen (nur bei Sequenzspalten) -->
+                                {% if col.sequence != 'None' and col.dna_rna_data %}
+                                    <div class="row w-100 mt-4">
+                                        <div class="col-12">
+                                            <h5>Top 20 Sequences Analysis</h5>
 
-                                        <!-- Tabs für verschiedene Ansichten -->
-                                        <ul class="nav nav-tabs" id="sequenceTab{{ col.name | replace(' ', '') | capitalize }}" role="tablist">
-                                            <li class="nav-item" role="presentation">
-                                                <button class="nav-link active" id="sequences-tab{{ col.name | replace(' ', '') | capitalize }}"
-                                                        data-bs-toggle="tab" data-bs-target="#sequences{{ col.name | replace(' ', '') | capitalize }}"
-                                                        type="button" role="tab">Sequences</button>
-                                            </li>
-                                            <li class="nav-item" role="presentation">
-                                                <button class="nav-link" id="stats-tab{{ col.name | replace(' ', '') | capitalize }}"
-                                                        data-bs-toggle="tab" data-bs-target="#stats{{ col.name | replace(' ', '') | capitalize }}"
-                                                        type="button" role="tab">Statistics</button>
-                                            </li>
-                                            <li class="nav-item" role="presentation">
-                                                <button class="nav-link" id="kmers-tab{{ col.name | replace(' ', '') | capitalize }}"
-                                                        data-bs-toggle="tab" data-bs-target="#kmers{{ col.name | replace(' ', '') | capitalize }}"
-                                                        type="button" role="tab">K-mers</button>
-                                            </li>
-                                        </ul>
+                                            <!-- Tabs für verschiedene Ansichten -->
+                                            <ul class="nav nav-tabs" id="sequenceTab{{ col.name | replace(' ', '') | capitalize }}" role="tablist">
+                                                <li class="nav-item" role="presentation">
+                                                    <button class="nav-link active" id="sequences-tab{{ col.name | replace(' ', '') | capitalize }}"
+                                                            data-bs-toggle="tab" data-bs-target="#sequences{{ col.name | replace(' ', '') | capitalize }}"
+                                                            type="button" role="tab">Sequences</button>
+                                                </li>
+                                                <li class="nav-item" role="presentation">
+                                                    <button class="nav-link" id="stats-tab{{ col.name | replace(' ', '') | capitalize }}"
+                                                            data-bs-toggle="tab" data-bs-target="#stats{{ col.name | replace(' ', '') | capitalize }}"
+                                                            type="button" role="tab">Statistics</button>
+                                                </li>
+                                                <li class="nav-item" role="presentation">
+                                                    <button class="nav-link" id="kmers-tab{{ col.name | replace(' ', '') | capitalize }}"
+                                                            data-bs-toggle="tab" data-bs-target="#kmers{{ col.name | replace(' ', '') | capitalize }}"
+                                                            type="button" role="tab">K-mers</button>
+                                                </li>
+                                            </ul>
 
-                                        <div class="tab-content" id="sequenceTabContent{{ col.name | replace(' ', '') | capitalize }}">
-                                            <!-- Sequences Tab -->
-                                            <div class="tab-pane fade show active" id="sequences{{ col.name | replace(' ', '') | capitalize }}" role="tabpanel">
-                                                <div class="table-responsive mt-3" style="max-height: 400px; overflow-y: auto;">
-                                                    <table class="table table-sm table-striped">
-                                                        <thead class="sticky-top bg-light">
+                                            <div class="tab-content" id="sequenceTabContent{{ col.name | replace(' ', '') | capitalize }}">
+                                                <!-- Sequences Tab -->
+                                                <div class="tab-pane fade show active" id="sequences{{ col.name | replace(' ', '') | capitalize }}" role="tabpanel">
+                                                    <div class="table-responsive mt-3" style="max-height: 400px; overflow-y: auto;">
+                                                        <table class="table table-sm table-striped">
+                                                            <thead class="sticky-top bg-light">
                                                             <tr>
                                                                 <th>Rank</th>
                                                                 <th>Sequence</th>
@@ -269,69 +294,69 @@
                                                                 <th>Length</th>
                                                                 <th>GC Content (%)</th>
                                                             </tr>
-                                                        </thead>
-                                                        <tbody>
+                                                            </thead>
+                                                            <tbody>
                                                             {% for i in range(col.dna_rna_data.sequence|length) %}
                                                                 <tr>
                                                                     <td>{{ i + 1 }}</td>
                                                                     <td>
-                                                                        <span class="font-monospace text-break" style="font-size: 0.85em;">
-                                                                            {% set seq = col.dna_rna_data.sequence[i] %}
-                                                                            {% if seq|length > 50 %}
-                                                                                {{ seq[:25] }}<span class="text-muted">...</span>{{ seq[-25:] }}
-                                                                            {% else %}
-                                                                                {{ seq }}
-                                                                            {% endif %}
-                                                                        </span>
+                                                                <span class="font-monospace text-break" style="font-size: 0.85em;">
+                                                                    {% set seq = col.dna_rna_data.sequence[i] %}
+                                                                    {% if seq|length > 50 %}
+                                                                        {{ seq[:25] }}<span class="text-muted">...</span>{{ seq[-25:] }}
+                                                                    {% else %}
+                                                                        {{ seq }}
+                                                                    {% endif %}
+                                                                </span>
                                                                     </td>
                                                                     <td>{{ col.dna_rna_data.count[i] }}</td>
                                                                     <td>{{ col.dna_rna_data.length[i] }}</td>
                                                                     <td>{{ col.dna_rna_data.gc_content[i] }}</td>
                                                                 </tr>
                                                             {% endfor %}
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-
-                                            <!-- Statistics Tab -->
-                                            <div class="tab-pane fade" id="stats{{ col.name | replace(' ', '') | capitalize }}" role="tabpanel">
-                                                <div class="row mt-3">
-                                                    <div class="col-md-6">
-                                                        <h6>Length Statistics</h6>
-                                                        {% set lengths = col.dna_rna_data.length %}
-                                                        <table class="table table-sm">
-                                                            <tr><td>Min Length:</td><td>{{ lengths|min }}</td></tr>
-                                                            <tr><td>Max Length:</td><td>{{ lengths|max }}</td></tr>
-                                                            <tr><td>Mean Length:</td><td>{{ "%.1f"|format((lengths|sum) / (lengths|length)) }}</td></tr>
-                                                        </table>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <h6>GC Content Statistics</h6>
-                                                        {% set gc_contents = col.dna_rna_data.gc_content %}
-                                                        <table class="table table-sm">
-                                                            <tr><td>Min GC:</td><td>{{ "%.1f"|format(gc_contents|min) }}%</td></tr>
-                                                            <tr><td>Max GC:</td><td>{{ "%.1f"|format(gc_contents|max) }}%</td></tr>
-                                                            <tr><td>Mean GC:</td><td>{{ "%.1f"|format((gc_contents|sum) / (gc_contents|length)) }}%</td></tr>
+                                                            </tbody>
                                                         </table>
                                                     </div>
                                                 </div>
 
-                                                <div class="row">
-                                                    <div class="col-12">
-                                                        <h6>Nucleotide Composition (Aggregated from Top 20)</h6>
-                                                        {% set all_nucleotides = {} %}
-                                                        {% for nuc_dict in col.dna_rna_data.nucleotide_count %}
-                                                            {% for base, count in nuc_dict.items() %}
-                                                                {% if all_nucleotides.update({base: all_nucleotides.get(base, 0) + count}) %}{% endif %}
+                                                <!-- Statistics Tab -->
+                                                <div class="tab-pane fade" id="stats{{ col.name | replace(' ', '') | capitalize }}" role="tabpanel">
+                                                    <div class="row mt-3">
+                                                        <div class="col-md-6">
+                                                            <h6>Length Statistics</h6>
+                                                            {% set lengths = col.dna_rna_data.length %}
+                                                            <table class="table table-sm">
+                                                                <tr><td>Min Length:</td><td>{{ lengths|min }}</td></tr>
+                                                                <tr><td>Max Length:</td><td>{{ lengths|max }}</td></tr>
+                                                                <tr><td>Mean Length:</td><td>{{ "%.1f"|format((lengths|sum) / (lengths|length)) }}</td></tr>
+                                                            </table>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <h6>GC Content Statistics</h6>
+                                                            {% set gc_contents = col.dna_rna_data.gc_content %}
+                                                            <table class="table table-sm">
+                                                                <tr><td>Min GC:</td><td>{{ "%.1f"|format(gc_contents|min) }}%</td></tr>
+                                                                <tr><td>Max GC:</td><td>{{ "%.1f"|format(gc_contents|max) }}%</td></tr>
+                                                                <tr><td>Mean GC:</td><td>{{ "%.1f"|format((gc_contents|sum) / (gc_contents|length)) }}%</td></tr>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <h6>Nucleotide Composition (Aggregated from Top 20)</h6>
+                                                            {% set all_nucleotides = {} %}
+                                                            {% for nuc_dict in col.dna_rna_data.nucleotide_count %}
+                                                                {% for base, count in nuc_dict.items() %}
+                                                                    {% if all_nucleotides.update({base: all_nucleotides.get(base, 0) + count}) %}{% endif %}
+                                                                {% endfor %}
                                                             {% endfor %}
-                                                        {% endfor %}
-                                                        {% set total_nucleotides = all_nucleotides.values()|sum %}
-                                                        <table class="table table-sm">
-                                                            <thead>
+                                                            {% set total_nucleotides = all_nucleotides.values()|sum %}
+                                                            <table class="table table-sm">
+                                                                <thead>
                                                                 <tr><th>Base</th><th>Count</th><th>Percentage</th></tr>
-                                                            </thead>
-                                                            <tbody>
+                                                                </thead>
+                                                                <tbody>
                                                                 {% for base, count in all_nucleotides.items()|sort(attribute='1', reverse=true) %}
                                                                     <tr>
                                                                         <td class="font-monospace">{{ base }}</td>
@@ -339,61 +364,81 @@
                                                                         <td>{{ "%.2f"|format((count / total_nucleotides) * 100) }}%</td>
                                                                     </tr>
                                                                 {% endfor %}
-                                                            </tbody>
-                                                        </table>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
 
-                                            <!-- K-mers Tab -->
-                                            <div class="tab-pane fade" id="kmers{{ col.name | replace(' ', '') | capitalize }}" role="tabpanel">
-                                                <div class="mt-3">
-                                                    <h6>Most Common K-mers per Sequence</h6>
-                                                    <div class="accordion" id="kmerAccordion{{ col.name | replace(' ', '') | capitalize }}">
-                                                        {% for i in range(col.dna_rna_data.sequence|length) %}
-                                                            {% if col.dna_rna_data.k_mers[i] %}
-                                                                <div class="accordion-item">
-                                                                    <h2 class="accordion-header">
-                                                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                                                                data-bs-target="#kmer{{ col.name | replace(' ', '') | capitalize }}{{ i }}"
-                                                                                aria-expanded="false">
-                                                                            Sequence #{{ i + 1 }} ({{ col.dna_rna_data.length[i] }} bp)
-                                                                        </button>
-                                                                    </h2>
-                                                                    <div id="kmer{{ col.name | replace(' ', '') | capitalize }}{{ i }}"
-                                                                         class="accordion-collapse collapse"
-                                                                         data-bs-parent="#kmerAccordion{{ col.name | replace(' ', '') | capitalize }}">
-                                                                        <div class="accordion-body">
-                                                                            <table class="table table-sm">
-                                                                                <thead>
+                                                <!-- K-mers Tab -->
+                                                <div class="tab-pane fade" id="kmers{{ col.name | replace(' ', '') | capitalize }}" role="tabpanel">
+                                                    <div class="mt-3">
+                                                        <h6>Most Common K-mers per Sequence</h6>
+                                                        <div class="accordion" id="kmerAccordion{{ col.name | replace(' ', '') | capitalize }}">
+                                                            {% for i in range(col.dna_rna_data.sequence|length) %}
+                                                                {% if col.dna_rna_data.k_mers[i] %}
+                                                                    <div class="accordion-item">
+                                                                        <h2 class="accordion-header">
+                                                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                                                                    data-bs-target="#kmer{{ col.name | replace(' ', '') | capitalize }}{{ i }}"
+                                                                                    aria-expanded="false">
+                                                                                Sequence #{{ i + 1 }} ({{ col.dna_rna_data.length[i] }} bp)
+                                                                            </button>
+                                                                        </h2>
+                                                                        <div id="kmer{{ col.name | replace(' ', '') | capitalize }}{{ i }}"
+                                                                             class="accordion-collapse collapse"
+                                                                             data-bs-parent="#kmerAccordion{{ col.name | replace(' ', '') | capitalize }}">
+                                                                            <div class="accordion-body">
+                                                                                <table class="table table-sm">
+                                                                                    <thead>
                                                                                     <tr><th>K-mer</th><th>Count</th></tr>
-                                                                                </thead>
-                                                                                <tbody>
+                                                                                    </thead>
+                                                                                    <tbody>
                                                                                     {% for kmer, count in col.dna_rna_data.k_mers[i] %}
                                                                                         <tr>
                                                                                             <td class="font-monospace">{{ kmer }}</td>
                                                                                             <td>{{ count }}</td>
                                                                                         </tr>
                                                                                     {% endfor %}
-                                                                                </tbody>
-                                                                            </table>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                            {% endif %}
-                                                        {% endfor %}
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            {% endif %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
 
+            <!-- Pagination Controls (Bottom) -->
+            {% if total_pages > 1 %}
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center">
+                <span class="text-muted">
+                    Page <span id="current-page-info">1</span> of {{ total_pages }}
+                </span>
+                            </div>
+                            <nav aria-label="Column pagination">
+                                <ul class="pagination mb-0" id="column-pagination-bottom">
+                                    <!-- Pagination wird via JavaScript generiert -->
+                                </ul>
+                            </nav>
                         </div>
                     </div>
                 </div>
-            {% endfor %}
+            {% endif %}
 
         </div>
     </div>
@@ -428,6 +473,163 @@
             "scrollCollapse": true,
             "pageLength": 15,
             stateSave: true
+        });
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const itemsPerPage = {{ items_per_page }};
+        const totalItems = {{ columns|length }};
+        const totalPages = {{ total_pages }};
+        let currentPage = 1;
+
+        // Pagination initialisieren
+        if (totalPages > 1) {
+            generatePagination();
+            updateDisplay();
+        }
+
+        function generatePagination() {
+            const topPagination = document.getElementById('column-pagination');
+            const bottomPagination = document.getElementById('column-pagination-bottom');
+
+            [topPagination, bottomPagination].forEach(pagination => {
+                pagination.innerHTML = '';
+
+                // First Button
+                const firstLi = document.createElement('li');
+                firstLi.className = `page-item ${currentPage === 1 ? 'disabled' : ''}`;
+                firstLi.innerHTML = `<a class="page-link" href="#" data-page="1" title="First Page">≪</a>`;
+                pagination.appendChild(firstLi);
+
+                // Previous Button
+                const prevLi = document.createElement('li');
+                prevLi.className = `page-item ${currentPage === 1 ? 'disabled' : ''}`;
+                prevLi.innerHTML = `<a class="page-link" href="#" data-page="${currentPage - 1}" title="Previous Page">&lt;</a>`;
+                pagination.appendChild(prevLi);
+
+                // Page Numbers
+                let startPage = Math.max(1, currentPage - 2);
+                let endPage = Math.min(totalPages, startPage + 4);
+
+                if (endPage - startPage < 4) {
+                    startPage = Math.max(1, endPage - 4);
+                }
+
+                // First page + ellipsis
+                if (startPage > 1) {
+                    if (startPage > 2) {
+                        const ellipsisLi = document.createElement('li');
+                        ellipsisLi.className = 'page-item disabled';
+                        ellipsisLi.innerHTML = '<span class="page-link">...</span>';
+                        pagination.appendChild(ellipsisLi);
+                    }
+                }
+
+                // Page numbers
+                for (let i = startPage; i <= endPage; i++) {
+                    const li = document.createElement('li');
+                    li.className = `page-item ${i === currentPage ? 'active' : ''}`;
+                    li.innerHTML = `<a class="page-link" href="#" data-page="${i}">${i}</a>`;
+                    pagination.appendChild(li);
+                }
+
+                // Last page + ellipsis
+                if (endPage < totalPages) {
+                    if (endPage < totalPages - 1) {
+                        const ellipsisLi = document.createElement('li');
+                        ellipsisLi.className = 'page-item disabled';
+                        ellipsisLi.innerHTML = '<span class="page-link">...</span>';
+                        pagination.appendChild(ellipsisLi);
+                    }
+                }
+
+                // Next Button
+                const nextLi = document.createElement('li');
+                nextLi.className = `page-item ${currentPage === totalPages ? 'disabled' : ''}`;
+                nextLi.innerHTML = `<a class="page-link" href="#" data-page="${currentPage + 1}" title="Next Page">&gt;</a>`;
+                pagination.appendChild(nextLi);
+
+                // Last Button
+                const lastLi = document.createElement('li');
+                lastLi.className = `page-item ${currentPage === totalPages ? 'disabled' : ''}`;
+                lastLi.innerHTML = `<a class="page-link" href="#" data-page="${totalPages}" title="Last Page">≫</a>`;
+                pagination.appendChild(lastLi);
+            });
+
+            // Event Listeners für beide Paginationen
+            [topPagination, bottomPagination].forEach(pagination => {
+                pagination.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const page = parseInt(e.target.dataset.page);
+                    if (page && page !== currentPage && page >= 1 && page <= totalPages) {
+                        currentPage = page;
+                        updateDisplay();
+                        generatePagination();
+
+                        // Scroll to top
+                        document.getElementById('columns-container').scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        }
+
+        function updateDisplay() {
+            const columnItems = document.querySelectorAll('.column-item');
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+
+            columnItems.forEach((item, index) => {
+                if (index >= startIndex && index < endIndex) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                    // Collapse any open toggles on hidden pages
+                    const collapseElement = item.querySelector('.collapse');
+                    if (collapseElement && collapseElement.classList.contains('show')) {
+                        const bsCollapse = new bootstrap.Collapse(collapseElement, {
+                            toggle: false
+                        });
+                        bsCollapse.hide();
+                    }
+                }
+            });
+
+            // Update range display
+            const currentRangeEl = document.getElementById('current-range');
+            const currentPageInfoEl = document.getElementById('current-page-info');
+
+            if (currentRangeEl) {
+                const start = startIndex + 1;
+                const end = Math.min(endIndex, totalItems);
+                currentRangeEl.textContent = `${start}-${end}`;
+            }
+
+            if (currentPageInfoEl) {
+                currentPageInfoEl.textContent = currentPage;
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.target.tagName.toLowerCase() === 'input' || e.target.tagName.toLowerCase() === 'textarea') {
+                return;
+            }
+
+            if (e.key === 'ArrowLeft' && currentPage > 1) {
+                e.preventDefault();
+                currentPage--;
+                updateDisplay();
+                generatePagination();
+            } else if (e.key === 'ArrowRight' && currentPage < totalPages) {
+                e.preventDefault();
+                currentPage++;
+                updateDisplay();
+                generatePagination();
+            }
         });
     });
 </script>
