@@ -32,11 +32,23 @@ def cli(input: str):
     print(colored(f'Analyse {len(df.columns)} columns', 'blue'))
 
     column_overviews = [column_overview(df, col) for col in df.columns]
-    for i in column_overviews:
+    """for i in column_overviews:
         if i.sequence == 'dna':
             bio = dna_rna_columns(df[i.name])
             print(bio)
-    print(colored(f'Analyse {len(df.select_dtypes(include='number').columns)} numeric columns ', 'blue'))
+    print(colored(f'Analyse {len(df.select_dtypes(include='number').columns)} numeric columns ', 'blue'))"""
+
+    for col_overview in column_overviews:
+        if col_overview.sequence == 'dna':
+            print(colored(f'Analyzing DNA/RNA sequences in column: {col_overview.name}', 'cyan'))
+            bio_data = dna_rna_columns(df[col_overview.name])
+            col_overview.dna_rna_data = bio_data
+            print(f"Found {len(bio_data.sequence)} unique sequences")
+            print(bio_data)
+        else:
+            col_overview.dna_rna_data = None
+
+    print(colored(f'Analyse {len(df.select_dtypes(include="number").columns)} numeric columns ', 'blue'))
 
     numeric_overviews = [numeric_columns(df, col) for col in df.select_dtypes(include='number').columns]
 
