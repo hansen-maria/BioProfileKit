@@ -44,7 +44,7 @@ class ColumnOverview:
     constant: bool
     #constant_values: bool
     correlation: list[str] | None
-
+    top_10: pd.Series
 
 @dataclass
 class NumericColumns:
@@ -88,8 +88,8 @@ def column_overview(df: pd.DataFrame, col) -> ColumnOverview:
         sequence=check_sequence(df, col),
         describe_plot=plot_overview(df[col]),
         constant= True if (df[col].nunique()==1) else False,
-        correlation=get_correlation(df, col)
-
+        correlation=get_correlation(df, col),
+        top_10=df[col].value_counts().head(10)
     )
 
 def numeric_columns(df: pd.DataFrame, col) -> NumericColumns:
