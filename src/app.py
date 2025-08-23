@@ -7,6 +7,7 @@ from jinja2 import Environment, FileSystemLoader
 from termcolor import colored
 
 from qc_eda.basic.numerical_data import overview, column_overview, numeric_columns
+from qc_eda.biological.biological_data import dna_rna_columns
 from utils.file_reader import read_file
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
@@ -31,6 +32,11 @@ def cli(input: str):
     print(colored(f'Analyse {len(df.columns)} columns', 'blue'))
 
     column_overviews = [column_overview(df, col) for col in df.columns]
+    for i in column_overviews:
+        print(i.sequence)
+        if i.sequence == 'dna':
+            bio = dna_rna_columns(df, i.name)
+            print(bio)
     print(colored(f'Analyse {len(df.select_dtypes(include='number').columns)} numeric columns ', 'blue'))
 
     numeric_overviews = [numeric_columns(df, col) for col in df.select_dtypes(include='number').columns]
