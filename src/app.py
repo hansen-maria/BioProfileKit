@@ -35,8 +35,8 @@ def cli(input: str):
     for i in column_overviews:
         print(i.sequence)
         if i.sequence == 'dna':
-            bio = dna_rna_columns(df, i.name)
-            print(bio)
+            bio = dna_rna_columns(df[i.name])
+            #print(bio)
     print(colored(f'Analyse {len(df.select_dtypes(include='number').columns)} numeric columns ', 'blue'))
 
     numeric_overviews = [numeric_columns(df, col) for col in df.select_dtypes(include='number').columns]

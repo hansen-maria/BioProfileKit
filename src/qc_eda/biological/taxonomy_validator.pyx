@@ -1,6 +1,10 @@
-# taxonomy_validator.pyx
 import re
-from typing import List
+
+cpdef enum TaxonomyValidationFlags:
+    INVALID_CAPITALIZATION = "invalid_capitalization"
+    CONTAINS_STRAIN_INFO = "contains_strain_info"
+    INVALID_CHARACTERS = "invalid_characters"
+
 
 cdef class TaxonomyValidator:
     """
