@@ -45,7 +45,11 @@ def top_mere(seq, n=3, top=5) -> List[Tuple[str, int]] | None:
 
 def dna_rna_columns(seqs: pd.Series, k: int = 3, top_n: int = 5) -> DNARNAColumns:
     arr = np.char.upper(seqs.to_numpy(dtype=str))
-    uniques, counts = np.unique(arr, return_counts=True)
+    uniq_tmp, counts_tmp = np.unique(arr, return_counts=True)
+
+    top_idx = np.argsort(counts_tmp)[::-1][:20]
+    uniques = uniq_tmp[top_idx]
+    counts = counts_tmp[top_idx]
 
     gc_count = np.char.count(uniques, 'G') + np.char.count(uniques, 'C')
     lengths = np.char.str_len(uniques).astype(int)
