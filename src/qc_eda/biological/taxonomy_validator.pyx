@@ -1,9 +1,18 @@
 import re
+from enum import IntEnum
 
-cpdef enum TaxonomyValidationFlags:
-    INVALID_CAPITALIZATION = "invalid_capitalization"
-    CONTAINS_STRAIN_INFO = "contains_strain_info"
-    INVALID_CHARACTERS = "invalid_characters"
+
+class TaxonomyValidationFlags(IntEnum):
+    INVALID_CAPITALIZATION = 1
+    CONTAINS_STRAIN_INFO = 2
+    INVALID_CHARACTERS = 3
+
+FLAG_STRINGS = {
+    TaxonomyValidationFlags.INVALID_CAPITALIZATION: "invalid_capitalization",
+    TaxonomyValidationFlags.CONTAINS_STRAIN_INFO: "contains_strain_info",
+    TaxonomyValidationFlags.INVALID_CHARACTERS: "invalid_characters"
+}
+
 
 
 cdef class TaxonomyValidator:
