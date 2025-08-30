@@ -13,8 +13,8 @@ extensions = [
         ["src/qc_eda/basic/wrapper_utils.pyx"],
     ),
     Extension(
-            "qc_eda.biological.taxonomy_validator",
-            ["src/qc_eda/biological/taxonomy_validator.pyx"],
+            "qc_eda.basic.taxonomy_validator",
+            ["src/qc_eda/basic/taxonomy_validator.pyx"],
     ),
 ]
 
