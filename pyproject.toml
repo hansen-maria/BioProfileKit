@@ -28,7 +28,9 @@ dependencies = [
     "plotly==6.3.0",
     "scipy==1.16.1",
     "termcolor==3.1.0",
-    "pyarrow==21.0.0"
+    "pyarrow==21.0.0",
+    "peptides==0.4.0",
+    "iteration-utilities==0.13.0"
 ]
 
 [project.optional-dependencies]

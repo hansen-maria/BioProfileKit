@@ -2,7 +2,7 @@
 Value counts for String/Text
 DNA/RNA: GC content, length, k-Mers, Nucleotide count
 Proteins: AA composition, frequency, hydrophobicity/hydrophilicity, charge distribution, molecular weight,
-isoelectric point, motifs, entropy, aliphatic index, Boman index, aromaticity, instability index,
+isoelectric point, aliphatic index, Boman index, aromaticity, instability index, motifs
 Taxonomy: capitalization patterns, potentially invalid names,
 strain info in separate field => Flag for 2 Columns?
 lab measurements; units
@@ -10,10 +10,11 @@ lab measurements; units
 from collections import defaultdict, Counter
 from dataclasses import dataclass
 from itertools import chain
-from typing import List, Dict, Tuple
+from typing import Any, List, Dict, Tuple
 
 import numpy as np
 import pandas as pd
+import peptides
 import plotly.express as px
 
 
@@ -24,6 +25,25 @@ class DNARNAColumns:
     length: List[int]
     count: List[int]
     nucleotide_count: List[Dict[str, int]]
+    k_mers: List[List[Tuple[str, int]]]
+    plot: str | None
+
+
+@dataclass
+class PROTEINColumns:
+    sequence: List[str]
+    length: List[int]
+    count: List[int]
+    composition: List[Dict[str, int]]
+    frequency: List[float]
+    hydrophobicity: List[float]
+    charge: List[float]
+    molecular_weight: List[float]
+    isoelectric_point: List[float]
+    aliphatic_index: List[float]
+    boman: List[float]
+    aromaticity: List[float]
+    instability: List[float]
     k_mers: List[List[Tuple[str, int]]]
     plot: str | None
 
@@ -46,18 +66,32 @@ def top_mere(seq, n=3, top=5) -> List[Tuple[str, int]] | None:
     return sorted(counts.items(), key=lambda x: x[1], reverse=True)[:top]
 
 
-def dna_rna_columns(seqs: pd.Series, k: int = 3, top_n: int = 5) -> DNARNAColumns:
-    arr = np.char.upper(seqs.to_numpy(dtype=str))
+def biological_data_top_entries(seqs: pd.Series, top_k: int = 20) -> Tuple[
+    np.ndarray[tuple[Any, ...], np.dtype[np.str_]],
+    np.ndarray[tuple[Any, ...], np.dtype[np.int64]],
+    int,
+    int,
+    np.ndarray[tuple[Any, ...], np.dtype[np.str_]],
+]:
+    arr: np.ndarray[tuple[Any, ...], np.dtype[np.str_]] = np.char.upper(seqs.to_numpy(dtype=str))
+    uniq_tmp: np.ndarray[tuple[Any, ...], np.dtype[np.str_]]
+    counts_tmp: np.ndarray[tuple[Any, ...], np.dtype[np.int64]]
     uniq_tmp, counts_tmp = np.unique(arr, return_counts=True)
 
-    top_idx = np.argsort(counts_tmp)[::-1][:20]
-    uniques = uniq_tmp[top_idx]
-    counts = counts_tmp[top_idx]
+    top_idx = np.argsort(counts_tmp)[::-1][:top_k]
+    uniques: np.ndarray[tuple[Any, ...], np.dtype[np.str_]] = uniq_tmp[top_idx]
+    counts: np.ndarray[tuple[Any, ...], np.dtype[np.int64]] = counts_tmp[top_idx]
 
     min_len, max_len = min(len(s) for s in uniques), max(len(s) for s in uniques)
 
+    lengths: np.ndarray[tuple[Any, ...], np.dtype[np.str_]] = np.char.str_len(uniques).astype(int)
+    return uniques, counts, min_len, max_len, lengths
+
+
+def dna_rna_columns(seqs: pd.Series, k: int = 3, top_n: int = 5) -> DNARNAColumns:
+    uniques, counts, min_len, max_len, lengths = biological_data_top_entries(seqs, 20)
+
     gc_count = np.char.count(uniques, 'G') + np.char.count(uniques, 'C')
-    lengths = np.char.str_len(uniques).astype(int)
     gc_content = np.round(np.where(lengths > 0, gc_count / lengths * 100, 0.0), 2).tolist()
 
     nucleotide_count = [dict(Counter(seq)) for seq in uniques]
@@ -86,6 +120,64 @@ def dna_rna_columns(seqs: pd.Series, k: int = 3, top_n: int = 5) -> DNARNAColumn
     )
 
 
+def protein_descriptors(peptide: str) -> Dict[str, str | float | dict[str, float]]:
+    descriptors: Dict[str, str | float | dict[str, float]] = {}
+    p: peptides.Peptide = peptides.Peptide(peptide)
+    descriptors["seq"] = peptide
+    descriptors["freq"] = p.frequencies()
+    try:
+        descriptors["aidx"] = p.aliphatic_index()
+    except ZeroDivisionError:
+        descriptors["aidx"] = 0.0
+    descriptors["boman"] = p.boman()
+    descriptors["charge"] = p.charge()
+    descriptors["hp"] = p.hydrophobicity()
+    descriptors["iep"] = p.isoelectric_point()
+    descriptors["iidx"] = p.instability_index()
+    descriptors["mol"] = p.molecular_weight()
+    descriptors["aroma"] = sum([peptide.count(aa) for aa in ('H', 'F', 'W', 'Y')]) / len(peptide)
+    return descriptors
+
+
+def protein_columns(seqs: pd.Series, k: int = 3, top_n: int = 5) -> PROTEINColumns:
+    uniques, counts, min_len, max_len, lengths = biological_data_top_entries(seqs, 20)
+
+    aa_composition = [dict(Counter(seq)) for seq in uniques]
+    descriptors = [protein_descriptors(seq) for seq in uniques]
+
+    k_mers = [top_mere(seq, n=k, top=top_n) for seq in uniques]
+    barplot = None
+    if min_len == max_len:
+        use_logo = True
+        k = min(6, min_len)
+        print("logo")
+    else:
+        use_logo = False
+        k = 3 if max_len >= 6 else 2
+        # Flache Liste mit chain erstellen
+        flat_kmers = chain.from_iterable(kmers_seq for kmers_seq in k_mers if kmers_seq)
+        kmers, count = zip(*((kmer, np.int64(count)) for kmer, count in flat_kmers))
+        barplot = plot_overview(kmers, count)
+
+    return PROTEINColumns(
+        sequence=uniques.tolist(),
+        length=lengths.tolist(),
+        count=counts.tolist(),
+        composition=aa_composition,
+        frequency=[descriptor['freq'] for descriptor in descriptors],
+        hydrophobicity=[descriptor['hp'] for descriptor in descriptors],
+        charge=[descriptor['charge'] for descriptor in descriptors],
+        molecular_weight=[descriptor['mol'] for descriptor in descriptors],
+        isoelectric_point=[descriptor['iep'] for descriptor in descriptors],
+        aliphatic_index=[descriptor['aidx'] for descriptor in descriptors],
+        boman=[descriptor['boman'] for descriptor in descriptors],
+        aromaticity=[descriptor['aroma'] for descriptor in descriptors],
+        instability=[descriptor['iidx'] for descriptor in descriptors],
+        k_mers=k_mers,
+        plot=barplot
+    )
+
+
 def plot_overview(kmer, count):
     fig = px.bar(x=kmer, y=count, height=350, color_discrete_sequence=['#0F65A0'])
     fig.update_layout(bargap=0.2, plot_bgcolor='white', xaxis_title='K-mers',
@@ -106,5 +198,5 @@ def plot_overview(kmer, count):
         linecolor='black',
         gridcolor='lightgrey'
     )
-    fig.write_image("test.png")
+    # fig.write_image("test.png")
     return fig.to_html(full_html=False, include_plotlyjs='cdn')

@@ -7,7 +7,7 @@ from jinja2 import Environment, FileSystemLoader
 from termcolor import colored
 
 from qc_eda.basic.numerical_data import overview, column_overview, numeric_columns
-from qc_eda.biological.biological_data import dna_rna_columns
+from qc_eda.biological.biological_data import dna_rna_columns, protein_columns
 from utils.file_reader import read_file
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
@@ -43,6 +43,12 @@ def cli(input: str):
             print(colored(f'Analyzing DNA/RNA sequences in column: {col_overview.name}', 'cyan'))
             bio_data = dna_rna_columns(df[col_overview.name])
             col_overview.dna_rna_data = bio_data
+            print(f"Found {len(bio_data.sequence)} unique sequences")
+            print(bio_data)
+        elif col_overview.sequence == 'protein':
+            print(colored(f'Analyzing protein sequences in column: {col_overview.name}', 'cyan'))
+            bio_data = protein_columns(df[col_overview.name])
+            col_overview.protein_data = bio_data
             print(f"Found {len(bio_data.sequence)} unique sequences")
             print(bio_data)
         else:
