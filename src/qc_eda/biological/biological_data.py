@@ -28,7 +28,7 @@ class DNARNAColumns:
     k_mers: List[List[Tuple[str, int]]]
     plot: str | None
 
-
+#ToDo: Add Composition over all
 @dataclass
 class PROTEINColumns:
     sequence: List[str]
@@ -66,25 +66,19 @@ def top_mere(seq, n=3, top=5) -> List[Tuple[str, int]] | None:
     return sorted(counts.items(), key=lambda x: x[1], reverse=True)[:top]
 
 
-def biological_data_top_entries(seqs: pd.Series, top_k: int = 20) -> Tuple[
-    np.ndarray[tuple[Any, ...], np.dtype[np.str_]],
-    np.ndarray[tuple[Any, ...], np.dtype[np.int64]],
-    int,
-    int,
-    np.ndarray[tuple[Any, ...], np.dtype[np.str_]],
-]:
-    arr: np.ndarray[tuple[Any, ...], np.dtype[np.str_]] = np.char.upper(seqs.to_numpy(dtype=str))
-    uniq_tmp: np.ndarray[tuple[Any, ...], np.dtype[np.str_]]
-    counts_tmp: np.ndarray[tuple[Any, ...], np.dtype[np.int64]]
+def biological_data_top_entries(seqs: pd.Series, top_k: int = 20) -> Tuple[np.ndarray, np.ndarray, int, int, np.ndarray]:
+    arr = np.char.upper(seqs.to_numpy(dtype=str))
     uniq_tmp, counts_tmp = np.unique(arr, return_counts=True)
-
+    
+    top_k = min(top_k, len(uniq_tmp))
     top_idx = np.argsort(counts_tmp)[::-1][:top_k]
-    uniques: np.ndarray[tuple[Any, ...], np.dtype[np.str_]] = uniq_tmp[top_idx]
-    counts: np.ndarray[tuple[Any, ...], np.dtype[np.int64]] = counts_tmp[top_idx]
+    
+    uniques = uniq_tmp[top_idx]
+    counts = counts_tmp[top_idx]
 
-    min_len, max_len = min(len(s) for s in uniques), max(len(s) for s in uniques)
-
-    lengths: np.ndarray[tuple[Any, ...], np.dtype[np.str_]] = np.char.str_len(uniques).astype(int)
+    lengths = np.array([len(s) for s in uniques])
+    min_len, max_len = lengths.min(), lengths.max()
+    
     return uniques, counts, min_len, max_len, lengths
 
 
