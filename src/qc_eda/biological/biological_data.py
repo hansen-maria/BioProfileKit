@@ -158,7 +158,7 @@ def protein_columns(seqs: pd.Series, k: int = 3, top_n: int = 5) -> PROTEINColum
         length=lengths.tolist(),
         count=counts.tolist(),
         composition=aa_composition,
-        frequency=[descriptor['freq'] for descriptor in descriptors], # TODO Fix
+        frequency=[descriptor['freq'] for descriptor in descriptors],
         hydrophobicity=[descriptor['hp'] for descriptor in descriptors],
         charge=[descriptor['charge'] for descriptor in descriptors],
         molecular_weight=[descriptor['mol'] for descriptor in descriptors],

@@ -235,6 +235,9 @@
                                         {% if col.sequence != 'None' %}
                                             <strong>Sequence type:</strong> {{ col.sequence }}<br>
                                         {% endif %}
+                                        {% if col.taxonomy %}
+                                            <strong>Taxonomy:</strong> {{ col.taxonomy }}<br>
+                                        {% endif %}
                                         {% if col.correlation %}
                                             <strong>Correlates with:</strong><br>
                                             {% for corr in col.correlation %}
@@ -403,6 +406,343 @@
                                                                                     </thead>
                                                                                     <tbody>
                                                                                     {% for kmer, count in col.dna_rna_data.k_mers[i] %}
+                                                                                        <tr>
+                                                                                            <td class="font-monospace">{{ kmer }}</td>
+                                                                                            <td>{{ count }}</td>
+                                                                                        </tr>
+                                                                                    {% endfor %}
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+
+                                <!-- Protein Sequenz Sektion -->
+                                {% if col.sequence != 'None' and col.protein_data %}
+                                    <div class="row w-100 mt-4">
+                                        <div class="col-12">
+                                            <h5>Top 20 Protein Sequences Analysis</h5>
+
+                                            <!-- Tabs für verschiedene Ansichten -->
+                                            <ul class="nav nav-tabs" id="proteinTab{{ col.name | replace(' ', '') | capitalize }}" role="tablist">
+                                                <li class="nav-item" role="presentation">
+                                                    <button class="nav-link active" id="protein-sequences-tab{{ col.name | replace(' ', '') | capitalize }}"
+                                                            data-bs-toggle="tab" data-bs-target="#proteinSequences{{ col.name | replace(' ', '') | capitalize }}"
+                                                            type="button" role="tab">Sequences</button>
+                                                </li>
+                                                <li class="nav-item" role="presentation">
+                                                    <button class="nav-link" id="protein-stats-tab{{ col.name | replace(' ', '') | capitalize }}"
+                                                            data-bs-toggle="tab" data-bs-target="#proteinStats{{ col.name | replace(' ', '') | capitalize }}"
+                                                            type="button" role="tab">Statistics</button>
+                                                </li>
+                                                <li class="nav-item" role="presentation">
+                                                    <button class="nav-link" id="protein-composition-tab{{ col.name | replace(' ', '') | capitalize }}"
+                                                            data-bs-toggle="tab" data-bs-target="#proteinComposition{{ col.name | replace(' ', '') | capitalize }}"
+                                                            type="button" role="tab">Amino Acid Composition</button>
+                                                </li>
+                                                <li class="nav-item" role="presentation">
+                                                    <button class="nav-link" id="protein-properties-tab{{ col.name | replace(' ', '') | capitalize }}"
+                                                            data-bs-toggle="tab" data-bs-target="#proteinProperties{{ col.name | replace(' ', '') | capitalize }}"
+                                                            type="button" role="tab">Protein Properties</button>
+                                                </li>
+                                                <li class="nav-item" role="presentation">
+                                                    <button class="nav-link" id="protein-kmers-tab{{ col.name | replace(' ', '') | capitalize }}"
+                                                            data-bs-toggle="tab" data-bs-target="#proteinKmers{{ col.name | replace(' ', '') | capitalize }}"
+                                                            type="button" role="tab">K-mers</button>
+                                                </li>
+                                            </ul>
+
+                                            <div class="tab-content" id="proteinTabContent{{ col.name | replace(' ', '') | capitalize }}">
+                                                <!-- Protein Sequences Tab -->
+                                                <div class="tab-pane fade show active" id="proteinSequences{{ col.name | replace(' ', '') | capitalize }}" role="tabpanel">
+                                                    <div class="table-responsive mt-3" style="max-height: 400px; overflow-y: auto;">
+                                                        <table class="table table-sm table-striped">
+                                                            <thead class="sticky-top bg-light">
+                                                            <tr>
+                                                                <th>Rank</th>
+                                                                <th>Sequence</th>
+                                                                <th>Count</th>
+                                                                <th>Length (AA)</th>
+                                                                <th>Frequency</th>
+                                                                <th>Molecular Weight (Da)</th>
+                                                                <th>Isoelectric Point (pI)</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            {% for i in range(col.protein_data.sequence|length) %}
+                                                                <tr>
+                                                                    <td>{{ i + 1 }}</td>
+                                                                    <td>
+                                                                        <span class="font-monospace text-break" style="font-size: 0.85em;">
+                                                                            {% set seq = col.protein_data.sequence[i] %}
+                                                                            {% if seq|length > 50 %}
+                                                                                {{ seq[:25] }}<span class="text-muted">...</span>{{ seq[-25:] }}
+                                                                            {% else %}
+                                                                                {{ seq }}
+                                                                            {% endif %}
+                                                                        </span>
+                                                                    </td>
+                                                                    <td>{{ col.protein_data.count[i] }}</td>
+                                                                    <td>{{ col.protein_data.length[i] }}</td>
+                                                                    <td>
+                                                                        {% set aa_names = {
+                                                                            'A': 'Ala', 'R': 'Arg', 'N': 'Asn', 'D': 'Asp', 'C': 'Cys',
+                                                                            'E': 'Glu', 'Q': 'Gln', 'G': 'Gly', 'H': 'His', 'I': 'Ile',
+                                                                            'L': 'Leu', 'K': 'Lys', 'M': 'Met', 'F': 'Phe', 'P': 'Pro',
+                                                                            'S': 'Ser', 'T': 'Thr', 'W': 'Trp', 'Y': 'Tyr', 'V': 'Val'
+                                                                        } %}
+                                                                        {% for key, value in col.protein_data.frequency[i].items() %}
+                                                                            {% if value != 0 %}
+                                                                                {% set percentage = value * 100 %}
+                                                                                <div class="mb-1">
+                                                                                    <span class="font-monospace fw-bold">{{ aa_names.get(key, 'Unk') }}</span>
+                                                                                    <span class="ms-2">{{ "%.2f"|format(percentage) }} %</span>
+                                                                                    <div class="progress" style="height: 16px;">
+                                                                                        <div class="progress-bar bg-primary" role="progressbar"
+                                                                                             style="width: {{ percentage }}%"
+                                                                                             aria-valuenow="{{ percentage }}" aria-valuemin="0" aria-valuemax="100">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            {% endif %}
+                                                                        {% endfor %}
+                                                                    </td>
+                                                                    <td>{{ "%.1f"|format(col.protein_data.molecular_weight[i]) }}</td>
+                                                                    <td>{{ "%.2f"|format(col.protein_data.isoelectric_point[i]) }}</td>
+
+                                                                </tr>
+                                                            {% endfor %}
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Protein Statistics Tab -->
+                                                <div class="tab-pane fade" id="proteinStats{{ col.name | replace(' ', '') | capitalize }}" role="tabpanel">
+                                                    <div class="row mt-3">
+                                                        <div class="col-md-4">
+                                                            <h6>Length Statistics</h6>
+                                                            {% set lengths = col.protein_data.length %}
+                                                            <table class="table table-sm">
+                                                                <tr><td>Min Length:</td><td>{{ lengths|min }} AA</td></tr>
+                                                                <tr><td>Max Length:</td><td>{{ lengths|max }} AA</td></tr>
+                                                                <tr><td>Mean Length:</td><td>{{ "%.1f"|format((lengths|sum) / (lengths|length)) }} AA</td></tr>
+                                                            </table>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <h6>Molecular Weight Statistics</h6>
+                                                            {% set mw = col.protein_data.molecular_weight %}
+                                                            <table class="table table-sm">
+                                                                <tr><td>Min MW:</td><td>{{ "%.1f"|format(mw|min) }} Da</td></tr>
+                                                                <tr><td>Max MW:</td><td>{{ "%.1f"|format(mw|max) }} Da</td></tr>
+                                                                <tr><td>Mean MW:</td><td>{{ "%.1f"|format((mw|sum) / (mw|length)) }} Da</td></tr>
+                                                            </table>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <h6>Isoelectric Point Statistics</h6>
+                                                            {% set pi = col.protein_data.isoelectric_point %}
+                                                            <table class="table table-sm">
+                                                                <tr><td>Min pI:</td><td>{{ "%.2f"|format(pi|min) }}</td></tr>
+                                                                <tr><td>Max pI:</td><td>{{ "%.2f"|format(pi|max) }}</td></tr>
+                                                                <tr><td>Mean pI:</td><td>{{ "%.2f"|format((pi|sum) / (pi|length)) }}</td></tr>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row mt-3">
+                                                        <!-- TODO Add ?
+                                                        <div class="col-md-4">
+                                                            <h6>Frequency Statistics</h6>
+                                                            {#% set freq = col.protein_data.frequency %#}
+                                                            <table class="table table-sm">
+                                                                <tr><td>Min Frequency:</td><td> "%.4f"|format(freq|min) }}</td></tr>
+                                                                <tr><td>Max Frequency:</td><td> "%.4f"|format(freq|max) }}</td></tr>
+                                                                <tr><td>Mean Frequency:</td><td> "%.4f"|format((freq|sum) / (freq|length)) }}</td></tr>
+                                                            </table>
+                                                        </div>
+                                                        -->
+                                                        <div class="col-md-4">
+                                                            <h6>Hydrophobicity Statistics</h6>
+                                                            {% set hydro = col.protein_data.hydrophobicity %}
+                                                            <table class="table table-sm">
+                                                                <tr><td>Min Hydrophobicity:</td><td>{{ "%.3f"|format(hydro|min) }}</td></tr>
+                                                                <tr><td>Max Hydrophobicity:</td><td>{{ "%.3f"|format(hydro|max) }}</td></tr>
+                                                                <tr><td>Mean Hydrophobicity:</td><td>{{ "%.3f"|format((hydro|sum) / (hydro|length)) }}</td></tr>
+                                                            </table>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <h6>Charge Statistics</h6>
+                                                            {% set charge = col.protein_data.charge %}
+                                                            <table class="table table-sm">
+                                                                <tr><td>Min Charge:</td><td>{{ "%.2f"|format(charge|min) }}</td></tr>
+                                                                <tr><td>Max Charge:</td><td>{{ "%.2f"|format(charge|max) }}</td></tr>
+                                                                <tr><td>Mean Charge:</td><td>{{ "%.2f"|format((charge|sum) / (charge|length)) }}</td></tr>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Amino Acid Composition Tab -->
+                                                <div class="tab-pane fade" id="proteinComposition{{ col.name | replace(' ', '') | capitalize }}" role="tabpanel">
+                                                    <div class="mt-3">
+                                                        <h6>Amino Acid Composition (Aggregated from Top 20)</h6>
+                                                        {% set all_amino_acids = {} %}
+                                                        {% for aa_dict in col.protein_data.composition %}
+                                                            {% for aa, count in aa_dict.items() %}
+                                                                {% if all_amino_acids.update({aa: all_amino_acids.get(aa, 0) + count}) %}{% endif %}
+                                                            {% endfor %}
+                                                        {% endfor %}
+                                                        {% set total_amino_acids = all_amino_acids.values()|sum %}
+
+                                                        <div class="table-responsive">
+                                                            <table class="table table-sm">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th>Amino Acid</th>
+                                                                    <th>Three-Letter</th>
+                                                                    <th>Count</th>
+                                                                    <th>Percentage</th>
+                                                                    <th style="width: 200px;">Distribution</th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                {% set aa_names = {
+                                                                    'A': 'Ala', 'R': 'Arg', 'N': 'Asn', 'D': 'Asp', 'C': 'Cys',
+                                                                    'E': 'Glu', 'Q': 'Gln', 'G': 'Gly', 'H': 'His', 'I': 'Ile',
+                                                                    'L': 'Leu', 'K': 'Lys', 'M': 'Met', 'F': 'Phe', 'P': 'Pro',
+                                                                    'S': 'Ser', 'T': 'Thr', 'W': 'Trp', 'Y': 'Tyr', 'V': 'Val'
+                                                                } %}
+                                                                {% for aa, count in all_amino_acids.items()|sort(attribute='1', reverse=true) %}
+                                                                    {% set percentage = (count / total_amino_acids) * 100 %}
+                                                                    <tr>
+                                                                        <td class="font-monospace fw-bold">{{ aa }}</td>
+                                                                        <td>{{ aa_names.get(aa, 'Unk') }}</td>
+                                                                        <td>{{ count }}</td>
+                                                                        <td>{{ "%.2f"|format(percentage) }}%</td>
+                                                                        <td>
+                                                                            <div class="progress" style="height: 20px;">
+                                                                                <div class="progress-bar bg-primary" role="progressbar"
+                                                                                     style="width: {{ percentage }}%"
+                                                                                     aria-valuenow="{{ percentage }}" aria-valuemin="0" aria-valuemax="100">
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                {% endfor %}
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Protein Properties Tab -->
+                                                <div class="tab-pane fade" id="proteinProperties{{ col.name | replace(' ', '') | capitalize }}" role="tabpanel">
+                                                    <div class="table-responsive mt-3" style="max-height: 400px; overflow-y: auto;">
+                                                        <table class="table table-sm table-striped">
+                                                            <thead class="sticky-top bg-light">
+                                                            <tr>
+                                                                <th>Rank</th>
+                                                                <th>Length</th>
+                                                                <th>Hydrophobicity</th>
+                                                                <th>Charge</th>
+                                                                <th>Aliphatic Index</th>
+                                                                <th>Boman Index</th>
+                                                                <th>Aromaticity</th>
+                                                                <th>Instability</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            {% for i in range(col.protein_data.sequence|length) %}
+                                                                <tr>
+                                                                    <td>{{ i + 1 }}</td>
+                                                                    <td>{{ col.protein_data.length[i] }}</td>
+                                                                    <td>{{ "%.3f"|format(col.protein_data.hydrophobicity[i]) }}</td>
+                                                                    <td>{{ "%.2f"|format(col.protein_data.charge[i]) }}</td>
+                                                                    <td>{{ "%.2f"|format(col.protein_data.aliphatic_index[i]) }}</td>
+                                                                    <td>{{ "%.2f"|format(col.protein_data.boman[i]) }}</td>
+                                                                    <td>{{ "%.3f"|format(col.protein_data.aromaticity[i]) }}</td>
+                                                                    <td>{{ "%.2f"|format(col.protein_data.instability[i]) }}</td>
+                                                                </tr>
+                                                            {% endfor %}
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+
+                                                    <div class="row mt-4">
+                                                        <div class="col-md-6">
+                                                            <h6>Additional Property Statistics</h6>
+                                                            <table class="table table-sm">
+                                                                <tr>
+                                                                    <td><strong>Aliphatic Index</strong></td>
+                                                                    <td>{{ "%.2f"|format(col.protein_data.aliphatic_index|min) }} - {{ "%.2f"|format(col.protein_data.aliphatic_index|max) }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><strong>Boman Index</strong></td>
+                                                                    <td>{{ "%.2f"|format(col.protein_data.boman|min) }} - {{ "%.2f"|format(col.protein_data.boman|max) }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><strong>Aromaticity</strong></td>
+                                                                    <td>{{ "%.3f"|format(col.protein_data.aromaticity|min) }} - {{ "%.3f"|format(col.protein_data.aromaticity|max) }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><strong>Instability Index</strong></td>
+                                                                    <td>{{ "%.2f"|format(col.protein_data.instability|min) }} - {{ "%.2f"|format(col.protein_data.instability|max) }}</td>
+                                                                </tr>
+                                                            </table>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <h6>Property Interpretation</h6>
+                                                            <div class="small text-muted">
+                                                                <p><strong>Aliphatic Index:</strong> Relative volume of aliphatic side chains (higher = more thermostable)</p>
+                                                                <p><strong>Boman Index:</strong> Protein-protein interaction potential</p>
+                                                                <p><strong>Aromaticity:</strong> Fraction of aromatic amino acids (Phe, Trp, Tyr)</p>
+                                                                <p><strong>Instability Index:</strong> &lt;40 = stable, &gt;40 = unstable protein</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- K-mers Tab -->
+                                                <div class="tab-pane fade" id="proteinKmers{{ col.name | replace(' ', '') | capitalize }}" role="tabpanel">
+                                                    {% if col.protein_data.plot %}
+                                                        <div class="col-md-6 d-flex justify-content-center">
+                                                            <div class="plot-container mb-4" style="max-height: 300px; overflow: hidden;">
+                                                                {{ col.protein_data.plot | safe }}
+                                                            </div>
+                                                        </div>
+                                                    {% endif %}
+                                                    <div class="mt-3">
+                                                        <h6>Most Common Peptide K-mers per Sequence</h6>
+                                                        <div class="accordion" id="proteinKmerAccordion{{ col.name | replace(' ', '') | capitalize }}">
+                                                            {% for i in range(col.protein_data.sequence|length) %}
+                                                                {% if col.protein_data.k_mers[i] %}
+                                                                    <div class="accordion-item">
+                                                                        <h2 class="accordion-header">
+                                                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                                                                    data-bs-target="#proteinKmer{{ col.name | replace(' ', '') | capitalize }}{{ i }}"
+                                                                                    aria-expanded="false">
+                                                                                Protein #{{ i + 1 }} ({{ col.protein_data.length[i] }} AA)
+                                                                            </button>
+                                                                        </h2>
+                                                                        <div id="proteinKmer{{ col.name | replace(' ', '') | capitalize }}{{ i }}"
+                                                                             class="accordion-collapse collapse"
+                                                                             data-bs-parent="#proteinKmerAccordion{{ col.name | replace(' ', '') | capitalize }}">
+                                                                            <div class="accordion-body">
+                                                                                <table class="table table-sm">
+                                                                                    <thead>
+                                                                                    <tr><th>Peptide K-mer</th><th>Count</th></tr>
+                                                                                    </thead>
+                                                                                    <tbody>
+                                                                                    {% for kmer, count in col.protein_data.k_mers[i] %}
                                                                                         <tr>
                                                                                             <td class="font-monospace">{{ kmer }}</td>
                                                                                             <td>{{ count }}</td>
@@ -638,6 +978,36 @@
                 updateDisplay();
                 generatePagination();
             }
+        });
+
+        // Erweiterung: Correlation-Links öffnen und Seite umblättern
+        document.querySelectorAll('a.cb-pink-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetEl = document.getElementById(targetId);
+
+                if (targetEl) {
+                    const columnItem = targetEl.closest('.column-item');
+                    if (columnItem) {
+                        const targetPage = parseInt(columnItem.dataset.page);
+
+                        if (typeof targetPage !== 'undefined' && targetPage !== currentPage) {
+                            currentPage = targetPage;
+                            updateDisplay();
+                            generatePagination();
+                        }
+
+                        if (!targetEl.classList.contains('show')) {
+                            new bootstrap.Collapse(targetEl, { toggle: true });
+                        }
+
+                        setTimeout(() => {
+                            targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }, 300);
+                    }
+                }
+            });
         });
     });
 </script>
