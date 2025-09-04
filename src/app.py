@@ -3,6 +3,7 @@ import os
 from pathlib import Path
 
 import click
+import pandas as pd
 from jinja2 import Environment, FileSystemLoader
 from termcolor import colored
 
@@ -40,6 +41,8 @@ def cli(input: str):
     print(colored(f'Analyse {len(df.select_dtypes(include='number').columns)} numeric columns ', 'blue'))"""
 
     for col_overview in column_overviews:
+        if hasattr(col_overview, "top_10") and isinstance(col_overview.top_10, pd.Series):
+            col_overview.top_10_items = list(col_overview.top_10.items()) # Needed for jinja2
         if col_overview.sequence == 'dna':
             print(colored(f'Analyzing DNA/RNA sequences in column: {col_overview.name}', 'cyan'))
             bio_data = dna_rna_columns(df[col_overview.name])
