@@ -602,8 +602,8 @@
                                                             {% set lengths = col.protein_data.length %}
                                                             <table class="table table-sm">
                                                                 <tr><td>Min Length:</td><td>{{ lengths|min }} AA</td></tr>
-                                                                <tr><td>Max Length:</td><td>{{ lengths|max }} AA</td></tr>
                                                                 <tr><td>Mean Length:</td><td>{{ "%.1f"|format((lengths|sum) / (lengths|length)) }} AA</td></tr>
+                                                                <tr><td>Max Length:</td><td>{{ lengths|max }} AA</td></tr>
                                                             </table>
                                                         </div>
                                                         <div class="col-md-4">
@@ -611,8 +611,8 @@
                                                             {% set mw = col.protein_data.molecular_weight %}
                                                             <table class="table table-sm">
                                                                 <tr><td>Min MW:</td><td>{{ "%.1f"|format(mw|min) }} Da</td></tr>
-                                                                <tr><td>Max MW:</td><td>{{ "%.1f"|format(mw|max) }} Da</td></tr>
                                                                 <tr><td>Mean MW:</td><td>{{ "%.1f"|format((mw|sum) / (mw|length)) }} Da</td></tr>
+                                                                <tr><td>Max MW:</td><td>{{ "%.1f"|format(mw|max) }} Da</td></tr>
                                                             </table>
                                                         </div>
                                                         <div class="col-md-4">
@@ -620,8 +620,8 @@
                                                             {% set pi = col.protein_data.isoelectric_point %}
                                                             <table class="table table-sm">
                                                                 <tr><td>Min pI:</td><td>{{ "%.2f"|format(pi|min) }}</td></tr>
-                                                                <tr><td>Max pI:</td><td>{{ "%.2f"|format(pi|max) }}</td></tr>
                                                                 <tr><td>Mean pI:</td><td>{{ "%.2f"|format((pi|sum) / (pi|length)) }}</td></tr>
+                                                                <tr><td>Max pI:</td><td>{{ "%.2f"|format(pi|max) }}</td></tr>
                                                             </table>
                                                         </div>
                                                     </div>
@@ -632,8 +632,8 @@
                                                             {% set hydro = col.protein_data.hydrophobicity %}
                                                             <table class="table table-sm">
                                                                 <tr><td>Min Hydrophobicity:</td><td>{{ "%.3f"|format(hydro|min) }}</td></tr>
-                                                                <tr><td>Max Hydrophobicity:</td><td>{{ "%.3f"|format(hydro|max) }}</td></tr>
                                                                 <tr><td>Mean Hydrophobicity:</td><td>{{ "%.3f"|format((hydro|sum) / (hydro|length)) }}</td></tr>
+                                                                <tr><td>Max Hydrophobicity:</td><td>{{ "%.3f"|format(hydro|max) }}</td></tr>
                                                             </table>
                                                         </div>
                                                         <div class="col-md-4">
@@ -641,8 +641,8 @@
                                                             {% set charge = col.protein_data.charge %}
                                                             <table class="table table-sm">
                                                                 <tr><td>Min Charge:</td><td>{{ "%.2f"|format(charge|min) }}</td></tr>
-                                                                <tr><td>Max Charge:</td><td>{{ "%.2f"|format(charge|max) }}</td></tr>
                                                                 <tr><td>Mean Charge:</td><td>{{ "%.2f"|format((charge|sum) / (charge|length)) }}</td></tr>
+                                                                <tr><td>Max Charge:</td><td>{{ "%.2f"|format(charge|max) }}</td></tr>
                                                             </table>
                                                         </div>
                                                     </div>
