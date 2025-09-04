@@ -78,7 +78,7 @@ def cli(input: str):
     Path("renders").mkdir(parents=True, exist_ok=True)
 
     #print(STATIC_DIR)
-    #shutil.copytree(STATIC_DIR, "renders/static/", dirs_exist_ok=True)
+    shutil.copytree(str(STATIC_DIR), "renders/static/", dirs_exist_ok=True)
 
     landing_template = env.get_template('LandingPage.jinja')
     numeric_template = env.get_template('numeric_overview.jinja')
