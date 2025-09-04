@@ -174,7 +174,7 @@ def protein_columns(seqs: pd.Series, k: int = 3, top_n: int = 5) -> PROTEINColum
 
 
 def plot_overview(kmer, count):
-    fig = px.bar(x=kmer, y=count, height=350, color_discrete_sequence=['#0F65A0'])
+    fig = px.bar(x=kmer, y=count, color_discrete_sequence=['#0F65A0'])
     fig.update_layout(bargap=0.2, plot_bgcolor='white', xaxis_title='K-mers',
         yaxis_title='Count')
     fig.update_xaxes(
