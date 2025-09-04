@@ -142,6 +142,7 @@ def protein_columns(seqs: pd.Series, k: int = 3, top_n: int = 5) -> PROTEINColum
 
     k_mers = [top_mere(seq, n=k, top=top_n) for seq in uniques]
     barplot = None
+    #ToDo Add Desclaimer
     if min_len == max_len:
         use_logo = True
         k = min(6, min_len)

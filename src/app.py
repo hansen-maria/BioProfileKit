@@ -1,6 +1,7 @@
 #! usr/bin/env Python3
 import os
 from pathlib import Path
+import shutil
 
 import click
 import pandas as pd
@@ -15,7 +16,7 @@ from utils.file_reader import read_file
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 TEMPLATE_DIR = os.path.join(BASE_DIR, "templates")
-env = Environment(loader=FileSystemLoader(TEMPLATE_DIR))
+env = Environment(loader=FileSystemLoader(TEMPLATE_DIR), autoescape=True,)
 
 
 @click.group(context_settings=CONTEXT_SETTINGS, invoke_without_command=True)
@@ -47,13 +48,11 @@ def cli(input: str):
             print(colored(f'Analyzing DNA/RNA sequences in column: {col_overview.name}', 'cyan'))
             bio_data = dna_rna_columns(df[col_overview.name])
             col_overview.dna_rna_data = bio_data
-            print(f"Found {len(bio_data.sequence)} unique sequences")
             # print(bio_data)
         elif col_overview.sequence == 'protein':
             print(colored(f'Analyzing protein sequences in column: {col_overview.name}', 'cyan'))
             bio_data = protein_columns(df[col_overview.name])
             col_overview.protein_data = bio_data
-            print(f"Found {len(bio_data.sequence)} unique sequences")
             # print(bio_data)
         else:
             col_overview.dna_rna_data = None
@@ -63,7 +62,6 @@ def cli(input: str):
             measurement_data = measurement_columns(col_overview, df)
             if measurement_data:
                 print(colored(f'Analyzing lab measurements in column: {col_overview.name}', 'cyan'))
-                print(measurement_data)
                 col_overview.measurement_data = measurement_data
             else:
                 col_overview.measurement_data = None
@@ -79,11 +77,10 @@ def cli(input: str):
     cat_columns = [col for col in df.select_dtypes(include='object').columns if any(i.sequence == 'None' for i in column_overviews if i.name == col)]
     print(colored(f'Analyse {len(cat_columns)} object columns ', 'blue'))
     categorical_overviews = [categorical_columns(df, col) for col in cat_columns]
-    print(categorical_overviews)
 
 
     Path("renders").mkdir(parents=True, exist_ok=True)
-
+    shutil.copytree("src/static/", "renders/static/", dirs_exist_ok=True)
     landing_template = env.get_template('LandingPage.jinja')
     numeric_template = env.get_template('numeric_overview.jinja')
     columns = env.get_template('columns.jinja')
