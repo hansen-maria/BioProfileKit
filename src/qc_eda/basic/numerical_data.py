@@ -48,7 +48,6 @@ class ColumnOverview:
     sequence: str
     describe_plot: str | None
     constant: bool
-    # constant_values: bool
     correlation: list[str] | None
     taxonomy: bool
 
@@ -159,10 +158,10 @@ def categorical_columns(df: pd.DataFrame, col: str) -> CategoricalColumns:
         unique_categories=df[col].nunique(),
         mode=df[col].mode().iloc[0],
         entropy=round(entropy, 2),
-        frequencies=frequencies[:20].to_dict(),
+        frequencies=df[col].value_counts(normalize=True).head(20).to_dict(),
         gini=round(gini, 2),
         simpson_diversity=round(simpson, 2),
-        value_counts=value_counts[:20].to_dict(),
+        value_counts=df[col].value_counts().head(20).to_dict(),
         max_category_length=lengths.max(),
         min_category_length=lengths.min(),
         memory=df[col].memory_usage(deep=True),

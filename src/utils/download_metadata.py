@@ -11,7 +11,6 @@ from goatools.obo_parser import GODag
 # https://current.geneontology.org/ontology/go-basic.obo
 
 def get_gene_ontology():
-
     url = "http://current.geneontology.org/ontology/go-basic.obo"
     obo_file = Path("go-basic.obo")
     if not obo_file.exists():
