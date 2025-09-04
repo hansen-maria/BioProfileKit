@@ -48,98 +48,6 @@
                 </div>
             </div>
             <!-- Content Row-->
-            <!-- TODO: EXAMPLE TABLE -->
-            <div class="row gx-4 gx-lg-5">
-                <div class="col-12">
-                    <table class="table table-hover">
-                        <thead></thead>
-                        <tbody>
-                        <TR>
-                            <TD>Minimum</TD>
-                            {% for ov in overview %}
-                                <TD>{{ ov.min }}</TD>
-                            {% endfor %}
-                        </TR>
-                        <TR>
-                            <TD>Maximum</TD>
-                            {% for ov in overview %}
-                                <TD>{{ ov.max }}</TD>
-                            {% endfor %}
-                        </TR>
-                        <TR>
-                            <td>Mean</td>
-                            {% for ov in overview %}
-                                <TD>{{ ov.mean }}</TD>
-                            {% endfor %}
-                        </TR>
-                        <TR>
-                            <td>Median</td>
-                            {% for ov in overview %}
-                                <td>{{ ov.median }}</td>
-                            {% endfor %}
-                        </TR>
-                        <TR>
-                            <td>Mode</td>
-                            {% for ov in overview %}
-                                <td>{{ ov.mode }}</td>
-                            {% endfor %}
-                        </TR>
-                        <TR>
-                            <td>Standard Deviation</td>
-                            {% for ov in overview %}
-                                <td>{{ ov.std }}</td>
-                            {% endfor %}
-                        </TR>
-                        <TR>
-                            <td>Sum</td>
-                            {% for ov in overview %}
-                                <td>{{ ov.sum }}</td>
-                            {% endfor %}
-                        </TR>
-                        <TR>
-                            <td>Kurtosis</td>
-                            {% for ov in overview %}
-                                <td>{{ ov.kurtosis }}</td>
-                            {% endfor %}
-                        </TR>
-                        <TR>
-                            <td>Skewness</td>
-                            {% for ov in overview %}
-                                <td>{{ ov.skewness }}</td>
-                            {% endfor %}
-                        </TR>
-                        <TR>
-                            <td>Median Abs Deviation</td>
-                            {% for ov in overview %}
-                                <td>{{ ov.mad }}</td>
-                            {% endfor %}
-                        </TR>
-                        <TR>
-                            <td>Coefficients of Variation</td>
-                            {% for ov in overview %}
-                                <td>{{ ov.coefficient_of_variation }}</td>
-                            {% endfor %}
-                        </TR>
-                        <TR>
-                            <td>Quantiles</td>
-                            {% for ov in overview %}
-                                <td>
-                                    25 %: {{ ov.quantiles.0 }}<br>
-                                    50 %: {{ ov.quantiles.1 }}<br>
-                                    75 %: {{ ov.quantiles.2 }}
-                                </td>
-                            {% endfor %}
-                        </TR>
-                        <TR>
-                            <td>Memory</td>
-                            {% for ov in overview %}
-                                <td>{{ ov.memory }}</td>
-                            {% endfor %}
-                        </TR>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
 
             <!-- Toggle All Elements -->
             <div class="row">
@@ -278,6 +186,16 @@
                                                         type="button" role="tab">Unit Statistics</button>
                                             </li>
                                         {% endif %}
+                                        <!-- TODO: General overview for number columns -->
+                                        {% if col.type != 'object' %}
+                                            {% if col.type == 'int64' or 'float64' %}
+                                                <li class="nav-item" role="presentation">
+                                                    <button class="nav-link" id="number-stats-tab{{ col.name | replace(' ', '') | capitalize }}"
+                                                            data-bs-toggle="tab" data-bs-target="#numberStats{{ col.name | replace(' ', '') | capitalize }}"
+                                                            type="button" role="tab">General Overview</button>
+                                                </li>
+                                            {% endif %}
+                                        {% endif %}
                                     </ul>
 
                                     <div class="tab-content" id="objectTabContent{{ col.name | replace(' ', '') | capitalize }}">
@@ -324,6 +242,49 @@
                                                     </table>
                                                 </div>
                                             </div>
+                                        {% endif %}
+                                        <!-- General Overview for numeric columns -->
+                                        {% if col.type != 'object' %}
+                                            {% if col.type == 'int64' or 'float64' %}
+                                                <div class="tab-pane fade" id="numberStats{{ col.name | replace(' ', '') | capitalize }}" role="tabpanel">
+                                                    <div class="row mt-3">
+                                                        {% for ov in overview %}
+                                                            {% if ov.name == col.name %}
+                                                                <table class="table table-sm table-striped">
+                                                                    <thead>
+                                                                    <tr>
+                                                                        <th>Statistic</th>
+                                                                        <th>Value</th>
+                                                                    </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                    <tr><td>Minimum</td><td>{{ ov.min }}</td></tr>
+                                                                    <tr><td>Maximum</td><td>{{ ov.max }}</td></tr>
+                                                                    <tr><td>Mean</td><td>{{ ov.mean }}</td></tr>
+                                                                    <tr><td>Median</td><td>{{ ov.median }}</td></tr>
+                                                                    <tr><td>Mode</td><td>{{ ov.mode }}</td></tr>
+                                                                    <tr><td>Standard Deviation</td><td>{{ ov.std }}</td></tr>
+                                                                    <tr><td>Sum</td><td>{{ ov.sum }}</td></tr>
+                                                                    <tr><td>Kurtosis</td><td>{{ ov.kurtosis }}</td></tr>
+                                                                    <tr><td>Skewness</td><td>{{ ov.skewness }}</td></tr>
+                                                                    <tr><td>Median Abs Deviation</td><td>{{ ov.mad }}</td></tr>
+                                                                    <tr><td>Coefficient of Variation</td><td>{{ ov.coefficient_of_variation }}</td></tr>
+                                                                    <tr>
+                                                                        <td>Quantiles</td>
+                                                                        <td>
+                                                                            25 %: {{ ov.quantiles[0] }}<br>
+                                                                            50 %: {{ ov.quantiles[1] }}<br>
+                                                                            75 %: {{ ov.quantiles[2] }}
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr><td>Memory</td><td>{{ ov.memory }}</td></tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    </div>
+                                                </div>
+                                            {% endif %}
                                         {% endif %}
                                     </div>
                                 {% endif %}
