@@ -119,6 +119,7 @@ def protein_descriptors(peptide: str) -> Dict[str, str | float | dict[str, float
     p: peptides.Peptide = peptides.Peptide(peptide)
     descriptors["seq"] = peptide
     descriptors["freq"] = p.frequencies()
+
     try:
         descriptors["aidx"] = p.aliphatic_index()
     except ZeroDivisionError:

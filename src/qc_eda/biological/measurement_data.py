@@ -34,7 +34,7 @@ def measurement_columns(column_overview: ColumnOverview, df: pd.DataFrame) -> UN
                     return UNITColumns(
                         units=[unit.split(' ')[1] if ' ' in unit else unit for unit in measurement_and_unit],
                         unit_counts=df[column_overview.name].value_counts(dropna=False).to_dict(),
-                        with_measurement=any([unit[0].isdigit() for unit in measurement_and_unit])
+                        with_measurement=any([has_number_and_unit(unit) for unit in measurement_and_unit])
                     )
     return False
 
@@ -45,3 +45,10 @@ def match_units(entries: List[str], regex: re.Pattern) -> List[str]:
         if measurement_and_unit:
             units.append(measurement_and_unit.group(0))
     return units
+
+def has_number_and_unit(value: str) -> bool:
+    special_units = {'1/s', '1/m', '1/M', '1/h', '1/min'} # Add new ones, if needed
+    if value in special_units:
+        return False
+    pattern = re.compile(r'^-?\d+\.?\d*\s*[a-zA-Z°/%]+$')
+    return bool(pattern.match(value) and value not in special_units)
