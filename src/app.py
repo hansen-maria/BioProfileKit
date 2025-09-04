@@ -7,7 +7,7 @@ import pandas as pd
 from jinja2 import Environment, FileSystemLoader
 from termcolor import colored
 
-from qc_eda.basic.numerical_data import overview, column_overview, numeric_columns
+from qc_eda.basic.numerical_data import overview, column_overview, numeric_columns, categorical_columns
 from qc_eda.biological.biological_data import dna_rna_columns, protein_columns
 from qc_eda.biological.measurement_data import measurement_columns
 from utils.file_reader import read_file
@@ -70,10 +70,17 @@ def cli(input: str):
         else:
             col_overview.measurement_data = None
 
-
     print(colored(f'Analyse {len(df.select_dtypes(include="number").columns)} numeric columns ', 'blue'))
 
     numeric_overviews = [numeric_columns(df, col) for col in df.select_dtypes(include='number').columns]
+
+
+
+    cat_columns = [col for col in df.select_dtypes(include='object').columns if any(i.sequence == 'None' for i in column_overviews if i.name == col)]
+    print(colored(f'Analyse {len(cat_columns)} object columns ', 'blue'))
+    categorical_overviews = [categorical_columns(df, col) for col in cat_columns]
+    print(categorical_overviews)
+
 
     Path("renders").mkdir(parents=True, exist_ok=True)
 

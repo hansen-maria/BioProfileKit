@@ -6,6 +6,7 @@ from numpy import ndarray
 from pandas.api.types import infer_dtype
 from scipy import stats
 from iteration_utilities import deepflatten
+import numpy as np
 
 from .sequence_enum import Sequence
 from .taxonomy_validator import validate_taxonomy
@@ -55,6 +56,7 @@ class ColumnOverview:
 
 @dataclass
 class NumericColumns:
+    name: str
     min: float
     max: float
     mean: float
@@ -70,6 +72,22 @@ class NumericColumns:
     quantiles: ndarray
     memory: int
     # cardinalities: list[int]
+
+
+@dataclass
+class CategoricalColumns:
+    name: str
+    unique_categories: int
+    mode: str
+    entropy: float
+    frequencies: dict
+    gini: float
+    simpson_diversity: float
+    value_counts: dict
+    max_category_length: int
+    min_category_length: int
+    memory: int
+    cardinality_ratio: float
 
 
 def overview(df: pd.DataFrame, file) -> NumericalData:
@@ -105,6 +123,7 @@ def column_overview(df: pd.DataFrame, col) -> ColumnOverview:
 
 def numeric_columns(df: pd.DataFrame, col) -> NumericColumns:
     return NumericColumns(
+        name=col,
         min=round(df[col].min(), 2),
         max=round(df[col].max(), 2),
         mean=round(df[col].mean(), 2),
@@ -120,6 +139,31 @@ def numeric_columns(df: pd.DataFrame, col) -> NumericColumns:
         memory=df[col].memory_usage(deep=True)
     )
 
+
+def categorical_columns(df: pd.DataFrame, col: str) -> CategoricalColumns:
+    value_counts = df[col].value_counts()
+    n = len(df[col])
+    frequencies = value_counts / n
+
+    entropy = -(frequencies * np.log2(frequencies)).sum()
+    gini = 1 - (frequencies ** 2).sum()
+    simpson = 1 / (frequencies ** 2).sum()
+    lengths = df[col].astype(str).str.len()
+
+    return CategoricalColumns(
+        name=col,
+        unique_categories=df[col].nunique(),
+        mode=df[col].mode().iloc[0],
+        entropy=round(entropy, 2),
+        frequencies=frequencies[:20],
+        gini=round(gini, 2),
+        simpson_diversity=round(simpson, 2),
+        value_counts=value_counts[:20],
+        max_category_length=lengths.max(),
+        min_category_length=lengths.min(),
+        memory=df[col].memory_usage(deep=True),
+        cardinality_ratio=round(df[col].nunique() / n, 3)
+    )
 
 def get_correlation(df: pd.DataFrame, col) -> list | None:
     ncols = df.select_dtypes(include='number').columns
@@ -187,3 +231,4 @@ def rank_taxonomy(df, col):
         print(results)
 
     return False
+
