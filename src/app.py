@@ -96,4 +96,4 @@ def cli(input: str):
         print(numeric_template.render(general=general, dups=duplicates_table), file=output)
 
     with open("renders/columns.html", "w") as output:
-        print(columns.render(columns=column_overviews, overview=numeric_overviews), file=output)
+        print(columns.render(columns=column_overviews, overview=numeric_overviews, categorical=categorical_overviews), file=output)
