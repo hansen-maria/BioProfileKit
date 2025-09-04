@@ -85,12 +85,12 @@ def cli(input: str):
     columns = env.get_template('columns.jinja')
 
     print(colored('Writing report …', 'green'))
-    with open("renders/index.html", 'w') as output:
+    with open("renders/index.html", 'w', encoding="utf-8") as output:
         print(landing_template.render(), file=output)
 
-    with open("renders/numeric_data.html", "w") as output:
+    with open("renders/numeric_data.html", "w",encoding="utf-8") as output:
         print(numeric_template.render(general=general, dups=duplicates_table), file=output)
 
-    with open("renders/columns.html", "w") as output:
+    with open("renders/columns.html", "w",encoding="utf-8") as output:
         print(columns.render(columns=column_overviews, overview=numeric_overviews, categorical=categorical_overviews),
               file=output)
