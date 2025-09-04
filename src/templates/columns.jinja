@@ -221,6 +221,11 @@
                                         {% endfor %}
                                     {% endif %}
                                 <!-- TODO: Add missing badges - Skewness, Duplicates, Imbalance, Diff Sequence Length, Biological Naming, Diff Units -->
+                                    {% if col.measurement_data %}
+                                        {% if col.measurement_data.with_measurement %}
+                                            <span class="badge bg-warning">Mixed Values</span>
+                                        {% endif %}
+                                    {% endif %}
                                 </div>
                                 <div class="row w-100">
                                     <!-- Linke Spalte: Textinfos -->
@@ -260,14 +265,20 @@
                                     </div>
                                 </div>
 
-                                <!-- TODO: col.top_10 displayed in a div-class tab-content -->
                                 {% if col.sequence == 'None' %}
                                     <ul class="nav nav-tabs" id="objectTab{{ col.name | replace(' ', '') | capitalize }}" role="tablist">
                                         <li class="nav-item" role="presentation">
-                                            <button class="nav-link" id="object-stats-tab{{ col.name | replace(' ', '') | capitalize }}"
+                                            <button class="nav-link active" id="object-stats-tab{{ col.name | replace(' ', '') | capitalize }}"
                                                     data-bs-toggle="tab" data-bs-target="#objectStats{{ col.name | replace(' ', '') | capitalize }}"
                                                     type="button" role="tab">Top 10 Occurrences</button>
                                         </li>
+                                        {% if col.measurement_data %}
+                                            <li class="nav-item" role="presentation">
+                                                <button class="nav-link" id="unit-stats-tab{{ col.name | replace(' ', '') | capitalize }}"
+                                                        data-bs-toggle="tab" data-bs-target="#unitStats{{ col.name | replace(' ', '') | capitalize }}"
+                                                        type="button" role="tab">Unit Statistics</button>
+                                            </li>
+                                        {% endif %}
                                     </ul>
 
                                     <div class="tab-content" id="objectTabContent{{ col.name | replace(' ', '') | capitalize }}">
@@ -283,15 +294,38 @@
                                                     </thead>
                                                     <tbody>
                                                     {% for label, value in col.top_10_items %}
-                                                      <tr>
-                                                        <td>{{ label }}</td>
-                                                        <td>{{ value }}</td>
-                                                      </tr>
+                                                        <tr>
+                                                            <td>{{ label }}</td>
+                                                            <td>{{ value }}</td>
+                                                        </tr>
                                                     {% endfor %}
                                                     </tbody>
                                                 </table>
                                             </div>
                                         </div>
+                                        <!-- Unit Stats Tab -->
+                                        {% if col.measurement_data %}
+                                            <div class="tab-pane fade" id="unitStats{{ col.name | replace(' ', '') | capitalize }}" role="tabpanel">
+                                                <div class="table-responsive mt-3" style="max-height: 400px; overflow-y: auto;">
+                                                    <table class="table table-sm table-striped">
+                                                        <thead class="sticky-top bg-light">
+                                                        <tr>
+                                                            <th>Unit</th>
+                                                            <th>Count</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        {% for unit, count in col.measurement_data.unit_counts.items() %}
+                                                            <tr>
+                                                                <td>{{ unit }}</td>
+                                                                <td>{{ count }}</td>
+                                                            </tr>
+                                                        {% endfor %}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        {% endif %}
                                     </div>
                                 {% endif %}
 
