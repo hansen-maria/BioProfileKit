@@ -197,8 +197,8 @@
                                         {% endif %}
                                         {% if col.type == 'object' %}
                                             <li class="nav-item" role="presentation">
-                                                <button class="nav-link" id="number-stats-tab{{ col.name | replace(' ', '') | capitalize }}"
-                                                            data-bs-toggle="tab" data-bs-target="#numberStats{{ col.name | replace(' ', '') | capitalize }}"
+                                                <button class="nav-link" id="cat-stats-tab{{ col.name | replace(' ', '') | capitalize }}"
+                                                            data-bs-toggle="tab" data-bs-target="#catStats{{ col.name | replace(' ', '') | capitalize }}"
                                                             type="button" role="tab">Categorical Statistics</button>
                                             </li>
                                         {% endif %}
@@ -294,32 +294,32 @@
                                         {% endif %}
                                         <!-- Categorical Overview -->
                                         {% if col.type == 'object' %}
-                                            <div class="tab-pane fade" id="numberStats{{ col.name | replace(' ', '') | capitalize }}" role="tabpanel">
-                                                <div class="row mt-3">
-                                                    {% for cat in categorical %}
-                                                        {% if col.name == cat.name %}
+                                            <div class="tab-pane fade" id="catStats{{ col.name | replace(' ', '') | capitalize }}" role="tabpanel">
+                                                {% for cat in categorical %}
+                                                    {% if col.name == cat.name %}
+                                                        <div class="table-responsive mt-3" style="max-height: 400px; overflow-y: auto;">
                                                             <table class="table table-sm table-striped">
-                                                                <thead>
+                                                                <thead class="sticky-top bg-light">
                                                                 <tr>
                                                                     <th>Statistic</th>
                                                                     <th>Value</th>
                                                                 </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                    <tr><td>Unique Categories</td><td>{{ cat.unique_categories }}</td></tr>
-                                                                    <tr><td>Mode</td><td>{{ cat.mode }}</td></tr>
-                                                                    <tr><td>Entropy</td><td>{{ cat.entropy }}</td></tr>
-                                                                    <tr><td>Gini</td><td>{{ cat.gini }}</td></tr>
-                                                                    <tr><td>Simpson Diversity</td><td>{{ cat.simpson_diversity }}</td></tr>
-                                                                    <tr><td>Max Category Length</td><td>{{ cat.max_category_length }}</td></tr>
-                                                                    <tr><td>Min Category Length</td><td>{{ cat.min_category_length }}</td></tr>
-                                                                    <tr><td>Memory</td><td>{{ cat.memory }}</td></tr>
-                                                                    <tr><td>Cardinality Ratio</td><td>{{ cat.cardinality_ratio }}</td></tr>
+                                                                <tr><td>Unique Categories</td><td>{{ cat.unique_categories }}</td></tr>
+                                                                <tr><td>Mode</td><td>{{ cat.mode }}</td></tr>
+                                                                <tr><td>Entropy</td><td>{{ cat.entropy }}</td></tr>
+                                                                <tr><td>Gini</td><td>{{ cat.gini }}</td></tr>
+                                                                <tr><td>Simpson Diversity</td><td>{{ cat.simpson_diversity }}</td></tr>
+                                                                <tr><td>Min Category Length</td><td>{{ cat.min_category_length }}</td></tr>
+                                                                <tr><td>Max Category Length</td><td>{{ cat.max_category_length }}</td></tr>
+                                                                <tr><td>Memory</td><td>{{ cat.memory }}</td></tr>
+                                                                <tr><td>Cardinality Ratio</td><td>{{ cat.cardinality_ratio }}</td></tr>
                                                                 </tbody>
                                                             </table>
-                                                        {% endif %}
-                                                    {% endfor %}
-                                                </div>
+                                                        </div>
+                                                    {% endif %}
+                                                {% endfor %}
                                             </div>
                                         {% endif %}
                                     </div>
