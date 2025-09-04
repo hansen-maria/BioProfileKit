@@ -137,7 +137,7 @@ def get_correlation(df: pd.DataFrame, col) -> list | None:
 def plot_overview(col):
     if col.dtype != 'object':
         bins = None if col.nunique() < 10 else 10
-        fig = px.histogram(col, nbins=bins, height=350, color_discrete_sequence=['#0F65A0'])
+        fig = px.histogram(col, nbins=bins, color_discrete_sequence=['#0F65A0'])
         fig.update_layout(bargap=0.2, plot_bgcolor='white')
         fig.update_xaxes(
             mirror=True,
