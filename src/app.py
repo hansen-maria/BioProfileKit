@@ -74,7 +74,7 @@ def cli(input: str):
 
 
 
-    cat_columns = [col for col in df.select_dtypes(include='object').columns if any(i.sequence == 'None' for i in column_overviews if i.name == col)]
+    cat_columns = [col for col in df.select_dtypes(include=['object', 'bool']).columns if any(i.sequence == 'None' for i in column_overviews if i.name == col)]
     print(colored(f'Analyse {len(cat_columns)} object columns ', 'blue'))
     categorical_overviews = [categorical_columns(df, col) for col in cat_columns]
 
