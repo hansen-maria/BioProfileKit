@@ -7,16 +7,20 @@ import click
 import pandas as pd
 from jinja2 import Environment, FileSystemLoader
 from termcolor import colored
-
+from importlib_resources import files
 from qc_eda.basic.numerical_data import overview, column_overview, numeric_columns, categorical_columns
 from qc_eda.biological.biological_data import dna_rna_columns, protein_columns
 from qc_eda.biological.measurement_data import measurement_columns
 from utils.file_reader import read_file
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-TEMPLATE_DIR = os.path.join(BASE_DIR, "templates")
-env = Environment(loader=FileSystemLoader(TEMPLATE_DIR), autoescape=True)
+#BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+#STATIC_DIR = os.path.join(BASE_DIR, "static")
+#TEMPLATE_DIR = os.path.join(BASE_DIR, "templates")
+TEMPLATE_DIR = files("templates").joinpath()
+STATIC_DIR = files("static").joinpath()
+print(STATIC_DIR)
+env = Environment(loader=FileSystemLoader(str(TEMPLATE_DIR)), autoescape=True)
 
 
 @click.group(context_settings=CONTEXT_SETTINGS, invoke_without_command=True)
@@ -44,12 +48,10 @@ def cli(input: str):
             print(colored(f'Analyzing DNA/RNA sequences in column: {col_overview.name}', 'cyan'))
             bio_data = dna_rna_columns(df[col_overview.name])
             col_overview.dna_rna_data = bio_data
-            # print(bio_data)
         elif col_overview.sequence == 'protein':
             print(colored(f'Analyzing protein sequences in column: {col_overview.name}', 'cyan'))
             bio_data = protein_columns(df[col_overview.name])
             col_overview.protein_data = bio_data
-            # print(bio_data)
         else:
             col_overview.dna_rna_data = None
             col_overview.protein_data = None
@@ -74,7 +76,10 @@ def cli(input: str):
     categorical_overviews = [categorical_columns(df, col) for col in cat_columns]
 
     Path("renders").mkdir(parents=True, exist_ok=True)
-    shutil.copytree("src/static/", "renders/static/", dirs_exist_ok=True)
+
+    #print(STATIC_DIR)
+    #shutil.copytree(STATIC_DIR, "renders/static/", dirs_exist_ok=True)
+
     landing_template = env.get_template('LandingPage.jinja')
     numeric_template = env.get_template('numeric_overview.jinja')
     columns = env.get_template('columns.jinja')

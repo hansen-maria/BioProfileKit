@@ -16,7 +16,7 @@ authors = [
     {name = "Sonja Diedrich", email = "sonja.diedrich@computational.bio.uni-giessen.de"},
     {name = "Maria Hansen", email = "maria.hansen@computational.bio.uni-giessen.de"}
 ]
-license = {file="LICENCE"}
+license = {file="LICENSE"}
 requires-python = ">=3.13"
 
 dependencies = [
@@ -40,12 +40,19 @@ cli = ["click"]
 
 [tool.setuptools]
 package-dir = {"" = "src"}
-
-[tool.setuptools.packages.find]
-where = ["src"]
+packages = {find = {where = ["src"]}}
+include-package-data = true
 
 [tool.setuptools.package-data]
-"qc_eda" = ["qc_eda/templates/*.jinja"]
+"static" = ["static/**/*"]
+"templates"= ["*.jinja"]
+
+[tool.setuptools.exclude-package-data]
+"*" = [
+    "*.pyc",
+    "*/__pycache__/*",
+    "*.egg-info"
+]
 
 [project.scripts]
 bioprofilekit = "app:cli"
