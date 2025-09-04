@@ -220,7 +220,7 @@
                                             {% endif %}
                                         {% endfor %}
                                     {% endif %}
-                                <!-- TODO: Add missing badges - Skewness, Duplicates, Imbalance, Diff Sequence Length, Biological Naming, Diff Units -->
+                                    <!-- TODO: Add missing badges - Skewness, Duplicates, Imbalance, Diff Sequence Length, Biological Naming, Diff Units -->
                                     {% if col.measurement_data %}
                                         {% if col.measurement_data.with_measurement %}
                                             <span class="badge bg-warning">Mixed Values</span>
@@ -254,15 +254,14 @@
                                             {% endfor %}
                                         {% endif %}
                                     </div>
+                                </div>
 
-                                    <!-- Rechte Spalte: Plot -->
-                                    <div class="col-md-6 d-flex justify-content-center" style="padding-top: 60px;">
-                                        {% if col.describe_plot %}
-                                            <div class="plot-container mb-4" style="max-height: 300px; overflow: hidden;">
-                                                {{ col.describe_plot | safe }}
-                                            </div>
-                                        {% endif %}
-                                    </div>
+                                <div class="row w-100">
+                                    {% if col.describe_plot %}
+                                        <div class="plot-container mb-4" style="max-height: fit-content; overflow: scroll;">
+                                            {{ col.describe_plot | safe }}
+                                        </div>
+                                    {% endif %}
                                 </div>
 
                                 {% if col.sequence == 'None' %}
@@ -446,8 +445,8 @@
                                                 <!-- K-mers Tab -->
                                                 <div class="tab-pane fade" id="kmers{{ col.name | replace(' ', '') | capitalize }}" role="tabpanel">
                                                     {% if col.dna_rna_data.plot %}
-                                                        <div class="col-md-6 d-flex justify-content-center">
-                                                            <div class="plot-container mb-4" style="max-height: 300px; overflow: hidden;">
+                                                        <div class="row w-100">
+                                                            <div class="plot-container mb-4" style="max-height: fit-content; overflow: scroll;">
                                                                 {{ col.dna_rna_data.plot | safe }}
                                                             </div>
                                                         </div>
@@ -628,17 +627,6 @@
                                                     </div>
 
                                                     <div class="row mt-3">
-                                                        <!-- TODO Add ?
-                                                        <div class="col-md-4">
-                                                            <h6>Frequency Statistics</h6>
-                                                            {#% set freq = col.protein_data.frequency %#}
-                                                            <table class="table table-sm">
-                                                                <tr><td>Min Frequency:</td><td> "%.4f"|format(freq|min) }}</td></tr>
-                                                                <tr><td>Max Frequency:</td><td> "%.4f"|format(freq|max) }}</td></tr>
-                                                                <tr><td>Mean Frequency:</td><td> "%.4f"|format((freq|sum) / (freq|length)) }}</td></tr>
-                                                            </table>
-                                                        </div>
-                                                        -->
                                                         <div class="col-md-4">
                                                             <h6>Hydrophobicity Statistics</h6>
                                                             {% set hydro = col.protein_data.hydrophobicity %}
@@ -785,8 +773,8 @@
                                                 <!-- K-mers Tab -->
                                                 <div class="tab-pane fade" id="proteinKmers{{ col.name | replace(' ', '') | capitalize }}" role="tabpanel">
                                                     {% if col.protein_data.plot %}
-                                                        <div class="col-md-6 d-flex justify-content-center">
-                                                            <div class="plot-container mb-4" style="max-height: 300px; overflow: hidden;">
+                                                        <div class="row w-100">
+                                                            <div class="plot-container mb-4" style="max-height: fit-content; overflow: scroll;">
                                                                 {{ col.protein_data.plot | safe }}
                                                             </div>
                                                         </div>
