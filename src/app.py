@@ -72,7 +72,7 @@ def cli(input: str):
 
     numeric_overviews = [numeric_columns(df, col) for col in df.select_dtypes(include='number').columns]
 
-
+    print(numeric_overviews)
 
     cat_columns = [col for col in df.select_dtypes(include=['object', 'bool']).columns if any(i.sequence == 'None' for i in column_overviews if i.name == col)]
     print(colored(f'Analyse {len(cat_columns)} object columns ', 'blue'))

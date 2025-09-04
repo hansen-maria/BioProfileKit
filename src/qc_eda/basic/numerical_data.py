@@ -50,7 +50,6 @@ class ColumnOverview:
     constant: bool
     # constant_values: bool
     correlation: list[str] | None
-    top_10: pd.Series
     taxonomy: bool
 
 
@@ -71,6 +70,9 @@ class NumericColumns:
     mode: float
     quantiles: ndarray
     memory: int
+    value_counts: dict
+    frequencies: dict
+
     # cardinalities: list[int]
 
 
@@ -116,7 +118,6 @@ def column_overview(df: pd.DataFrame, col) -> ColumnOverview:
         describe_plot=plot_overview(df[col]),
         constant=True if (df[col].nunique() == 1) else False,
         correlation=get_correlation(df, col),
-        top_10=df[col].value_counts().head(10),
         taxonomy=rank_taxonomy(df, col)
     )
 
@@ -136,7 +137,10 @@ def numeric_columns(df: pd.DataFrame, col) -> NumericColumns:
         mad=stats.median_abs_deviation(df[col], nan_policy='omit'),  # Ignore NaN values, set Warning
         coefficient_of_variation=round(stats.variation(df[col], nan_policy='omit'), 2),
         quantiles=stats.quantile(df[col], [0.25, 0.5, 0.75]),
-        memory=df[col].memory_usage(deep=True)
+        memory=df[col].memory_usage(deep=True),
+        value_counts = df[col].value_counts().head(20).to_dict(),
+        frequencies = df[col].value_counts(normalize=True).head(20).to_dict()
+
     )
 
 
