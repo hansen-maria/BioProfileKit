@@ -1,12 +1,12 @@
 from dataclasses import dataclass
 
+import numpy as np
 import pandas as pd
 import plotly.express as px
+from iteration_utilities import deepflatten
 from numpy import ndarray
 from pandas.api.types import infer_dtype
 from scipy import stats
-from iteration_utilities import deepflatten
-import numpy as np
 
 from .sequence_enum import Sequence
 from .taxonomy_validator import validate_taxonomy
@@ -137,8 +137,8 @@ def numeric_columns(df: pd.DataFrame, col) -> NumericColumns:
         coefficient_of_variation=round(stats.variation(df[col], nan_policy='omit'), 2),
         quantiles=stats.quantile(df[col], [0.25, 0.5, 0.75]),
         memory=df[col].memory_usage(deep=True),
-        value_counts = df[col].value_counts().head(20).to_dict(),
-        frequencies = df[col].value_counts(normalize=True).head(20).to_dict()
+        value_counts=df[col].value_counts().head(20).to_dict(),
+        frequencies=df[col].value_counts(normalize=True).head(20).to_dict()
 
     )
 
@@ -167,6 +167,7 @@ def categorical_columns(df: pd.DataFrame, col: str) -> CategoricalColumns:
         memory=df[col].memory_usage(deep=True),
         cardinality_ratio=round(df[col].nunique() / n, 3)
     )
+
 
 def get_correlation(df: pd.DataFrame, col) -> list | None:
     ncols = df.select_dtypes(include='number').columns
@@ -234,4 +235,3 @@ def rank_taxonomy(df, col):
         print(results)
 
     return False
-

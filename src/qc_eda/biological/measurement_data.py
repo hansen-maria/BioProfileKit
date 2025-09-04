@@ -29,8 +29,6 @@ def measurement_columns(column_overview: ColumnOverview, df: pd.DataFrame) -> UN
             if all(len(x) > 1 for x in values):
                 measurement_and_unit = match_units(values, MEASUREMENTS.UNIT_COLUMN.value)
                 if len(measurement_and_unit) > 0:
-                    # print(measurement_and_unit)
-                    # print(values)
                     return UNITColumns(
                         units=[unit.split(' ')[1] if ' ' in unit else unit for unit in measurement_and_unit],
                         unit_counts=df[column_overview.name].value_counts(dropna=False).to_dict(),

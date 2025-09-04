@@ -30,7 +30,7 @@ dependencies = [
     "termcolor==3.1.0",
     "pyarrow==21.0.0",
     "peptides==0.4.0",
-    "iteration-utilities==0.13.0",
+    "iteration_utilities==0.13.0",
     "requests==2.32.5",
     "goatools==1.5.1"
 ]

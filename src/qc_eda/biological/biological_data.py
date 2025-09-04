@@ -1,11 +1,6 @@
 """
-Value counts for String/Text
-DNA/RNA: GC content, length, k-Mers, Nucleotide count
-Proteins: AA composition, frequency, hydrophobicity/hydrophilicity, charge distribution, molecular weight,
-isoelectric point, aliphatic index, Boman index, aromaticity, instability index, motifs
 Taxonomy: capitalization patterns, potentially invalid names,
 strain info in separate field => Flag for 2 Columns?
-lab measurements; units
 """
 from collections import defaultdict, Counter
 from dataclasses import dataclass

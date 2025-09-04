@@ -1,7 +1,7 @@
 #! usr/bin/env Python3
 import os
-from pathlib import Path
 import shutil
+from pathlib import Path
 
 import click
 import pandas as pd
@@ -16,7 +16,7 @@ from utils.file_reader import read_file
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 TEMPLATE_DIR = os.path.join(BASE_DIR, "templates")
-env = Environment(loader=FileSystemLoader(TEMPLATE_DIR), autoescape=True,)
+env = Environment(loader=FileSystemLoader(TEMPLATE_DIR), autoescape=True)
 
 
 @click.group(context_settings=CONTEXT_SETTINGS, invoke_without_command=True)
@@ -30,20 +30,16 @@ def cli(input: str):
     general = overview(df, input_path.name)
     dups = df[df.duplicated(keep=False)]
     dups = dups.reset_index()
-    duplicates_table = dups.to_html(classes="table table-hover table-responsive nowrap", border="0", table_id="dup_table",
-                             index=False)
+    duplicates_table = dups.to_html(classes="table table-hover table-responsive nowrap", border="0",
+                                    table_id="dup_table",
+                                    index=False)
     print(colored(f'Analyse {len(df.columns)} columns', 'blue'))
 
     column_overviews = [column_overview(df, col) for col in df.columns]
-    """for i in column_overviews:
-        if i.sequence == 'dna':
-            bio = dna_rna_columns(df[i.name])
-            print(bio)
-    print(colored(f'Analyse {len(df.select_dtypes(include='number').columns)} numeric columns ', 'blue'))"""
 
     for col_overview in column_overviews:
         if hasattr(col_overview, "top_10") and isinstance(col_overview.top_10, pd.Series):
-            col_overview.top_10_items = list(col_overview.top_10.items()) # Needed for jinja2
+            col_overview.top_10_items = list(col_overview.top_10.items())  # Needed for jinja2
         if col_overview.sequence == 'dna':
             print(colored(f'Analyzing DNA/RNA sequences in column: {col_overview.name}', 'cyan'))
             bio_data = dna_rna_columns(df[col_overview.name])
@@ -72,12 +68,10 @@ def cli(input: str):
 
     numeric_overviews = [numeric_columns(df, col) for col in df.select_dtypes(include='number').columns]
 
-    print(numeric_overviews)
-
-    cat_columns = [col for col in df.select_dtypes(include=['object', 'bool', 'int64', 'float64']).columns if any(i.sequence == 'None' for i in column_overviews if i.name == col)]
+    cat_columns = [col for col in df.select_dtypes(include=['object', 'bool', 'int64', 'float64']).columns if
+                   any(i.sequence == 'None' for i in column_overviews if i.name == col)]
     print(colored(f'Analyse {len(cat_columns)} object columns ', 'blue'))
     categorical_overviews = [categorical_columns(df, col) for col in cat_columns]
-
 
     Path("renders").mkdir(parents=True, exist_ok=True)
     shutil.copytree("src/static/", "renders/static/", dirs_exist_ok=True)
@@ -93,4 +87,5 @@ def cli(input: str):
         print(numeric_template.render(general=general, dups=duplicates_table), file=output)
 
     with open("renders/columns.html", "w") as output:
-        print(columns.render(columns=column_overviews, overview=numeric_overviews, categorical=categorical_overviews), file=output)
+        print(columns.render(columns=column_overviews, overview=numeric_overviews, categorical=categorical_overviews),
+              file=output)
