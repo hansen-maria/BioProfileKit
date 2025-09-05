@@ -125,7 +125,7 @@ def protein_descriptors(peptide: str) -> Dict[str, str | float | dict[str, float
     descriptors["iep"] = p.isoelectric_point()
     descriptors["iidx"] = p.instability_index()
     descriptors["mol"] = p.molecular_weight()
-    descriptors["aroma"] = sum([peptide.count(aa) for aa in ('H', 'F', 'W', 'Y')]) / len(peptide)
+    descriptors["aroma"] = sum([peptide.count(aa) for aa in ('F', 'W', 'Y')]) / len(peptide)
     return descriptors
 
 
