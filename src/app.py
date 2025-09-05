@@ -12,14 +12,11 @@ from qc_eda.basic.numerical_data import overview, column_overview, numeric_colum
 from qc_eda.biological.biological_data import dna_rna_columns, protein_columns
 from qc_eda.biological.measurement_data import measurement_columns
 from utils.file_reader import read_file
+from qc_eda.basic.general import correlation_heatmap, missing_matrix, boxplot
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
-#BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-#STATIC_DIR = os.path.join(BASE_DIR, "static")
-#TEMPLATE_DIR = os.path.join(BASE_DIR, "templates")
 TEMPLATE_DIR = files("templates").joinpath()
 STATIC_DIR = files("static").joinpath()
-print(STATIC_DIR)
 env = Environment(loader=FileSystemLoader(str(TEMPLATE_DIR)), autoescape=True)
 
 
@@ -32,6 +29,9 @@ def cli(input: str):
 
     df = read_file(input_path)
     general = overview(df, input_path.name)
+    correlation_heatmap(df)
+    missing_matrix(df)
+    boxplot(df)
     dups = df[df.duplicated(keep=False)]
     dups = dups.reset_index()
     duplicates_table = dups.to_html(classes="table table-hover table-responsive nowrap", border="0",
