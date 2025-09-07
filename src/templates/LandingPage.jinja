@@ -23,8 +23,17 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
+                <li class="nav-item active"><a class="nav-link active" aria-current="page" href="#!">Home</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Services
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="numeric_data.html">Overview of Analysis</a>
+                        <a class="dropdown-item" href="columns.html">Column Analysis</a>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </li>
             </ul>
         </div>
     </div>
@@ -66,7 +75,7 @@
                             <h2 class="card-title">Column Analysis</h2>
                             <p class="card-text">Comprehensive examination of individual data columns including statistical distributions, data quality metrics, and variable characteristics. Key statistics, missing value patterns, and outlier identification deliver focused insights into each attribute's behavior and reliability - essential for informed data preprocessing and modeling decisions.</p>
                         </div>
-                        <div class="card-footer"><a class="btn btn-cb-primary btn-sm" href=columns.html>More Info</a></div>
+                        <div class="card-footer"><a class="btn btn-cb-primary btn-sm" href="columns.html">More Info</a></div>
                     </div>
                 </div>
                 <div class="col-md-4 mb-5">
