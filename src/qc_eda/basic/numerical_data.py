@@ -9,7 +9,6 @@ from pandas.api.types import infer_dtype
 from scipy import stats
 
 from .sequence_enum import Sequence
-from .taxonomy_validator import validate_taxonomy
 from .wrapper_utils import fast_check_sequence
 
 """
@@ -49,7 +48,7 @@ class ColumnOverview:
     describe_plot: str | None
     constant: bool
     correlation: list[str] | None
-    taxonomy: bool
+    # taxonomy: bool
 
 
 @dataclass
@@ -117,7 +116,6 @@ def column_overview(df: pd.DataFrame, col) -> ColumnOverview:
         describe_plot=plot_overview(df[col]),
         constant=True if (df[col].nunique() == 1) else False,
         correlation=get_correlation(df, col),
-        taxonomy=rank_taxonomy(df, col)
     )
 
 
@@ -223,7 +221,7 @@ def check_sequence(df, col):
     return "None"
 
 
-def rank_taxonomy(df, col):
+"""def rank_taxonomy(df, col):
     if df[col].dtype != 'object':
         return False
 
@@ -234,4 +232,4 @@ def rank_taxonomy(df, col):
         results = set(deepflatten(results.value_counts().index.tolist(), depth=1))
         print(results)
 
-    return False
+    return False"""

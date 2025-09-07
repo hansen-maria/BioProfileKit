@@ -11,6 +11,8 @@ from importlib_resources import files
 from qc_eda.basic.numerical_data import overview, column_overview, numeric_columns, categorical_columns
 from qc_eda.biological.biological_data import dna_rna_columns, protein_columns
 from qc_eda.biological.measurement_data import measurement_columns
+from qc_eda.biological.taxonomy import taxonomy_flags
+from utils.download_metadata import get_tax_ids
 from utils.file_reader import read_file
 from qc_eda.basic.general import correlation_heatmap, missing_matrix, boxplot
 
@@ -23,15 +25,17 @@ env = Environment(loader=FileSystemLoader(str(TEMPLATE_DIR)), autoescape=True)
 @click.group(context_settings=CONTEXT_SETTINGS, invoke_without_command=True)
 @click.option("-i", "--input", type=click.Path(exists=True, resolve_path=True), required=True,
               help="Input file as .tsv, .csv or .json", )
-def cli(input: str):
+@click.option('-t','--tax', is_flag=True,help='Enable taxonomy analysis' )
+def cli(input: str, tax: bool = False):
     input_path = Path(input)
     print(colored(f'Reading file {input_path.name}', 'green'))
 
     df = read_file(input_path)
     general = overview(df, input_path.name)
-    correlation_heatmap(df)
-    missing_matrix(df)
-    boxplot(df)
+    #correlation_heatmap(df)
+    #missing_matrix(df)
+    #boxplot(df)
+
     dups = df[df.duplicated(keep=False)]
     dups = dups.reset_index()
     duplicates_table = dups.to_html(classes="table table-hover table-responsive nowrap", border="0",
@@ -40,6 +44,12 @@ def cli(input: str):
     print(colored(f'Analyse {len(df.columns)} columns', 'blue'))
 
     column_overviews = [column_overview(df, col) for col in df.columns]
+
+    # ToDo Taxonomy ist da
+    if tax:
+        tax_df = get_tax_ids()
+        taxonomy = [taxonomy_flags(df, col, tax_df) for col in df.columns]
+        taxonomy = filter(None, taxonomy)
 
     for col_overview in column_overviews:
         if hasattr(col_overview, "top_10") and isinstance(col_overview.top_10, pd.Series):

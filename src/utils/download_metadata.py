@@ -64,4 +64,4 @@ def get_tax_ids():
 
 # get_gene_ontology()
 # get_clusters_of_orthologous_groups()
-get_tax_ids()
+#get_tax_ids()
