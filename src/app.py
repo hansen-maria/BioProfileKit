@@ -1,5 +1,5 @@
 #! /usr/bin/env python3
-import os
+
 import shutil
 from pathlib import Path
 
@@ -49,6 +49,7 @@ def cli(input: str, tax: bool = False, func: str = None):
 
     # ToDo Taxonomy ist da
     taxonomy = None
+    tax_df = None
     if tax:
         tax_df = get_tax_ids()
         taxonomy = [taxonomy_flags(df, col, tax_df) for col in df.columns]
@@ -60,6 +61,8 @@ def cli(input: str, tax: bool = False, func: str = None):
         print(annotation)
 
     for col_overview in column_overviews:
+        if tax and tax_df is not None:
+            col_overview.taxonomy = taxonomy_flags(df, col_overview.name, tax_df)
         if hasattr(col_overview, "top_10") and isinstance(col_overview.top_10, pd.Series):
             col_overview.top_10_items = list(col_overview.top_10.items())  # Needed for jinja2
         if col_overview.sequence == 'dna':
@@ -112,7 +115,7 @@ def cli(input: str, tax: bool = False, func: str = None):
 
     with open("renders/columns.html", "w",encoding="utf-8") as output:
         print(columns.render(columns=column_overviews, overview=numeric_overviews, categorical=categorical_overviews,
-                             taxonomy=taxonomy, annotation=annotation), file=output)
+                             annotation=annotation), file=output)
 
     with open("renders/general_statistics.html", "w",encoding="utf-8") as output:
         print(stats.render(), file=output)

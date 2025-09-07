@@ -102,6 +102,9 @@
                                 {{ col.name.replace('_', ' ').title() }}
                             </button>
                              <div class="m-2 d-flex">
+                                {% if col.taxonomy and col.taxonomy.is_taxonomy and col.taxonomy.taxonomy is not string %}
+                                    <span class="badge bg-danger me-2">Taxonomy invalid</span>
+                                {% endif %}
                                 {% if col.unique == 1 %}
                                     <span class="badge bg-danger me-2">Constant</span>
                                 {% endif %}
@@ -154,8 +157,12 @@
                                         {% if col.sequence != 'None' %}
                                             <strong>Sequence type:</strong> {{ col.sequence }}<br>
                                         {% endif %}
-                                        {% if col.taxonomy %}
-                                            <strong>Taxonomy:</strong> {{ col.taxonomy }}<br>
+                                        {% if col.taxonomy and col.taxonomy.is_taxonomy %}
+                                           {% if col.taxonomy.taxonomy is string %}
+                                               <strong>Taxonomy:</strong> {{ col.taxonomy.taxonomy }}<br>
+                                           {% else %}
+                                               <strong>Taxonomy:</strong> Invalid<br>
+                                           {% endif %}
                                         {% endif %}
                                         {% if col.correlation %}
                                             <strong>Correlates with:</strong><br>
@@ -206,6 +213,14 @@
                                                         type="button" role="tab">Categorical Statistics</button>
                                             </li>
                                         {% endif %}
+
+                                        {% if col.taxonomy is defined and col.taxonomy is not none and col.taxonomy.is_taxonomy and col.taxonomy.taxonomy is not string %}
+                                            <li class="nav-item" role="presentation">
+                                                <button class="nav-link" id="tax-stats-tab{{ col.name | replace(' ', '') | capitalize }}"
+                                                        data-bs-toggle="tab" data-bs-target="#taxStats{{ col.name | replace(' ', '') | capitalize }}"
+                                                        type="button" role="tab">Taxonomy</button>
+                                            </li>
+                                        {% endif %}
                                     </ul>
 
                                     <div class="tab-content" id="objectTabContent{{ col.name | replace(' ', '') | capitalize }}">
@@ -252,6 +267,27 @@
                                                             <tr>
                                                                 <td>{{ unit }}</td>
                                                                 <td>{{ count }}</td>
+                                                            </tr>
+                                                        {% endfor %}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                        <!-- Taxonomy Tab -->
+                                        {% if col.taxonomy is defined and col.taxonomy is not none and col.taxonomy.is_taxonomy and col.taxonomy.taxonomy is not string %}
+                                            <div class="tab-pane fade" id="taxStats{{ col.name | replace(' ', '') | capitalize }}" role="tabpanel">
+                                                <div class="table-responsive mt-3" style="max-height: 400px; overflow-y: auto;">
+                                                    <table class="table table-sm table-striped">
+                                                        <thead class="sticky-top bg-light">
+                                                        <tr>
+                                                            <th>Taxonomy</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        {% for tax in col.taxonomy.taxonomy %}
+                                                            <tr>
+                                                                <td>{{ tax }}</td>
                                                             </tr>
                                                         {% endfor %}
                                                         </tbody>
@@ -466,7 +502,7 @@
                                                                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                                                                     data-bs-target="#kmer{{ col.name | replace(' ', '') | capitalize }}{{ i }}"
                                                                                     aria-expanded="false">
-                                                                                Sequence #{{ i + 1 }} ({{ col.dna_rna_data.length[i] }} bp)
+                                                                                <strong>#{{ i + 1 }}</strong> &nbsp;{{ col.dna_rna_data.sequence[i]}} ({{ col.dna_rna_data.length[i] }} bp)
                                                                             </button>
                                                                         </h2>
                                                                         <div id="kmer{{ col.name | replace(' ', '') | capitalize }}{{ i }}"
@@ -794,7 +830,7 @@
                                                                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                                                                     data-bs-target="#proteinKmer{{ col.name | replace(' ', '') | capitalize }}{{ i }}"
                                                                                     aria-expanded="false">
-                                                                                Protein #{{ i + 1 }} ({{ col.protein_data.length[i] }} AA)
+                                                                               <strong>#{{ i + 1 }}</strong> &nbsp; col.protein_data.sequence[i] ({{ col.protein_data.length[i] }} AA)
                                                                             </button>
                                                                         </h2>
                                                                         <div id="proteinKmer{{ col.name | replace(' ', '') | capitalize }}{{ i }}"
