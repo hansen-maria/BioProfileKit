@@ -105,6 +105,9 @@
                                 {% if col.taxonomy and col.taxonomy.is_taxonomy and col.taxonomy.taxonomy is not string %}
                                     <span class="badge bg-danger me-2">Taxonomy invalid</span>
                                 {% endif %}
+                                 {% if col.annotation and col.annotation.is_annotation and col.taxonomy.valid_annotation is not string %}
+                                    <span class="badge bg-danger me-2">Annotation invalid</span>
+                                {% endif %}
                                 {% if col.unique == 1 %}
                                     <span class="badge bg-danger me-2">Constant</span>
                                 {% endif %}
@@ -164,6 +167,13 @@
                                                <strong>Taxonomy:</strong> Invalid<br>
                                            {% endif %}
                                         {% endif %}
+                                        {% if col.annotation and col.annotation.is_annotation %}
+                                           {% if col.annotation.valid_annotation is string %}
+                                               <strong>Functional Annotation:</strong> {{ col.annotation.valid_annotation }}<br>
+                                           {% else %}
+                                               <strong>Functional Annotation:</strong> Invalid<br>
+                                           {% endif %}
+                                        {% endif %}
                                         {% if col.correlation %}
                                             <strong>Correlates with:</strong><br>
                                             {% for corr in col.correlation %}
@@ -218,7 +228,7 @@
                                             <li class="nav-item" role="presentation">
                                                 <button class="nav-link" id="tax-stats-tab{{ col.name | replace(' ', '') | capitalize }}"
                                                         data-bs-toggle="tab" data-bs-target="#taxStats{{ col.name | replace(' ', '') | capitalize }}"
-                                                        type="button" role="tab">Taxonomy</button>
+                                                        type="button" role="tab">Invalid Taxonomy</button>
                                             </li>
                                         {% endif %}
                                     </ul>
@@ -227,7 +237,7 @@
                                         <!-- Object Stats Tab -->
                                         <div class="tab-pane fade show active" id="objectStats{{ col.name | replace(' ', '') | capitalize }}" role="tabpanel">
                                             <div class="table-responsive mt-3" style="max-height: 400px; overflow-y: auto;">
-                                                <table class="table table-sm table-striped">
+                                                <table class="table table-sm table-striped w-100" style="min-width: 600px;">
                                                     <thead class="sticky-top bg-light">
                                                     <tr>
                                                         <th>Value</th>
@@ -255,7 +265,7 @@
                                         {% if col.measurement_data %}
                                             <div class="tab-pane fade" id="unitStats{{ col.name | replace(' ', '') | capitalize }}" role="tabpanel">
                                                 <div class="table-responsive mt-3" style="max-height: 400px; overflow-y: auto;">
-                                                    <table class="table table-sm table-striped">
+                                                <table class="table table-sm table-striped w-100" style="min-width: 500px;">
                                                         <thead class="sticky-top bg-light">
                                                         <tr>
                                                             <th>Unit</th>
@@ -278,7 +288,7 @@
                                         {% if col.taxonomy is defined and col.taxonomy is not none and col.taxonomy.is_taxonomy and col.taxonomy.taxonomy is not string %}
                                             <div class="tab-pane fade" id="taxStats{{ col.name | replace(' ', '') | capitalize }}" role="tabpanel">
                                                 <div class="table-responsive mt-3" style="max-height: 400px; overflow-y: auto;">
-                                                    <table class="table table-sm table-striped">
+                                                <table class="table table-sm table-striped w-100" style="min-width: 500px;">
                                                         <thead class="sticky-top bg-light">
                                                         <tr>
                                                             <th>Taxonomy</th>
@@ -301,7 +311,7 @@
                                                 <div class="table-responsive mt-3" style="max-height: 400px; overflow-y: auto;">
                                                     {% for ov in overview %}
                                                         {% if ov.name == col.name %}
-                                                            <table class="table table-sm table-striped">
+                                                <table class="table table-sm table-striped w-100" style="min-width: 450px;">
                                                                 <thead>
                                                                 <tr>
                                                                     <th>Statistic</th>
@@ -341,8 +351,8 @@
                                             <div class="tab-pane fade" id="catStats{{ col.name | replace(' ', '') | capitalize }}" role="tabpanel">
                                                 {% for cat in categorical %}
                                                     {% if col.name == cat.name %}
-                                                        <div class="table-responsive mt-3" style="max-height: 400px; overflow-y: auto;">
-                                                            <table class="table table-sm table-striped">
+                                                        <div class="table-responsive mt-3" style="max-height: 400px; overflow-x: auto; overflow-y: auto;">
+                                                            <table class="table table-sm table-striped w-100" style="min-width: 400px;">
                                                                 <thead class="sticky-top bg-light">
                                                                 <tr>
                                                                     <th>Statistic</th>
@@ -830,7 +840,7 @@
                                                                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                                                                     data-bs-target="#proteinKmer{{ col.name | replace(' ', '') | capitalize }}{{ i }}"
                                                                                     aria-expanded="false">
-                                                                               <strong>#{{ i + 1 }}</strong> &nbsp; col.protein_data.sequence[i] ({{ col.protein_data.length[i] }} AA)
+                                                                               <strong>#{{ i + 1 }}</strong> &nbsp; {{col.protein_data.sequence[i]}} ({{ col.protein_data.length[i] }} AA)
                                                                             </button>
                                                                         </h2>
                                                                         <div id="proteinKmer{{ col.name | replace(' ', '') | capitalize }}{{ i }}"

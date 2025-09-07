@@ -6,7 +6,7 @@ class TaxonomyFlags:
     name: str
     is_taxonomy: bool
     taxid: set | str | None
-    taxonomy: set | str | None
+    taxonomy: list | str | None
 
 
 def taxonomy_flags(df, col, tax_df) -> TaxonomyFlags:
@@ -64,7 +64,7 @@ def is_taxid(col: pd.Series, tax_df: pd.DataFrame, threshold: float = 0.9) -> se
     return None
 
 
-def is_taxonomy(col: pd.Series, tax_df: pd.DataFrame, threshold: float = 0.8) -> set | str | None:
+def is_taxonomy(col: pd.Series, tax_df: pd.DataFrame, threshold: float = 0.8) -> list | str | None:
     valid_names = set(tax_df['name_txt'])
     is_valid = col.isin(valid_names)
     validity_rate = is_valid.sum() / len(col)
@@ -78,9 +78,9 @@ def is_taxonomy(col: pd.Series, tax_df: pd.DataFrame, threshold: float = 0.8) ->
             validity_rate = validity_rate_cleaned
 
     if validity_rate > threshold:
-        invalid_names_list = col.loc[~is_valid].tolist()
+        invalid_names_list = col.loc[~is_valid & col.notnull()].unique().tolist()
         if invalid_names_list:
-            return set(sorted(invalid_names_list))
+            return sorted(invalid_names_list)
         else:
             return "Valid"
     return None

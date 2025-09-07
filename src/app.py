@@ -47,24 +47,16 @@ def cli(input: str, tax: bool = False, func: str = None):
 
     column_overviews = [column_overview(df, col) for col in df.columns]
 
-    # ToDo Taxonomy ist da
-    taxonomy = None
     tax_df = None
     if tax:
         tax_df = get_tax_ids()
-        taxonomy = [taxonomy_flags(df, col, tax_df) for col in df.columns]
-        print(taxonomy)
-    #ToDo Functional Annotation ist da
-    annotation = None
-    if func:
-        annotation = [annotation_flags(df, col, func) for col in df.columns]
-        print(annotation)
-
     for col_overview in column_overviews:
         if tax and tax_df is not None:
             col_overview.taxonomy = taxonomy_flags(df, col_overview.name, tax_df)
+        if func and tax_df is not None:
+            col_overview.annotation = [annotation_flags(df, col_overview.name, func)]
         if hasattr(col_overview, "top_10") and isinstance(col_overview.top_10, pd.Series):
-            col_overview.top_10_items = list(col_overview.top_10.items())  # Needed for jinja2
+            col_overview.top_10_items = list(col_overview.top_10.items())
         if col_overview.sequence == 'dna':
             print(colored(f'Analyzing DNA/RNA sequences in column: {col_overview.name}', 'cyan'))
             bio_data = dna_rna_columns(df[col_overview.name])
@@ -98,7 +90,6 @@ def cli(input: str, tax: bool = False, func: str = None):
 
     Path("renders").mkdir(parents=True, exist_ok=True)
 
-    #print(STATIC_DIR)
     shutil.copytree(str(STATIC_DIR), "renders/static/", dirs_exist_ok=True)
 
     landing_template = env.get_template('LandingPage.jinja')
@@ -114,8 +105,7 @@ def cli(input: str, tax: bool = False, func: str = None):
         print(numeric_template.render(general=general, dups=duplicates_table), file=output)
 
     with open("renders/columns.html", "w",encoding="utf-8") as output:
-        print(columns.render(columns=column_overviews, overview=numeric_overviews, categorical=categorical_overviews,
-                             annotation=annotation), file=output)
+        print(columns.render(columns=column_overviews, overview=numeric_overviews, categorical=categorical_overviews), file=output)
 
     with open("renders/general_statistics.html", "w",encoding="utf-8") as output:
         print(stats.render(), file=output)
