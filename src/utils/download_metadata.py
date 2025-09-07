@@ -27,7 +27,7 @@ def get_gene_ontology():
 
 def get_clusters_of_orthologous_groups():
     url: str = "https://ftp.ncbi.nlm.nih.gov/pub/COG/COG2024/data/cog-24.def.tab"
-    fields = ["COG ID", "Functional Category", "COG name"]
+    fields = ["COG_ID", "Functional Category", "COG name"]
     response = requests.get(url)
 
     if response.status_code == 200:
@@ -55,13 +55,9 @@ def get_tax_ids():
                 header=None,
                 index_col=False,
                 names=["tax_id", "name_txt", "unique_name", "name_class"],
-                engine="python"
+                engine="c"
             )
     df = df.map(lambda x: x.strip() if isinstance(x, str) else x)
-    #sci_df = df[df["name_class"] == "scientific name"]
+    #df = df[df["name_class"] == "scientific name"]
     return df
 
-
-# get_gene_ontology()
-# get_clusters_of_orthologous_groups()
-#get_tax_ids()

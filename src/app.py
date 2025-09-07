@@ -10,6 +10,7 @@ from termcolor import colored
 from importlib_resources import files
 from qc_eda.basic.numerical_data import overview, column_overview, numeric_columns, categorical_columns
 from qc_eda.biological.biological_data import dna_rna_columns, protein_columns
+from qc_eda.biological.functional_annotation import annotation_flags
 from qc_eda.biological.measurement_data import measurement_columns
 from qc_eda.biological.taxonomy import taxonomy_flags
 from utils.download_metadata import get_tax_ids
@@ -25,8 +26,9 @@ env = Environment(loader=FileSystemLoader(str(TEMPLATE_DIR)), autoescape=True)
 @click.group(context_settings=CONTEXT_SETTINGS, invoke_without_command=True)
 @click.option("-i", "--input", type=click.Path(exists=True, resolve_path=True), required=True,
               help="Input file as .tsv, .csv or .json", )
-@click.option('-t','--tax', is_flag=True,help='Enable taxonomy analysis' )
-def cli(input: str, tax: bool = False):
+@click.option('-t','--tax', is_flag=True,help='Enable taxonomy analysis')
+@click.option('-f', '--func', type=click.Choice(['cog','go']))
+def cli(input: str, tax: bool = False, func: str = None):
     input_path = Path(input)
     print(colored(f'Reading file {input_path.name}', 'green'))
 
@@ -49,7 +51,11 @@ def cli(input: str, tax: bool = False):
     if tax:
         tax_df = get_tax_ids()
         taxonomy = [taxonomy_flags(df, col, tax_df) for col in df.columns]
-        taxonomy = filter(None, taxonomy)
+        print(taxonomy)
+
+    if func:
+        annotation = [annotation_flags(df, col, func) for col in df.columns]
+        print(annotation)
 
     for col_overview in column_overviews:
         if hasattr(col_overview, "top_10") and isinstance(col_overview.top_10, pd.Series):
