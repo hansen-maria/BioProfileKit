@@ -1,8 +1,11 @@
 import io
+import os
+import pathlib
 import zipfile
 from pathlib import Path
 import pandas as pd
 import requests
+from goatools.base import download_go_basic_obo
 from goatools.obo_parser import GODag
 
 def download_file(url: str, file_path: Path, download_text: str):
@@ -35,17 +38,14 @@ def download_zip_archive(url: str, zip_file_name: str, file_path: Path, download
                         target.write(chunk)
 
         print("\tDownload completed!")
+        #zip_path.unlink()
     else:
         print(f"{download_text} file already exists. Skipping download.")
 
 
 def get_gene_ontology():
-    url = "http://current.geneontology.org/ontology/go-basic.obo"
-    obo_file = Path("go-basic.obo")
-    download_file(url, obo_file, "GO Metadata")
-
-    print("Loading GO DAG File...")
-    go_dag = GODag(str(obo_file))
+    obo_path = download_go_basic_obo()
+    go_dag = GODag(obo_path)
     print(go_dag.version)
     data = list()
     for go_id in go_dag.keys():
@@ -54,51 +54,39 @@ def get_gene_ontology():
         data.append([go_id, term.name, namespace])
 
     df = pd.DataFrame(data, columns=["GO_ID", "Name", "Namespace"])
-
-    print(df)
+    if Path(obo_path).is_file():
+        pathlib.Path(obo_path).unlink(missing_ok=True)
+        print(f"Removed {obo_path}")
 
 
 def get_clusters_of_orthologous_groups():
     url: str = "https://ftp.ncbi.nlm.nih.gov/pub/COG/COG2024/data/cog-24.def.tab"
-    cog_file = Path("cog-24.def.tab")
-    download_file(url, cog_file, "COG Metadata")
+    fields = ["COG ID", "Functional Category", "COG name"]
+    response = requests.get(url)
 
-    print("Loading COG Tab File...")
-    cog_df = pd.read_csv(
-        cog_file,
-        sep="\t",
-        names=[
-            "COG ID",
-            "COG functional category",
-            "COG name",
-            "Gene name associated with the COG",
-            "Functional pathway associated with the COG",
-            "PubMed ID, associated with the COG",
-            "PDB ID of the structure associated with the COG"
-        ]
-    )
-    print(cog_df)
+    if response.status_code == 200:
+        df = pd.read_csv(io.StringIO(response.text), sep="\t", skipinitialspace=True,usecols=[0,1,2], names=fields)
+        print(df)
+    else:
+        print(f"Error: {response.status_code}")
 
 
 def get_tax_ids():
-    url: str = "https://ftp.ncbi.nih.gov/pub/taxonomy/taxcat.zip"
-    tax_file = Path("categories.dmp")
-    taget_path = Path("./")
-    download_zip_archive(url, str(tax_file), taget_path.joinpath(tax_file), "Tax ID Metadata")
+    url: str = "https://ftp.ncbi.nih.gov/pub/taxonomy/taxdmp.zip"
+    tax_file = Path("names.dmp")
+    target_path = Path("./")
+    download_zip_archive(url, str(tax_file), target_path.joinpath(tax_file), "Tax ID Metadata")
 
     print("Loading Tax ID File...")
-    tax_df = pd.read_csv(
-        tax_file,
-        sep="\t",
-        names=[
-            "top-level",
-            "species-level",
-            "taxid"
-        ]
-    )
-    print(tax_df)
+    df = pd.read_csv(tax_file, sep="|\t", header=None, engine='python')
+    df = df.applymap(lambda x: x.strip() if isinstance(x, str) else x)
+    df = df[[0, 1]].dropna()
+    df.columns = ["TaxID", "Name"]
+    df = df.groupby("TaxID")["Name"].apply(lambda x: "; ".join(sorted(set(x)))).reset_index()
+    print(df)
+
 
 
 get_gene_ontology()
-get_clusters_of_orthologous_groups()
-get_tax_ids()
+#get_clusters_of_orthologous_groups()
+#get_tax_ids()
