@@ -1,47 +1,12 @@
 import io
-import os
 import pathlib
 import zipfile
 from pathlib import Path
+
 import pandas as pd
 import requests
 from goatools.base import download_go_basic_obo
 from goatools.obo_parser import GODag
-
-def download_file(url: str, file_path: Path, download_text: str):
-    if not file_path.exists():
-        print(f"Begin download of {download_text} file. This may take a while...")
-        with requests.get(url, stream=True) as response:
-            response.raise_for_status()  # Fehler abfangen
-            with open(file_path, "wb") as f:
-                for chunk in response.iter_content(chunk_size=8192):
-                    f.write(chunk)
-        print("\tDownload completed!")
-    else:
-        print(f"{download_text} file already exists. Skipping download.")
-
-
-def download_zip_archive(url: str, zip_file_name: str, file_path: Path, download_text: str):
-    if not file_path.exists():
-        print(f"Begin download of {download_text} archive. This may take a while...")
-        with requests.get(url, stream=True) as response:
-            response.raise_for_status()
-            buffer = io.BytesIO()
-            for chunk in response.iter_content(chunk_size=8192):
-                if chunk:
-                    buffer.write(chunk)
-            buffer.seek(0)
-
-            with zipfile.ZipFile(buffer) as zf:
-                with zf.open(zip_file_name) as source_file, open(file_path, "wb") as target:
-                    for chunk in iter(lambda: source_file.read(8192), b""):
-                        target.write(chunk)
-
-        print("\tDownload completed!")
-        #zip_path.unlink()
-    else:
-        print(f"{download_text} file already exists. Skipping download.")
-
 
 def get_gene_ontology():
     obo_path = download_go_basic_obo()
@@ -57,6 +22,7 @@ def get_gene_ontology():
     if Path(obo_path).is_file():
         pathlib.Path(obo_path).unlink(missing_ok=True)
         print(f"Removed {obo_path}")
+    return df
 
 
 def get_clusters_of_orthologous_groups():
@@ -65,28 +31,37 @@ def get_clusters_of_orthologous_groups():
     response = requests.get(url)
 
     if response.status_code == 200:
-        df = pd.read_csv(io.StringIO(response.text), sep="\t", skipinitialspace=True,usecols=[0,1,2], names=fields)
-        print(df)
+        df = pd.read_csv(io.StringIO(response.text), sep="\t", skipinitialspace=True, usecols=[0, 1, 2], names=fields)
     else:
         print(f"Error: {response.status_code}")
+    return df
 
 
 def get_tax_ids():
-    url: str = "https://ftp.ncbi.nih.gov/pub/taxonomy/taxdmp.zip"
-    tax_file = Path("names.dmp")
-    target_path = Path("./")
-    download_zip_archive(url, str(tax_file), target_path.joinpath(tax_file), "Tax ID Metadata")
+    url = "https://ftp.ncbi.nih.gov/pub/taxonomy/taxdmp.zip"
 
-    print("Loading Tax ID File...")
-    df = pd.read_csv(tax_file, sep="|\t", header=None, engine='python')
-    df = df.applymap(lambda x: x.strip() if isinstance(x, str) else x)
-    df = df[[0, 1]].dropna()
-    df.columns = ["TaxID", "Name"]
-    df = df.groupby("TaxID")["Name"].apply(lambda x: "; ".join(sorted(set(x)))).reset_index()
-    print(df)
+    print(f"Downloading {url} ...")
+    resp = requests.get(url, stream=True)
+    resp.raise_for_status()
+
+    with zipfile.ZipFile(io.BytesIO(resp.content)) as zf:
+        print("Files inside ZIP:", zf.namelist())
+
+        with zf.open("names.dmp") as fh:
+            print(fh)
+            df = pd.read_csv(
+                fh,
+                sep="|",
+                header=None,
+                index_col=False,
+                names=["tax_id", "name_txt", "unique_name", "name_class"],
+                engine="python"
+            )
+    df = df.map(lambda x: x.strip() if isinstance(x, str) else x)
+    #sci_df = df[df["name_class"] == "scientific name"]
+    return df
 
 
-
-get_gene_ontology()
-#get_clusters_of_orthologous_groups()
-#get_tax_ids()
+# get_gene_ontology()
+# get_clusters_of_orthologous_groups()
+get_tax_ids()
