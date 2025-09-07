@@ -11,7 +11,7 @@ class TaxonomyFlags:
     taxonomy: set | str | None
 
 
-def taxonomy_flags(df, col, tax_df) -> TaxonomyFlags | None:
+def taxonomy_flags(df, col, tax_df) -> TaxonomyFlags:
 
     if df[col].dtype in ['int64', 'float64'] or pd.api.types.is_numeric_dtype(df[col]):
         taxid_result = is_taxid(df[col], tax_df)
@@ -32,7 +32,12 @@ def taxonomy_flags(df, col, tax_df) -> TaxonomyFlags | None:
                 taxonomy=taxonomy_result
             )
 
-    return None
+    return TaxonomyFlags(
+        name=col,
+        is_taxonomy=False,
+        taxid=None,
+        taxonomy=None
+    )
 
 
 def is_taxid(col: pd.Series, tax_df: pd.DataFrame, threshold: float = 0.9) -> set | str | None:
