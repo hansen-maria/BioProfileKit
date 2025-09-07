@@ -1,8 +1,6 @@
 from dataclasses import dataclass
 import pandas as pd
 
-from utils.download_metadata import get_tax_ids
-
 @dataclass
 class TaxonomyFlags:
     name: str
@@ -82,7 +80,7 @@ def is_taxonomy(col: pd.Series, tax_df: pd.DataFrame, threshold: float = 0.8) ->
     if validity_rate > threshold:
         invalid_names_list = col.loc[~is_valid].tolist()
         if invalid_names_list:
-            return set(invalid_names_list)
+            return set(sorted(invalid_names_list))
         else:
             return "Valid"
     return None

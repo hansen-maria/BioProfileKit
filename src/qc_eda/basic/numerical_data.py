@@ -3,7 +3,6 @@ from dataclasses import dataclass
 import numpy as np
 import pandas as pd
 import plotly.express as px
-from iteration_utilities import deepflatten
 from numpy import ndarray
 from pandas.api.types import infer_dtype
 from scipy import stats

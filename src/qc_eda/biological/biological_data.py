@@ -1,17 +1,17 @@
-"""
-Taxonomy: capitalization patterns, potentially invalid names,
-strain info in separate field => Flag for 2 Columns?
-"""
+import tempfile
 from collections import defaultdict, Counter
 from dataclasses import dataclass
 from itertools import chain
+from pathlib import Path
 from typing import Any, List, Dict, Tuple
-
+from Bio import motifs
+from weblogo import *
 import numpy as np
 import pandas as pd
 import peptides
 import plotly.express as px
-
+import ssl
+ssl._create_default_https_context = ssl._create_stdlib_context
 
 @dataclass
 class DNARNAColumns:
@@ -21,7 +21,7 @@ class DNARNAColumns:
     count: List[int]
     nucleotide_count: List[Dict[str, int]]
     k_mers: List[List[Tuple[str, int]]]
-    plot: str | None
+    plot: str
 
 #ToDo: Add Composition over all
 @dataclass
@@ -40,7 +40,7 @@ class PROTEINColumns:
     aromaticity: List[float]
     instability: List[float]
     k_mers: List[List[Tuple[str, int]]]
-    plot: str | None
+    plot: str
 
 
 def count_nmer(sequence, n) -> defaultdict:
@@ -85,18 +85,13 @@ def dna_rna_columns(seqs: pd.Series, k: int = 3, top_n: int = 5) -> DNARNAColumn
 
     nucleotide_count = [dict(Counter(seq)) for seq in uniques]
     k_mers = [top_mere(seq, n=k, top=top_n) for seq in uniques]
-    barplot = None
+
     if min_len == max_len:
-        use_logo = True
-        k = min(6, min_len)
-        print("logo")
+        plot = make_logo(uniques,'color_classic')
     else:
-        use_logo = False
-        k = 3 if max_len >= 6 else 2
-        # Flache Liste mit chain erstellen
         flat_kmers = chain.from_iterable(kmers_seq for kmers_seq in k_mers if kmers_seq)
         kmers, count = zip(*((kmer, np.int64(count)) for kmer, count in flat_kmers))
-        barplot = plot_overview(kmers, count)
+        plot = plot_overview(kmers, count)
 
     return DNARNAColumns(
         sequence=uniques.tolist(),
@@ -105,7 +100,7 @@ def dna_rna_columns(seqs: pd.Series, k: int = 3, top_n: int = 5) -> DNARNAColumn
         count=counts.tolist(),
         nucleotide_count=nucleotide_count,
         k_mers=k_mers,
-        plot=barplot
+        plot=plot
     )
 
 
@@ -136,19 +131,13 @@ def protein_columns(seqs: pd.Series, k: int = 3, top_n: int = 5) -> PROTEINColum
     descriptors = [protein_descriptors(seq) for seq in uniques]
 
     k_mers = [top_mere(seq, n=k, top=top_n) for seq in uniques]
-    barplot = None
     #ToDo Add Desclaimer
     if min_len == max_len:
-        use_logo = True
-        k = min(6, min_len)
-        print("logo")
+        plot = make_logo(uniques, "color_chemistry")
     else:
-        use_logo = False
-        k = 3 if max_len >= 6 else 2
-        # Flache Liste mit chain erstellen
         flat_kmers = chain.from_iterable(kmers_seq for kmers_seq in k_mers if kmers_seq)
         kmers, count = zip(*((kmer, np.int64(count)) for kmer, count in flat_kmers))
-        barplot = plot_overview(kmers, count)
+        plot = plot_overview(kmers, count)
 
     return PROTEINColumns(
         sequence=uniques.tolist(),
@@ -165,8 +154,31 @@ def protein_columns(seqs: pd.Series, k: int = 3, top_n: int = 5) -> PROTEINColum
         aromaticity=[descriptor['aroma'] for descriptor in descriptors],
         instability=[descriptor['iidx'] for descriptor in descriptors],
         k_mers=k_mers,
-        plot=barplot
+        plot=plot
     )
+
+
+def make_logo(seqs, color):
+    m = motifs.create(seqs)
+    with tempfile.NamedTemporaryFile(suffix='.svg', delete=False) as tmp_file:
+        tmp_path = tmp_file.name
+
+    try:
+        m.weblogo(tmp_path, format="svg",color_scheme=color, logo_font="Calibri",logo_margin=3, fontsize=12)
+
+        with open(tmp_path, 'r', encoding='utf-8') as svg_file:
+            svg_content = svg_file.read()
+            if '<svg ' in svg_content:
+                svg_content = svg_content.replace(
+                    '<svg ',
+                    '<svg style="width: 100%; height: 250px; max-width: 800px;" '
+                )
+
+        return svg_content
+
+    finally:
+        if Path(tmp_path).is_file():
+            Path(tmp_path).unlink(missing_ok=True)
 
 
 def plot_overview(kmer, count):
