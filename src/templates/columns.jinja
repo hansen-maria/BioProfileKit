@@ -41,9 +41,9 @@
 <!-- Page Content-->
 <div id="page-container">
     <div id="content-wrap">
-        <div class="container px-4 px-lg-5">
+        <div class="container px-4 px-lg-5 mb-3">
             <!-- Heading Row-->
-            <div class="row gx-4 gx-lg-5 align-items-center my-5">
+            <div class="row gx-4 gx-lg-5 align-items-center mt-5 mb-3">
                 <div class="col-12">
                     <h1 class="font-weight-light">Column Analysis</h1>
                     <p style="text-align: justify">
@@ -55,14 +55,15 @@
             <!-- Content Row-->
 
             <!-- Toggle All Elements -->
-            <div class="row">
-                <p class="d-inline-flex gap-1">
-                    <button class="btn btn-cb-primary" type="button" data-bs-toggle="collapse"
-                            data-bs-target=".multi-collapse" aria-expanded="false"
-                            aria-controls="{% for col in columns %}multiCollapse{{ col.name | replace(' ', '') | capitalize }} {% endfor %}">
-                        Toggle all elements
+            <div class="row mb-3">
+                <div class="d-inline-flex">
+                    <button id="expandAllBtn" class="btn btn-cb-outline-primary me-2" type="button" style="min-width: 250px;">
+                       Expand all Elements
                     </button>
-                </p>
+                    <button id="collapseAllBtn" class="btn btn-cb-outline-primary" type="button" style="min-width: 250px;">
+                       Hide all Elements
+                    </button>
+                </div>
             </div>
 
             {% set items_per_page = 20 %}
@@ -91,55 +92,55 @@
             <!-- Toggle Elements Container -->
             <div id="columns-container">
                 {% for col in columns %}
-                    <div class="column-item row mt-3" data-page="{{ ((loop.index0 // items_per_page)) + 1 }}"
+                    <div class="card row mt-3" data-page="{{ ((loop.index0 // items_per_page)) + 1 }}"
                          style="display: {% if loop.index0 < items_per_page %}block{% else %}none{% endif %};">
-                        <p class="d-inline-flex gap-1 mb-4">
-                            <button class="btn btn-cb-primary" type="button" data-bs-toggle="collapse"
+                        <div class="card-header d-inline-flex gap-1 mb-2">
+                            <button class="btn btn-cb-outline-primary" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#multiCollapse{{ col.name | replace(' ', '') | capitalize }}"
                                     aria-expanded="false"
                                     aria-controls="multiCollapse{{ col.name | replace(' ', '') | capitalize }}" style="min-width: 200px;">
                                 {{ col.name.replace('_', ' ').title() }}
                             </button>
-                        </p>
-                        <div class="collapse multi-collapse "
-                             id="multiCollapse{{ col.name | replace(' ', '') | capitalize }}">
-                            <div class="card card-body d-flex justify-content-between align-items-start mb-4">
-                                <div class="position-absolute top-0 end-0 m-2 d-flex flex-column align-items-end gap-1">
-                                    {% if col.unique == 1 %}
-                                        <span class="badge bg-danger">Constant</span>
-                                    {% endif %}
-                                    {% if col.missing_per > 15 %}
-                                        <span class="badge bg-danger">Missing</span>
-                                    {% elif 5 < col.missing_per < 15 %}
-                                        <span class="badge bg-warning">Missing</span>
-                                    {% elif 0.1 < col.missing_per < 5 %}
-                                        <span class="badge text-bg-light">Missing</span>
-                                    {% endif %}
-                                    {% if col.sequence != 'None' %}
-                                        <span class="badge bg-success">Sequence</span>
-                                    {% elif col.type == 'object' %}
-                                        <span class="badge bg-dark">Object</span>
-                                    {% elif col.type == 'int64' or 'float64' %}
-                                        <span class="badge bg-primary">Number</span>
-                                    {% endif %}
-                                    {% if col.correlation %}
-                                        {% for corr in col.correlation %}
-                                            {% if corr.1 < 0.5 %}
-                                                <span class="badge bg-danger">Low Correlation</span>
-                                            {% elif 0.5 <= corr.1 < 0.7 %}
-                                                <span class="badge bg-warning">Moderate Correlation</span>
-                                            {% else %}
-                                                <span class="badge bg-success">High Correlation</span>
-                                            {% endif %}
-                                        {% endfor %}
-                                    {% endif %}
-                                    <!-- TODO: Add missing badges - Skewness, Duplicates, Imbalance, Diff Sequence Length, Biological Naming, Diff Units -->
-                                    {% if col.measurement_data %}
-                                        {% if col.measurement_data.with_measurement %}
-                                            <span class="badge bg-warning">Mixed Values</span>
+                             <div class="m-2 d-flex">
+                                {% if col.unique == 1 %}
+                                    <span class="badge bg-danger me-2">Constant</span>
+                                {% endif %}
+                                {% if col.missing_per > 15 %}
+                                    <span class="badge bg-danger me-2">Missing</span>
+                                {% elif 5 < col.missing_per < 15 %}
+                                    <span class="badge bg-warning me-2">Missing</span>
+                                {% elif 0.1 < col.missing_per < 5 %}
+                                    <span class="badge text-bg-light me-2">Missing</span>
+                                {% endif %}
+                                {% if col.sequence != 'None' %}
+                                    <span class="badge bg-success me-2">Sequence</span>
+                                {% elif col.type == 'object' %}
+                                    <span class="badge bg-dark me-2">Object</span>
+                                {% elif col.type == 'int64' or 'float64' %}
+                                    <span class="badge bg-primary me-2">Number</span>
+                                {% endif %}
+                                {% if col.correlation %}
+                                    {% for corr in col.correlation %}
+                                        {% if corr.1 < 0.5 %}
+                                            <span class="badge bg-danger">Low Correlation</span>
+                                        {% elif 0.5 <= corr.1 < 0.7 %}
+                                            <span class="badge bg-warning">Moderate Correlation</span>
+                                        {% else %}
+                                            <span class="badge bg-success">High Correlation</span>
                                         {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+                                <!-- TODO: Add missing badges - Skewness, Duplicates, Imbalance, Diff Sequence Length, Biological Naming, Diff Units -->
+                                {% if col.measurement_data %}
+                                    {% if col.measurement_data.with_measurement %}
+                                        <span class="badge bg-warning">Mixed Values</span>
                                     {% endif %}
-                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="card-body collapse multi-collapse "
+                             id="multiCollapse{{ col.name | replace(' ', '') | capitalize }}">
+                            <div class="card card-body d-flex justify-content-between align-items-start mb-2">
                                 <div class="row w-100">
                                     <!-- Linke Spalte: Textinfos -->
                                     <div class="col-md-6">
@@ -854,7 +855,7 @@
         </div>
     </div>
     <!-- Footer-->
-    <footer class="py-5 bg-dark d-flex flex-column justify-content-center align-items-center" id="footer">
+    <footer class="mt-5 bg-dark d-flex flex-column justify-content-center align-items-center" id="footer">
         <div class="mb-2">
             <a href="https://github.com/hansen-maria/BioProfileKit">
                 <img src="static/assets/github.svg" alt="Github" style="filter: brightness(0) invert(1);">
@@ -1079,6 +1080,18 @@
             });
         });
     });
+
+    document.getElementById('collapseAllBtn').addEventListener('click', () => {
+      document.querySelectorAll('.multi-collapse').forEach(el => {
+        bootstrap.Collapse.getOrCreateInstance(el).hide();
+      });
+    });
+
+    document.getElementById('expandAllBtn').addEventListener('click', () => {
+          document.querySelectorAll('.multi-collapse').forEach(el => {
+            bootstrap.Collapse.getOrCreateInstance(el).show();
+          });
+        });
 </script>
 </body>
 </html>

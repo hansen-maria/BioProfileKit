@@ -71,6 +71,23 @@
     --bs-btn-disabled-border-color: #932263;
 }
 
+.btn-cb-outline-primary {
+    --bs-btn-color: #932263;
+    --bs-btn-border-color: #932263;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #A83665;
+    --bs-btn-hover-border-color: #D27897;
+    --bs-btn-focus-shadow-rgb: 13, 110, 253;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #A83665;
+    --bs-btn-active-border-color: #D27897;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #932263;
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: #932263;
+    --bs-gradient: none;
+}
+
 .navbar-cb-dark,
 .navbar[data-cb-theme=internal] {
     --bs-navbar-color: rgba(255, 255, 255, 0.55);
@@ -96,7 +113,8 @@
     position: absolute;
     bottom: 0;
     width: 100%;
-    height: 2.5rem;
+    height: 5rem;
+    min-height: 5rem;
 }
 
 input.form-control[type="search"] {
