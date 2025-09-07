@@ -48,11 +48,13 @@ def cli(input: str, tax: bool = False, func: str = None):
     column_overviews = [column_overview(df, col) for col in df.columns]
 
     # ToDo Taxonomy ist da
+    taxonomy = None
     if tax:
         tax_df = get_tax_ids()
         taxonomy = [taxonomy_flags(df, col, tax_df) for col in df.columns]
         print(taxonomy)
-
+    #ToDo Functional Annotation ist da
+    annotation = None
     if func:
         annotation = [annotation_flags(df, col, func) for col in df.columns]
         print(annotation)
@@ -109,8 +111,8 @@ def cli(input: str, tax: bool = False, func: str = None):
         print(numeric_template.render(general=general, dups=duplicates_table), file=output)
 
     with open("renders/columns.html", "w",encoding="utf-8") as output:
-        print(columns.render(columns=column_overviews, overview=numeric_overviews, categorical=categorical_overviews),
-              file=output)
+        print(columns.render(columns=column_overviews, overview=numeric_overviews, categorical=categorical_overviews,
+                             taxonomy=taxonomy, annotation=annotation), file=output)
 
     with open("renders/general_statistics.html", "w",encoding="utf-8") as output:
         print(stats.render(), file=output)
