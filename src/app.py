@@ -83,6 +83,7 @@ def cli(input: str):
     landing_template = env.get_template('LandingPage.jinja')
     numeric_template = env.get_template('numeric_overview.jinja')
     columns = env.get_template('columns.jinja')
+    stats = env.get_template('general_statistics.jinja')
 
     print(colored('Writing report …', 'green'))
     with open("renders/index.html", 'w', encoding="utf-8") as output:
@@ -94,3 +95,6 @@ def cli(input: str):
     with open("renders/columns.html", "w",encoding="utf-8") as output:
         print(columns.render(columns=column_overviews, overview=numeric_overviews, categorical=categorical_overviews),
               file=output)
+
+    with open("renders/general_statistics.html", "w",encoding="utf-8") as output:
+        print(stats.render(), file=output)
