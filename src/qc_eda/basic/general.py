@@ -25,15 +25,13 @@ def general_plots(df: pd.DataFrame, target: str) -> GeneralPlots:
 def correlation_heatmap(df: pd.DataFrame):
     corr_matrix = df.select_dtypes(include=['float64', 'int64']).corr()
     corr_matrix = round(corr_matrix, 3)
-    fig = px.imshow(corr_matrix, text_auto=True, labels=dict(color="Correlation"), color_continuous_scale="RdBu_r", aspect="auto")
+    fig = px.imshow(corr_matrix, text_auto=True, labels=dict(color="Correlation"), color_continuous_scale="RdBu_r", aspect="auto", height=700)
     fig.update_layout(title="Correlation Heatmap")
     return fig.to_html(full_html=False, include_plotlyjs='cdn')
 
 
 def missing_matrix(df: pd.DataFrame):
     missing_values = df.isnull().astype(int)
-    row_wise_missing = missing_values.sum(axis=1)
-    row_wise_missing.sort_values(ascending=False, inplace=True)
 
     fig = px.imshow(
         missing_values,
@@ -42,12 +40,10 @@ def missing_matrix(df: pd.DataFrame):
         color_continuous_scale="blues_r",
         title="Missing Values Matrix"
     )
-    fig.update_xaxes(
-        tickangle=-45,
-        showgrid=False
-    )
+    fig.update_yaxes(autorange='reversed')
     fig.update_layout(coloraxis_showscale=False)
-    fig.update_yaxes(tickvals=[1, df.index[-1]])
+
+
     return fig.to_html(full_html=False, include_plotlyjs='cdn')
 
 def missing_values_barchart(df: pd.DataFrame):
@@ -113,7 +109,7 @@ def boxplot(df: pd.DataFrame):
 
 def scatter_matrix(df: pd.DataFrame):
     df = df.select_dtypes(include=['float64', 'int64'])
-    fig = px.scatter_matrix(df, color_discrete_sequence=["#0F65A0"])
+    fig = px.scatter_matrix(df, color_discrete_sequence=["#0F65A0"], height=750)
 
     fig.update_traces(
         diagonal_visible=False,
