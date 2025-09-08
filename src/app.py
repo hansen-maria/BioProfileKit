@@ -15,7 +15,7 @@ from qc_eda.biological.measurement_data import measurement_columns
 from qc_eda.biological.taxonomy import taxonomy_flags
 from utils.download_metadata import get_tax_ids
 from utils.file_reader import read_file
-from qc_eda.basic.general import correlation_heatmap, missing_matrix, boxplot
+from qc_eda.basic.general import correlation_heatmap, missing_matrix, boxplot, missing_values_barchart
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
 TEMPLATE_DIR = files("templates").joinpath()
@@ -37,6 +37,7 @@ def cli(input: str, tax: bool = False, func: str = None):
     #correlation_heatmap(df)
     #missing_matrix(df)
     #boxplot(df)
+    missing_bar = missing_values_barchart(df)
 
     dups = df[df.duplicated(keep=False)]
     dups = dups.reset_index()
