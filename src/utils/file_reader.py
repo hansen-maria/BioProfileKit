@@ -27,6 +27,9 @@ def read_file(file: click.Path) -> pd.DataFrame | None:
         df = pd.read_csv(file.__str__(), header=head_col, index_col=idx_col, sep=dialect.delimiter, engine="pyarrow")
         if head_col is None:
             df = df.add_prefix("Unknown_")
+        if df.index.name is not None:
+            df = df.reset_index()
+            print(df.head())
         return df
 
     elif ext == ".json":

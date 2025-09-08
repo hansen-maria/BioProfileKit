@@ -206,9 +206,8 @@ def plot_overview(col):
 def check_sequence(df, col):
     if df[col].name in df.select_dtypes(include='number').columns or infer_dtype(df[col]).__contains__('mixed'):
         return "None"
-
     values = df[col].dropna().astype(str).tolist()
-
+    print(col, fast_check_sequence(values, Sequence.PROTEIN.value))
     if all(len(x) > 1 for x in values):
         if fast_check_sequence(values, Sequence.DNA.value):
             return "dna"
@@ -216,7 +215,6 @@ def check_sequence(df, col):
             return "rna"
         elif fast_check_sequence(values, Sequence.PROTEIN.value):
             return "protein"
-
     return "None"
 
 
