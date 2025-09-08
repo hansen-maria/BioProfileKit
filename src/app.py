@@ -27,7 +27,7 @@ env = Environment(loader=FileSystemLoader(str(TEMPLATE_DIR)), autoescape=True)
 @click.option("-i", "--input", type=click.Path(exists=True, resolve_path=True), required=True,
               help="Input file as .tsv, .csv or .json", )
 @click.option('-t','--tax', is_flag=True,help='Enable taxonomy analysis')
-@click.option('-f', '--func', type=click.Choice(['cog','go']))
+@click.option('-f', '--func', type=click.Choice(['cog','go']), help='Enable functional annotation analysis. Choose between cog or go')
 @click.option('-tc', '--target_column', type=str, help='Target column for Analysis')
 def cli(input: str, tax: bool = False, func: str = None, target_column: str = None):
     input_path = Path(input)
