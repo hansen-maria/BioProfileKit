@@ -58,10 +58,10 @@
             <div class="row mb-3">
                 <div class="d-inline-flex">
                     <button id="expandAllBtn" class="btn btn-cb-outline-primary me-2" type="button" style="min-width: 250px;">
-                       Expand all Elements
+                        Expand all Elements
                     </button>
                     <button id="collapseAllBtn" class="btn btn-cb-outline-primary" type="button" style="min-width: 250px;">
-                       Hide all Elements
+                        Hide all Elements
                     </button>
                 </div>
             </div>
@@ -92,7 +92,7 @@
             <!-- Toggle Elements Container -->
             <div id="columns-container">
                 {% for col in columns %}
-                    <div class="card row mt-3" data-page="{{ ((loop.index0 // items_per_page)) + 1 }}"
+                    <div class="card row mt-3 column-item" data-index="{{ loop.index0 }}"
                          style="display: {% if loop.index0 < items_per_page %}block{% else %}none{% endif %};">
                         <div class="card-header d-inline-flex gap-1 mb-2">
                             <button class="btn btn-cb-outline-primary" type="button" data-bs-toggle="collapse"
@@ -101,11 +101,11 @@
                                     aria-controls="multiCollapse{{ col.name | replace(' ', '') | capitalize }}" style="min-width: 200px;">
                                 {{ col.name.replace('_', ' ').title() }}
                             </button>
-                             <div class="m-2 d-flex">
+                            <div class="m-2 d-flex">
                                 {% if col.taxonomy and col.taxonomy.is_taxonomy and col.taxonomy.taxonomy is not string %}
                                     <span class="badge bg-danger me-2">Taxonomy invalid</span>
                                 {% endif %}
-                                 {% if col.annotation and col.annotation.is_annotation and col.taxonomy.valid_annotation is not string %}
+                                {% if col.annotation and col.annotation.is_annotation and col.taxonomy.valid_annotation is not string %}
                                     <span class="badge bg-danger me-2">Annotation invalid</span>
                                 {% endif %}
                                 {% if col.unique == 1 %}
@@ -161,18 +161,18 @@
                                             <strong>Sequence type:</strong> {{ col.sequence }}<br>
                                         {% endif %}
                                         {% if col.taxonomy and col.taxonomy.is_taxonomy %}
-                                           {% if col.taxonomy.taxonomy is string %}
-                                               <strong>Taxonomy:</strong> {{ col.taxonomy.taxonomy }}<br>
-                                           {% else %}
-                                               <strong>Taxonomy:</strong> Invalid<br>
-                                           {% endif %}
+                                            {% if col.taxonomy.taxonomy is string %}
+                                                <strong>Taxonomy:</strong> {{ col.taxonomy.taxonomy }}<br>
+                                            {% else %}
+                                                <strong>Taxonomy:</strong> Invalid<br>
+                                            {% endif %}
                                         {% endif %}
                                         {% if col.annotation and col.annotation.is_annotation %}
-                                           {% if col.annotation.valid_annotation is string %}
-                                               <strong>Functional Annotation:</strong> {{ col.annotation.valid_annotation }}<br>
-                                           {% else %}
-                                               <strong>Functional Annotation:</strong> Invalid<br>
-                                           {% endif %}
+                                            {% if col.annotation.valid_annotation is string %}
+                                                <strong>Functional Annotation:</strong> {{ col.annotation.valid_annotation }}<br>
+                                            {% else %}
+                                                <strong>Functional Annotation:</strong> Invalid<br>
+                                            {% endif %}
                                         {% endif %}
                                         {% if col.correlation %}
                                             <strong>Correlates with:</strong><br>
@@ -265,7 +265,7 @@
                                         {% if col.measurement_data %}
                                             <div class="tab-pane fade" id="unitStats{{ col.name | replace(' ', '') | capitalize }}" role="tabpanel">
                                                 <div class="table-responsive mt-3" style="max-height: 400px; overflow-y: auto;">
-                                                <table class="table table-sm table-striped w-100" style="min-width: 500px;">
+                                                    <table class="table table-sm table-striped w-100" style="min-width: 500px;">
                                                         <thead class="sticky-top bg-light">
                                                         <tr>
                                                             <th>Unit</th>
@@ -288,7 +288,7 @@
                                         {% if col.taxonomy is defined and col.taxonomy is not none and col.taxonomy.is_taxonomy and col.taxonomy.taxonomy is not string %}
                                             <div class="tab-pane fade" id="taxStats{{ col.name | replace(' ', '') | capitalize }}" role="tabpanel">
                                                 <div class="table-responsive mt-3" style="max-height: 400px; overflow-y: auto;">
-                                                <table class="table table-sm table-striped w-100" style="min-width: 500px;">
+                                                    <table class="table table-sm table-striped w-100" style="min-width: 500px;">
                                                         <thead class="sticky-top bg-light">
                                                         <tr>
                                                             <th>Taxonomy</th>
@@ -311,7 +311,7 @@
                                                 <div class="table-responsive mt-3" style="max-height: 400px; overflow-y: auto;">
                                                     {% for ov in overview %}
                                                         {% if ov.name == col.name %}
-                                                <table class="table table-sm table-striped w-100" style="min-width: 450px;">
+                                                            <table class="table table-sm table-striped w-100" style="min-width: 450px;">
                                                                 <thead>
                                                                 <tr>
                                                                     <th>Statistic</th>
@@ -840,7 +840,7 @@
                                                                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                                                                     data-bs-target="#proteinKmer{{ col.name | replace(' ', '') | capitalize }}{{ i }}"
                                                                                     aria-expanded="false">
-                                                                               <strong>#{{ i + 1 }}</strong> &nbsp; {{col.protein_data.sequence[i]}} ({{ col.protein_data.length[i] }} AA)
+                                                                                <strong>#{{ i + 1 }}</strong> &nbsp; {{col.protein_data.sequence[i]}} ({{ col.protein_data.length[i] }} AA)
                                                                             </button>
                                                                         </h2>
                                                                         <div id="proteinKmer{{ col.name | replace(' ', '') | capitalize }}{{ i }}"
@@ -889,9 +889,7 @@
                 </span>
                             </div>
                             <nav aria-label="Column pagination">
-                                <ul class="pagination mb-0" id="column-pagination-bottom">
-                                    <!-- Pagination wird via JavaScript generiert -->
-                                </ul>
+                                <ul class="pagination mb-0" id="column-pagination-bottom"></ul>
                             </nav>
                         </div>
                     </div>
@@ -912,6 +910,7 @@
         </div>
     </footer>
 </div>
+
 <!-- Bootstrap core JS-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Core theme JS-->
@@ -924,31 +923,12 @@
 <script src="https://cdn.datatables.net/responsive/3.0.4/js/responsive.bootstrap5.min.js"></script>
 
 <script>
-    $(document).ready(function () {
-        $('#dup_table').DataTable({
-            "paging": true,
-            "searching": true,
-            "ordering": true,
-            "info": false,
-            "lengthChange": false,
-            "responsive": false,
-            "scrollX": 1200,
-            "scroller": true,
-            "scrollCollapse": true,
-            "pageLength": 15,
-            stateSave: true
-        });
-    });
-</script>
-
-<script>
     document.addEventListener('DOMContentLoaded', function() {
         const itemsPerPage = {{ items_per_page }};
         const totalItems = {{ columns|length }};
         const totalPages = {{ total_pages }};
         let currentPage = 1;
 
-        // Pagination initialisieren
         if (totalPages > 1) {
             generatePagination();
             updateDisplay();
@@ -959,6 +939,8 @@
             const bottomPagination = document.getElementById('column-pagination-bottom');
 
             [topPagination, bottomPagination].forEach(pagination => {
+                if (!pagination) return; // Guard clause
+
                 pagination.innerHTML = '';
 
                 // First Button
@@ -1022,8 +1004,9 @@
                 pagination.appendChild(lastLi);
             });
 
-            // Event Listeners für beide Paginationen
             [topPagination, bottomPagination].forEach(pagination => {
+                if (!pagination) return;
+
                 pagination.addEventListener('click', function(e) {
                     e.preventDefault();
                     const page = parseInt(e.target.dataset.page);
@@ -1096,48 +1079,54 @@
             }
         });
 
-        // Erweiterung: Correlation-Links öffnen und Seite umblättern
-        document.querySelectorAll('a.cb-pink-link').forEach(link => {
-            link.addEventListener('click', function(e) {
+        document.addEventListener('click', function(e) {
+            if (e.target.matches('a.cb-pink-link')) {
                 e.preventDefault();
-                const targetId = this.getAttribute('href').substring(1);
+                const targetId = e.target.getAttribute('href').substring(1);
                 const targetEl = document.getElementById(targetId);
 
                 if (targetEl) {
                     const columnItem = targetEl.closest('.column-item');
                     if (columnItem) {
-                        const targetPage = parseInt(columnItem.dataset.page);
+                        const columnItems = Array.from(document.querySelectorAll('.column-item'));
+                        const targetIndex = columnItems.indexOf(columnItem);
 
-                        if (typeof targetPage !== 'undefined' && targetPage !== currentPage) {
-                            currentPage = targetPage;
-                            updateDisplay();
-                            generatePagination();
+                        if (targetIndex !== -1) {
+                            const targetPage = Math.floor(targetIndex / itemsPerPage) + 1;
+
+                            if (targetPage !== currentPage) {
+                                currentPage = targetPage;
+                                updateDisplay();
+                                generatePagination();
+                            }
+
+                            setTimeout(() => {
+                                if (!targetEl.classList.contains('show')) {
+                                    new bootstrap.Collapse(targetEl, { toggle: true });
+                                }
+
+                                setTimeout(() => {
+                                    targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                }, 300);
+                            }, 100);
                         }
-
-                        if (!targetEl.classList.contains('show')) {
-                            new bootstrap.Collapse(targetEl, { toggle: true });
-                        }
-
-                        setTimeout(() => {
-                            targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                        }, 300);
                     }
                 }
-            });
+            }
         });
     });
 
     document.getElementById('collapseAllBtn').addEventListener('click', () => {
-      document.querySelectorAll('.multi-collapse').forEach(el => {
-        bootstrap.Collapse.getOrCreateInstance(el).hide();
-      });
+        document.querySelectorAll('.column-item[style*="block"] .multi-collapse').forEach(el => {
+            bootstrap.Collapse.getOrCreateInstance(el).hide();
+        });
     });
 
     document.getElementById('expandAllBtn').addEventListener('click', () => {
-          document.querySelectorAll('.multi-collapse').forEach(el => {
+        document.querySelectorAll('.column-item[style*="block"] .multi-collapse').forEach(el => {
             bootstrap.Collapse.getOrCreateInstance(el).show();
-          });
         });
+    });
 </script>
 </body>
 </html>
