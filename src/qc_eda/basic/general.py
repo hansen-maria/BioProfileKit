@@ -53,6 +53,28 @@ def missing_values_barchart(df: pd.DataFrame):
 
     return fig.to_html(full_html=False, include_plotlyjs='cdn')
 
+def balance_plot(df, target):
+    fig = px.histogram(df, x=target, color_discrete_sequence=["#0F65A0"], text_auto=True)
+    fig.update_layout(
+        title="Class Balance (Target Distribution)",
+        bargap=0.2,
+        plot_bgcolor="white"
+    )
+    fig.update_xaxes(
+        mirror=True,
+        ticks="outside",
+        showline=True,
+        linecolor="black",
+        gridcolor="lightgrey"
+    )
+    fig.update_yaxes(
+        mirror=True,
+        ticks="outside",
+        showline=True,
+        linecolor="black",
+        gridcolor="lightgrey"
+    )
+    return fig.to_html(full_html=False, include_plotlyjs='cdn')
 
 def boxplot(df: pd.DataFrame):
     df = df.select_dtypes(include=['float64', 'int64'])
@@ -67,5 +89,53 @@ def boxplot(df: pd.DataFrame):
         yaxis_title="Values",
         legend_title="Columns"
     )
+
+    return fig.to_html(full_html=False, include_plotlyjs='cdn')
+
+def scatter_matrix(df: pd.DataFrame):
+    df = df.select_dtypes(include=['float64', 'int64'])
+    fig = px.scatter_matrix(df, color_discrete_sequence=["#0F65A0"])
+
+    fig.update_traces(
+        diagonal_visible=False,
+        marker=dict(size=2, opacity=0.5, color="#0F65A0")
+    )
+
+    # Layout anpassen
+    fig.update_layout(
+        title="Scatter Matrix",
+        xaxis_title="Columns",
+        plot_bgcolor="white",
+        bargap=0.2,
+        dragmode="select"
+    )
+    n_vars = len(df.columns)
+    for i in range(1, n_vars + 1):
+        for j in range(1, n_vars + 1):
+            if i == 1:
+                fig.update_layout({f'xaxis{j if j > 1 else ""}': dict(
+                    mirror=True,
+                    ticks="outside",
+                    showline=True,
+                    linecolor="black",
+                    linewidth=1,
+                    gridcolor="lightgrey",
+                    title_standoff=25
+                )})
+            if j == 1:
+                fig.update_layout({f'yaxis{i if i > 1 else ""}': dict(
+                    mirror=True,
+                    ticks="outside",
+                    showline=True,
+                    linecolor="black",
+                    linewidth=1,
+                    gridcolor="lightgrey",
+                    title_standoff=25
+                )})
+    fig.for_each_annotation(lambda a: a.update(
+        textangle=0,
+        x=-0.08 if a.textangle == 90 or 'y' in str(a.yref) else a.x,
+        y=-0.08 if a.textangle == 0 and 'x' in str(a.xref) else a.y
+    ))
 
     return fig.to_html(full_html=False, include_plotlyjs='cdn')

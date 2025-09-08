@@ -15,7 +15,8 @@ from qc_eda.biological.measurement_data import measurement_columns
 from qc_eda.biological.taxonomy import taxonomy_flags
 from utils.download_metadata import get_tax_ids
 from utils.file_reader import read_file
-from qc_eda.basic.general import correlation_heatmap, missing_matrix, boxplot, missing_values_barchart
+from qc_eda.basic.general import correlation_heatmap, missing_matrix, boxplot, missing_values_barchart, balance_plot, \
+    scatter_matrix
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
 TEMPLATE_DIR = files("templates").joinpath()
@@ -28,7 +29,8 @@ env = Environment(loader=FileSystemLoader(str(TEMPLATE_DIR)), autoescape=True)
               help="Input file as .tsv, .csv or .json", )
 @click.option('-t','--tax', is_flag=True,help='Enable taxonomy analysis')
 @click.option('-f', '--func', type=click.Choice(['cog','go']))
-def cli(input: str, tax: bool = False, func: str = None):
+@click.option('-tc', '--target_column', type=str, help='Target column for Analysis')
+def cli(input: str, tax: bool = False, func: str = None, target_column: str = None):
     input_path = Path(input)
     print(colored(f'Reading file {input_path.name}', 'green'))
 
@@ -37,7 +39,11 @@ def cli(input: str, tax: bool = False, func: str = None):
     #correlation_heatmap(df)
     #missing_matrix(df)
     #boxplot(df)
-    missing_bar = missing_values_barchart(df)
+    #missing_bar = missing_values_barchart(df)
+    if target_column in df.columns:
+        balance_plot(df, target_column)
+
+    scatter_matrix(df)
 
     dups = df[df.duplicated(keep=False)]
     dups = dups.reset_index()
