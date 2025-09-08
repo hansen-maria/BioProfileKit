@@ -1,7 +1,26 @@
 import plotly.express as px
 import pandas as pd
 import plotly.graph_objects as go
+from dataclasses import dataclass
 
+@dataclass
+class GeneralPlots:
+    correlation_heatmap: str
+    missing_matrix: str
+    missing_values_barchart: str
+    balance_plot: str | None
+    boxplot: str
+    scatter_matrix: str
+
+def general_plots(df: pd.DataFrame, target: str) -> GeneralPlots:
+    return GeneralPlots(
+        correlation_heatmap=correlation_heatmap(df),
+        missing_matrix=missing_matrix(df),
+        missing_values_barchart=missing_values_barchart(df),
+        balance_plot=balance_plot(df, target) if target else None,
+        boxplot=boxplot(df),
+        scatter_matrix=scatter_matrix(df)
+    )
 
 def correlation_heatmap(df: pd.DataFrame):
     corr_matrix = df.select_dtypes(include=['float64', 'int64']).corr()

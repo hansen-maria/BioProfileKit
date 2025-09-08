@@ -15,8 +15,7 @@ from qc_eda.biological.measurement_data import measurement_columns
 from qc_eda.biological.taxonomy import taxonomy_flags
 from utils.download_metadata import get_tax_ids
 from utils.file_reader import read_file
-from qc_eda.basic.general import correlation_heatmap, missing_matrix, boxplot, missing_values_barchart, balance_plot, \
-    scatter_matrix
+from qc_eda.basic.general import general_plots
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
 TEMPLATE_DIR = files("templates").joinpath()
@@ -36,14 +35,7 @@ def cli(input: str, tax: bool = False, func: str = None, target_column: str = No
 
     df = read_file(input_path)
     general = overview(df, input_path.name)
-    #correlation_heatmap(df)
-    #missing_matrix(df)
-    #boxplot(df)
-    #missing_bar = missing_values_barchart(df)
-    if target_column in df.columns:
-        balance_plot(df, target_column)
-
-    scatter_matrix(df)
+    plots = general_plots(df, target_column)
 
     dups = df[df.duplicated(keep=False)]
     dups = dups.reset_index()
@@ -115,4 +107,4 @@ def cli(input: str, tax: bool = False, func: str = None, target_column: str = No
         print(columns.render(columns=column_overviews, overview=numeric_overviews, categorical=categorical_overviews), file=output)
 
     with open("renders/general_statistics.html", "w",encoding="utf-8") as output:
-        print(stats.render(), file=output)
+        print(stats.render(plots=plots), file=output)
