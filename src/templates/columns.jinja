@@ -777,7 +777,7 @@
                                                                         {% if col.protein_data.sequence[i]|length > 30 %}
                                                                             {{ col.protein_data.sequence[i][:15] }}<span class="text-muted">...</span>{{ col.protein_data.sequence[i][-15:] }}
                                                                         {% else %}
-                                                                            {{ col.protein_data.sequence }}
+                                                                            {{ col.protein_data.sequence[i] }}
                                                                         {% endif %}
                                                                     </td>
                                                                     <td>{{ col.protein_data.length[i] }}</td>

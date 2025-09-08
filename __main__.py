@@ -2,5 +2,5 @@ from app import cli
 
 if __name__ == '__main__':
     #cli(['--input', 'test_data/iedb.tsv'])
-    cli(['-i', "test_data/Complete_nitrogenase.csv"])
-    #cli(['--input', 'test_data/data/upstream_sd.complete.tsv'])
+    #cli(['-i', "test_data/Complete_nitrogenase.csv"])
+    cli(['--input', 'test_data/data/upstream_sd.complete.tsv'])
