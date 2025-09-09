@@ -1,0 +1,3072 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="Analysis Overview - BioProfileKit" />
+    <meta name="author" content="JLU" />
+    <title>Overview</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="static/assets/favicon.ico" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="static/css/bootstrap.css" rel="stylesheet" />
+    <link href="static/css/cb.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.7/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.0/css/responsive.bootstrap5.min.css">
+</head>
+<body>
+<!-- Responsive navbar-->
+<nav class="navbar navbar-expand-lg navbar-cb-dark bg-dark">
+    <div class="container px-5">
+        <a class="navbar-brand" href="index.html">BioProfileKit</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Services
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item nav-item active" href="numeric_data.html">Overview of Analysis</a>
+                        <a class="dropdown-item" href="columns.html">Column Analysis</a>
+                        <a class="dropdown-item" href="general_statistics.html">General Statistics</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- Page Content-->
+<div id="page-container">
+    <div id="content-wrap">
+        <div class="container px-4 px-lg-5">
+            <!-- Heading Row-->
+            <div class="row gx-4 gx-lg-5 align-items-center my-5">
+                <div class="col-12">
+                    <h1 class="font-weight-light">Overview of Analysis</h1>
+                    <p style="text-align: justify">
+                        Get a compact, numerical summary of all analyses carried out. Visualisations and key figures provide a quick overview of key results and developments - ideal for evaluation at a glance.
+                    </p>
+                </div>
+            </div>
+            <!-- Content Row-->
+            <div class="row gx-4 gx-lg-5">
+                <div class="col-12">
+                    <table class="table table-hover">
+                        <thead>
+                        </thead>
+                        <tbody>
+                        <TR>
+                            <TD>Filename</TD>
+                            <TD>iedb.tsv</TD>
+                        </TR>
+                        <TR>
+                            <TD>Row number</TD>
+                            <TD>946669</TD>
+                        </TR>
+                        <TR>
+                            <td>Column number</td>
+                            <TD>18</TD>
+                        </TR>
+                        <TR>
+                            <td>Missing values</td>
+                            <td>2747048</td>
+                        </TR>
+                        <TR>
+                            <td>Missing values (%)</td>
+                            <td>16.12</td>
+                        </TR>
+                        <TR>
+                            <td>Duplicate rows</td>
+                            <td>69</td>
+                        </TR>
+                        <TR>
+                            <td>Duplicate columns</td>
+                            <td>0</td>
+                        </TR>
+                        <TR>
+                            <td>Memory usage</td>
+                            <td>809519912</td>
+                        </TR>
+                        <TR>
+                            <td>Alerts</td>
+                            <td></td>
+                        </TR>
+                        </tbody>
+                    </table>
+                    <h3>Duplicates</h3>
+                    <div class="table-responsive mb-4">
+                        <table border="0" class="dataframe table table-hover table-responsive nowrap" id="dup_table">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>epitope_type</th>
+      <th>peptide</th>
+      <th>Reference_Name</th>
+      <th>start</th>
+      <th>end</th>
+      <th>protein</th>
+      <th>source_organism</th>
+      <th>host</th>
+      <th>method</th>
+      <th>response_measured</th>
+      <th>units</th>
+      <th>qualitative</th>
+      <th>inequality</th>
+      <th>quantitative</th>
+      <th>mhc_allele</th>
+      <th>mhc_class</th>
+      <th>bind_class</th>
+      <th>length</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>8520</td>
+      <td>Linear peptide</td>
+      <td>AVAKCNLNH</td>
+      <td>3076.0022</td>
+      <td>289.0</td>
+      <td>297.0</td>
+      <td>Glycoprotein polyprotein</td>
+      <td>Mammarenavirus juninense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>46500.000</td>
+      <td>HLA-A*68:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>8522</td>
+      <td>Linear peptide</td>
+      <td>AVAKCNLNH</td>
+      <td>3076.0022</td>
+      <td>289.0</td>
+      <td>297.0</td>
+      <td>Glycoprotein polyprotein</td>
+      <td>Mammarenavirus juninense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Positive-Intermediate</td>
+      <td>None</td>
+      <td>230.000</td>
+      <td>HLA-A*11:01</td>
+      <td>I</td>
+      <td>Positive</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>8545</td>
+      <td>Linear peptide</td>
+      <td>ACNKIKGKK</td>
+      <td>3076.0032</td>
+      <td>332.0</td>
+      <td>340.0</td>
+      <td>L protein</td>
+      <td>Mammarenavirus guanaritoense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Positive-Low</td>
+      <td>None</td>
+      <td>664.000</td>
+      <td>HLA-A*33:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>8547</td>
+      <td>Linear peptide</td>
+      <td>ACNKIKGKK</td>
+      <td>3076.0032</td>
+      <td>332.0</td>
+      <td>340.0</td>
+      <td>L protein</td>
+      <td>Mammarenavirus guanaritoense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>19000.000</td>
+      <td>HLA-A*11:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>8548</td>
+      <td>Linear peptide</td>
+      <td>ACNKIKGKK</td>
+      <td>3076.0032</td>
+      <td>332.0</td>
+      <td>340.0</td>
+      <td>L protein</td>
+      <td>Mammarenavirus guanaritoense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Positive-Low</td>
+      <td>None</td>
+      <td>1840.000</td>
+      <td>HLA-A*31:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>8557</td>
+      <td>Linear peptide</td>
+      <td>SGCYIHFFR</td>
+      <td>3076.0045</td>
+      <td>407.0</td>
+      <td>415.0</td>
+      <td>Nucleoprotein</td>
+      <td>Lassa virus Josiah</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Positive-Intermediate</td>
+      <td>None</td>
+      <td>56.800</td>
+      <td>HLA-A*11:01</td>
+      <td>I</td>
+      <td>Positive</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>8558</td>
+      <td>Linear peptide</td>
+      <td>SGCYIHFFR</td>
+      <td>3076.0045</td>
+      <td>407.0</td>
+      <td>415.0</td>
+      <td>Nucleoprotein</td>
+      <td>Lassa virus Josiah</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Positive-High</td>
+      <td>None</td>
+      <td>0.297</td>
+      <td>HLA-A*31:01</td>
+      <td>I</td>
+      <td>Positive</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>8559</td>
+      <td>Linear peptide</td>
+      <td>SGCYIHFFR</td>
+      <td>3076.0045</td>
+      <td>407.0</td>
+      <td>415.0</td>
+      <td>Nucleoprotein</td>
+      <td>Lassa virus Josiah</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Positive-High</td>
+      <td>None</td>
+      <td>0.271</td>
+      <td>HLA-A*68:01</td>
+      <td>I</td>
+      <td>Positive</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>8566</td>
+      <td>Linear peptide</td>
+      <td>RALKYDFNH</td>
+      <td>3076.0056</td>
+      <td>149.0</td>
+      <td>157.0</td>
+      <td>glycoprotein precursor</td>
+      <td>Mammarenavirus brazilense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>5700.000</td>
+      <td>HLA-A*03:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>8568</td>
+      <td>Linear peptide</td>
+      <td>RALKYDFNH</td>
+      <td>3076.0056</td>
+      <td>149.0</td>
+      <td>157.0</td>
+      <td>glycoprotein precursor</td>
+      <td>Mammarenavirus brazilense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Positive-Intermediate</td>
+      <td>None</td>
+      <td>65.200</td>
+      <td>HLA-A*31:01</td>
+      <td>I</td>
+      <td>Positive</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>8569</td>
+      <td>Linear peptide</td>
+      <td>RALKYDFNH</td>
+      <td>3076.0056</td>
+      <td>149.0</td>
+      <td>157.0</td>
+      <td>glycoprotein precursor</td>
+      <td>Mammarenavirus brazilense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>6970.000</td>
+      <td>HLA-A*68:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>8575</td>
+      <td>Linear peptide</td>
+      <td>KCLNIMLGK</td>
+      <td>3076.0071</td>
+      <td>64.0</td>
+      <td>72.0</td>
+      <td>Z protein</td>
+      <td>Mammarenavirus brazilense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>12400.000</td>
+      <td>HLA-A*33:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>8577</td>
+      <td>Linear peptide</td>
+      <td>KCLNIMLGK</td>
+      <td>3076.0071</td>
+      <td>64.0</td>
+      <td>72.0</td>
+      <td>Z protein</td>
+      <td>Mammarenavirus brazilense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Positive-Low</td>
+      <td>None</td>
+      <td>3900.000</td>
+      <td>HLA-A*11:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>8606</td>
+      <td>Linear peptide</td>
+      <td>KRHSTKYHL</td>
+      <td>3076.0082</td>
+      <td>1943.0</td>
+      <td>1951.0</td>
+      <td>L protein</td>
+      <td>Mammarenavirus guanaritoense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>33300.000</td>
+      <td>HLA-A*30:02</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>8608</td>
+      <td>Linear peptide</td>
+      <td>KRHSTKYHL</td>
+      <td>3076.0082</td>
+      <td>1943.0</td>
+      <td>1951.0</td>
+      <td>L protein</td>
+      <td>Mammarenavirus guanaritoense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>60300.000</td>
+      <td>HLA-A*24:02</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>8609</td>
+      <td>Linear peptide</td>
+      <td>FYQKTGEKS</td>
+      <td>3076.0087</td>
+      <td>543.0</td>
+      <td>551.0</td>
+      <td>L protein</td>
+      <td>Mammarenavirus juninense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>58700.000</td>
+      <td>HLA-A*24:02</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>8611</td>
+      <td>Linear peptide</td>
+      <td>FYQKTGEKS</td>
+      <td>3076.0087</td>
+      <td>543.0</td>
+      <td>551.0</td>
+      <td>L protein</td>
+      <td>Mammarenavirus juninense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>40800.000</td>
+      <td>HLA-A*30:02</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>8623</td>
+      <td>Linear peptide</td>
+      <td>HYLCLNCLS</td>
+      <td>3076.0092</td>
+      <td>47.0</td>
+      <td>55.0</td>
+      <td>RING finger protein</td>
+      <td>Mammarenavirus lassaense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>14200.000</td>
+      <td>HLA-A*30:02</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>8630</td>
+      <td>Linear peptide</td>
+      <td>HYLCLNCLT</td>
+      <td>3076.0093</td>
+      <td>47.0</td>
+      <td>55.0</td>
+      <td>RING finger protein Z</td>
+      <td>Lassa virus Josiah</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Positive-Low</td>
+      <td>None</td>
+      <td>3020.000</td>
+      <td>HLA-A*30:02</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>8635</td>
+      <td>Linear peptide</td>
+      <td>EYHLLYQKT</td>
+      <td>3076.0094</td>
+      <td>538.0</td>
+      <td>546.0</td>
+      <td>RNA-directed RNA polymerase</td>
+      <td>Lymphocytic choriomeningitis virus (strain Armstrong)</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>35000.000</td>
+      <td>HLA-A*30:02</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>8650</td>
+      <td>Linear peptide</td>
+      <td>CRHCLNLLL</td>
+      <td>3076.0098</td>
+      <td>51.0</td>
+      <td>59.0</td>
+      <td>RING finger protein Z</td>
+      <td>Lymphocytic choriomeningitis virus (strain Armstrong)</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Positive-Low</td>
+      <td>None</td>
+      <td>772.000</td>
+      <td>HLA-A*01:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>8657</td>
+      <td>Linear peptide</td>
+      <td>LFQLIFFLT</td>
+      <td>3076.0102</td>
+      <td>43.0</td>
+      <td>51.0</td>
+      <td>glycoprotein precursor</td>
+      <td>Mammarenavirus brazilense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>22300.000</td>
+      <td>HLA-A*24:02</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>8663</td>
+      <td>Linear peptide</td>
+      <td>GYKETPFLT</td>
+      <td>3076.0105</td>
+      <td>1453.0</td>
+      <td>1461.0</td>
+      <td>L protein</td>
+      <td>Mammarenavirus brazilense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>65200.000</td>
+      <td>HLA-A*01:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>8683</td>
+      <td>Linear peptide</td>
+      <td>KYPNLNDLK</td>
+      <td>3076.0115</td>
+      <td>209.0</td>
+      <td>217.0</td>
+      <td>nucleocapsid protein</td>
+      <td>Mammarenavirus whitewaterense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>9570.000</td>
+      <td>HLA-A*30:02</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>8686</td>
+      <td>Linear peptide</td>
+      <td>KYPNLNDLK</td>
+      <td>3076.0115</td>
+      <td>209.0</td>
+      <td>217.0</td>
+      <td>nucleocapsid protein</td>
+      <td>Mammarenavirus whitewaterense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>41000.000</td>
+      <td>HLA-A*01:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>8694</td>
+      <td>Linear peptide</td>
+      <td>EGAQPGLLSY</td>
+      <td>3076.0124</td>
+      <td>117.0</td>
+      <td>126.0</td>
+      <td>nucleocapsid protein</td>
+      <td>Mammarenavirus guanaritoense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>23900.000</td>
+      <td>HLA-A*23:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>8733</td>
+      <td>Linear peptide</td>
+      <td>CQSVCEEFFH</td>
+      <td>3076.0149</td>
+      <td>1251.0</td>
+      <td>1260.0</td>
+      <td>L protein</td>
+      <td>Mammarenavirus guanaritoense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>21100.000</td>
+      <td>HLA-A*31:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>8734</td>
+      <td>Linear peptide</td>
+      <td>CQSVCEEFFH</td>
+      <td>3076.0149</td>
+      <td>1251.0</td>
+      <td>1260.0</td>
+      <td>L protein</td>
+      <td>Mammarenavirus guanaritoense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>41800.000</td>
+      <td>HLA-A*11:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>8735</td>
+      <td>Linear peptide</td>
+      <td>CQSVCEEFFH</td>
+      <td>3076.0149</td>
+      <td>1251.0</td>
+      <td>1260.0</td>
+      <td>L protein</td>
+      <td>Mammarenavirus guanaritoense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>15200.000</td>
+      <td>HLA-A*03:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>8738</td>
+      <td>Linear peptide</td>
+      <td>ECYVQRFFLR</td>
+      <td>3076.0151</td>
+      <td>526.0</td>
+      <td>535.0</td>
+      <td>L protein</td>
+      <td>Mammarenavirus guanaritoense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>17600.000</td>
+      <td>HLA-A*03:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>8752</td>
+      <td>Linear peptide</td>
+      <td>VTEFRRTAIH</td>
+      <td>3076.0155</td>
+      <td>23.0</td>
+      <td>32.0</td>
+      <td>Z protein</td>
+      <td>Mammarenavirus guanaritoense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>15300.000</td>
+      <td>HLA-A*68:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>8753</td>
+      <td>Linear peptide</td>
+      <td>VTEFRRTAIH</td>
+      <td>3076.0155</td>
+      <td>23.0</td>
+      <td>32.0</td>
+      <td>Z protein</td>
+      <td>Mammarenavirus guanaritoense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>10700.000</td>
+      <td>HLA-A*31:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>8755</td>
+      <td>Linear peptide</td>
+      <td>VTEFRRTAIH</td>
+      <td>3076.0155</td>
+      <td>23.0</td>
+      <td>32.0</td>
+      <td>Z protein</td>
+      <td>Mammarenavirus guanaritoense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>33100.000</td>
+      <td>HLA-A*03:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>8757</td>
+      <td>Linear peptide</td>
+      <td>FCKSCWFENK</td>
+      <td>3076.0163</td>
+      <td>30.0</td>
+      <td>39.0</td>
+      <td>RING finger protein Z</td>
+      <td>Lassa virus Josiah</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>9190.000</td>
+      <td>HLA-A*33:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>8758</td>
+      <td>Linear peptide</td>
+      <td>FCKSCWFENK</td>
+      <td>3076.0163</td>
+      <td>30.0</td>
+      <td>39.0</td>
+      <td>RING finger protein Z</td>
+      <td>Lassa virus Josiah</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>20000.000</td>
+      <td>HLA-A*03:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>8762</td>
+      <td>Linear peptide</td>
+      <td>RASLIPDATH</td>
+      <td>3076.0165</td>
+      <td>16.0</td>
+      <td>25.0</td>
+      <td>RING finger protein Z</td>
+      <td>Lassa virus Josiah</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>19600.000</td>
+      <td>HLA-A*68:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>8764</td>
+      <td>Linear peptide</td>
+      <td>RASLIPDATH</td>
+      <td>3076.0165</td>
+      <td>16.0</td>
+      <td>25.0</td>
+      <td>RING finger protein Z</td>
+      <td>Lassa virus Josiah</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>59100.000</td>
+      <td>HLA-A*11:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>8766</td>
+      <td>Linear peptide</td>
+      <td>RASLIPDATH</td>
+      <td>3076.0165</td>
+      <td>16.0</td>
+      <td>25.0</td>
+      <td>RING finger protein Z</td>
+      <td>Lassa virus Josiah</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>50700.000</td>
+      <td>HLA-A*33:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>8767</td>
+      <td>Linear peptide</td>
+      <td>IVTMFEALPH</td>
+      <td>3076.0166</td>
+      <td>4.0</td>
+      <td>13.0</td>
+      <td>Pre-glycoprotein polyprotein GP complex</td>
+      <td>Lymphocytic choriomeningitis virus (strain Armstrong)</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Positive-Intermediate</td>
+      <td>None</td>
+      <td>75.100</td>
+      <td>HLA-A*33:01</td>
+      <td>I</td>
+      <td>Positive</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>8769</td>
+      <td>Linear peptide</td>
+      <td>IVTMFEALPH</td>
+      <td>3076.0166</td>
+      <td>4.0</td>
+      <td>13.0</td>
+      <td>Pre-glycoprotein polyprotein GP complex</td>
+      <td>Lymphocytic choriomeningitis virus (strain Armstrong)</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>13900.000</td>
+      <td>HLA-A*11:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>8770</td>
+      <td>Linear peptide</td>
+      <td>IVTMFEALPH</td>
+      <td>3076.0166</td>
+      <td>4.0</td>
+      <td>13.0</td>
+      <td>Pre-glycoprotein polyprotein GP complex</td>
+      <td>Lymphocytic choriomeningitis virus (strain Armstrong)</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>5840.000</td>
+      <td>HLA-A*68:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>8790</td>
+      <td>Linear peptide</td>
+      <td>CEMNHVNSMH</td>
+      <td>3076.0177</td>
+      <td>229.0</td>
+      <td>238.0</td>
+      <td>glycoprotein precursor</td>
+      <td>Mammarenavirus brazilense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>48100.000</td>
+      <td>HLA-A*68:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>8792</td>
+      <td>Linear peptide</td>
+      <td>FRALKYDFNH</td>
+      <td>3076.0179</td>
+      <td>148.0</td>
+      <td>157.0</td>
+      <td>glycoprotein precursor</td>
+      <td>Mammarenavirus brazilense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Positive-Low</td>
+      <td>None</td>
+      <td>4260.000</td>
+      <td>HLA-A*31:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>8793</td>
+      <td>Linear peptide</td>
+      <td>FRALKYDFNH</td>
+      <td>3076.0179</td>
+      <td>148.0</td>
+      <td>157.0</td>
+      <td>glycoprotein precursor</td>
+      <td>Mammarenavirus brazilense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Positive-Intermediate</td>
+      <td>None</td>
+      <td>431.000</td>
+      <td>HLA-A*68:01</td>
+      <td>I</td>
+      <td>Positive</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>8795</td>
+      <td>Linear peptide</td>
+      <td>FRALKYDFNH</td>
+      <td>3076.0179</td>
+      <td>148.0</td>
+      <td>157.0</td>
+      <td>glycoprotein precursor</td>
+      <td>Mammarenavirus brazilense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>19800.000</td>
+      <td>HLA-A*03:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>8798</td>
+      <td>Linear peptide</td>
+      <td>LNTPYCNYTK</td>
+      <td>3076.0181</td>
+      <td>354.0</td>
+      <td>363.0</td>
+      <td>glycoprotein precursor</td>
+      <td>Mammarenavirus brazilense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>15300.000</td>
+      <td>HLA-A*03:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>8799</td>
+      <td>Linear peptide</td>
+      <td>LNTPYCNYTK</td>
+      <td>3076.0181</td>
+      <td>354.0</td>
+      <td>363.0</td>
+      <td>glycoprotein precursor</td>
+      <td>Mammarenavirus brazilense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>10800.000</td>
+      <td>HLA-A*11:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>8800</td>
+      <td>Linear peptide</td>
+      <td>LNTPYCNYTK</td>
+      <td>3076.0181</td>
+      <td>354.0</td>
+      <td>363.0</td>
+      <td>glycoprotein precursor</td>
+      <td>Mammarenavirus brazilense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Positive-Low</td>
+      <td>None</td>
+      <td>695.000</td>
+      <td>HLA-A*68:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>8801</td>
+      <td>Linear peptide</td>
+      <td>LNTPYCNYTK</td>
+      <td>3076.0181</td>
+      <td>354.0</td>
+      <td>363.0</td>
+      <td>glycoprotein precursor</td>
+      <td>Mammarenavirus brazilense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>6410.000</td>
+      <td>HLA-A*31:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>8809</td>
+      <td>Linear peptide</td>
+      <td>CSSLTEEFYH</td>
+      <td>3076.0184</td>
+      <td>1265.0</td>
+      <td>1274.0</td>
+      <td>L protein</td>
+      <td>Mammarenavirus brazilense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>8680.000</td>
+      <td>HLA-A*11:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>8810</td>
+      <td>Linear peptide</td>
+      <td>CSSLTEEFYH</td>
+      <td>3076.0184</td>
+      <td>1265.0</td>
+      <td>1274.0</td>
+      <td>L protein</td>
+      <td>Mammarenavirus brazilense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>31900.000</td>
+      <td>HLA-A*68:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>8811</td>
+      <td>Linear peptide</td>
+      <td>CSSLTEEFYH</td>
+      <td>3076.0184</td>
+      <td>1265.0</td>
+      <td>1274.0</td>
+      <td>L protein</td>
+      <td>Mammarenavirus brazilense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Positive-Low</td>
+      <td>None</td>
+      <td>3360.000</td>
+      <td>HLA-A*31:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>8814</td>
+      <td>Linear peptide</td>
+      <td>DFTLFIKTGH</td>
+      <td>3076.0186</td>
+      <td>1881.0</td>
+      <td>1890.0</td>
+      <td>L protein</td>
+      <td>Mammarenavirus brazilense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>58700.000</td>
+      <td>HLA-A*11:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>8816</td>
+      <td>Linear peptide</td>
+      <td>DFTLFIKTGH</td>
+      <td>3076.0186</td>
+      <td>1881.0</td>
+      <td>1890.0</td>
+      <td>L protein</td>
+      <td>Mammarenavirus brazilense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Positive-Intermediate</td>
+      <td>None</td>
+      <td>131.000</td>
+      <td>HLA-A*33:01</td>
+      <td>I</td>
+      <td>Positive</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>8824</td>
+      <td>Linear peptide</td>
+      <td>FKVAFSKHYK</td>
+      <td>3076.0189</td>
+      <td>2172.0</td>
+      <td>2181.0</td>
+      <td>L protein</td>
+      <td>Mammarenavirus brazilense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Positive-Low</td>
+      <td>None</td>
+      <td>2140.000</td>
+      <td>HLA-A*11:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>8825</td>
+      <td>Linear peptide</td>
+      <td>FKVAFSKHYK</td>
+      <td>3076.0189</td>
+      <td>2172.0</td>
+      <td>2181.0</td>
+      <td>L protein</td>
+      <td>Mammarenavirus brazilense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Positive-Intermediate</td>
+      <td>None</td>
+      <td>279.000</td>
+      <td>HLA-A*03:01</td>
+      <td>I</td>
+      <td>Positive</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>8828</td>
+      <td>Linear peptide</td>
+      <td>FLLNISYLCH</td>
+      <td>3076.019</td>
+      <td>698.0</td>
+      <td>707.0</td>
+      <td>L protein</td>
+      <td>Mammarenavirus brazilense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>11800.000</td>
+      <td>HLA-A*03:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>8829</td>
+      <td>Linear peptide</td>
+      <td>FLLNISYLCH</td>
+      <td>3076.019</td>
+      <td>698.0</td>
+      <td>707.0</td>
+      <td>L protein</td>
+      <td>Mammarenavirus brazilense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>46600.000</td>
+      <td>HLA-A*11:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>8831</td>
+      <td>Linear peptide</td>
+      <td>FLLNISYLCH</td>
+      <td>3076.019</td>
+      <td>698.0</td>
+      <td>707.0</td>
+      <td>L protein</td>
+      <td>Mammarenavirus brazilense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>5830.000</td>
+      <td>HLA-A*31:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>8842</td>
+      <td>Linear peptide</td>
+      <td>SRYFGNVRLR</td>
+      <td>3076.0193</td>
+      <td>517.0</td>
+      <td>526.0</td>
+      <td>RNA-directed RNA polymerase</td>
+      <td>Mammarenavirus tacaribeense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Positive-Low</td>
+      <td>None</td>
+      <td>1270.000</td>
+      <td>HLA-A*33:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>8843</td>
+      <td>Linear peptide</td>
+      <td>SRYFGNVRLR</td>
+      <td>3076.0193</td>
+      <td>517.0</td>
+      <td>526.0</td>
+      <td>RNA-directed RNA polymerase</td>
+      <td>Mammarenavirus tacaribeense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Positive-Low</td>
+      <td>None</td>
+      <td>4980.000</td>
+      <td>HLA-A*68:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>8845</td>
+      <td>Linear peptide</td>
+      <td>SRYFGNVRLR</td>
+      <td>3076.0193</td>
+      <td>517.0</td>
+      <td>526.0</td>
+      <td>RNA-directed RNA polymerase</td>
+      <td>Mammarenavirus tacaribeense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>30200.000</td>
+      <td>HLA-A*11:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>8846</td>
+      <td>Linear peptide</td>
+      <td>SRYFGNVRLR</td>
+      <td>3076.0193</td>
+      <td>517.0</td>
+      <td>526.0</td>
+      <td>RNA-directed RNA polymerase</td>
+      <td>Mammarenavirus tacaribeense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>9560.000</td>
+      <td>HLA-A*03:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>8859</td>
+      <td>Linear peptide</td>
+      <td>NTNLIKCSDH</td>
+      <td>3076.0199</td>
+      <td>50.0</td>
+      <td>59.0</td>
+      <td>Z protein</td>
+      <td>Mammarenavirus brazilense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>37500.000</td>
+      <td>HLA-A*31:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>8861</td>
+      <td>Linear peptide</td>
+      <td>NTNLIKCSDH</td>
+      <td>3076.0199</td>
+      <td>50.0</td>
+      <td>59.0</td>
+      <td>Z protein</td>
+      <td>Mammarenavirus brazilense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>60300.000</td>
+      <td>HLA-A*33:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>8869</td>
+      <td>Linear peptide</td>
+      <td>PDLKTIHNIL</td>
+      <td>3076.0217</td>
+      <td>535.0</td>
+      <td>544.0</td>
+      <td>nucleoprotein</td>
+      <td>Mammarenavirus choriomeningitidis</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>10300.000</td>
+      <td>HLA-A*30:02</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>8873</td>
+      <td>Linear peptide</td>
+      <td>PDLKTVHNIL</td>
+      <td>3076.0218</td>
+      <td>535.0</td>
+      <td>544.0</td>
+      <td>Nucleoprotein</td>
+      <td>Lymphocytic choriomeningitis virus (strain Armstrong)</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>52800.000</td>
+      <td>HLA-A*01:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>8876</td>
+      <td>Linear peptide</td>
+      <td>PDLKTVHNIL</td>
+      <td>3076.0218</td>
+      <td>535.0</td>
+      <td>544.0</td>
+      <td>Nucleoprotein</td>
+      <td>Lymphocytic choriomeningitis virus (strain Armstrong)</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>10500.000</td>
+      <td>HLA-A*30:02</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>8878</td>
+      <td>Linear peptide</td>
+      <td>PDLKTVHNIL</td>
+      <td>3076.0218</td>
+      <td>535.0</td>
+      <td>544.0</td>
+      <td>Nucleoprotein</td>
+      <td>Lymphocytic choriomeningitis virus (strain Armstrong)</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>70300.000</td>
+      <td>HLA-A*24:02</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>83195</td>
+      <td>Linear peptide</td>
+      <td>AVAKCNLNH</td>
+      <td>3076.0022</td>
+      <td>289.0</td>
+      <td>297.0</td>
+      <td>Glycoprotein polyprotein</td>
+      <td>Mammarenavirus juninense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Positive-Intermediate</td>
+      <td>None</td>
+      <td>230.000</td>
+      <td>HLA-A*11:01</td>
+      <td>I</td>
+      <td>Positive</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>83196</td>
+      <td>Linear peptide</td>
+      <td>AVAKCNLNH</td>
+      <td>3076.0022</td>
+      <td>289.0</td>
+      <td>297.0</td>
+      <td>Glycoprotein polyprotein</td>
+      <td>Mammarenavirus juninense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>46500.000</td>
+      <td>HLA-A*68:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>83217</td>
+      <td>Linear peptide</td>
+      <td>ACNKIKGKK</td>
+      <td>3076.0032</td>
+      <td>332.0</td>
+      <td>340.0</td>
+      <td>L protein</td>
+      <td>Mammarenavirus guanaritoense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Positive-Low</td>
+      <td>None</td>
+      <td>664.000</td>
+      <td>HLA-A*33:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>83218</td>
+      <td>Linear peptide</td>
+      <td>ACNKIKGKK</td>
+      <td>3076.0032</td>
+      <td>332.0</td>
+      <td>340.0</td>
+      <td>L protein</td>
+      <td>Mammarenavirus guanaritoense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Positive-Low</td>
+      <td>None</td>
+      <td>1840.000</td>
+      <td>HLA-A*31:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>83220</td>
+      <td>Linear peptide</td>
+      <td>ACNKIKGKK</td>
+      <td>3076.0032</td>
+      <td>332.0</td>
+      <td>340.0</td>
+      <td>L protein</td>
+      <td>Mammarenavirus guanaritoense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>19000.000</td>
+      <td>HLA-A*11:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>83228</td>
+      <td>Linear peptide</td>
+      <td>SGCYIHFFR</td>
+      <td>3076.0045</td>
+      <td>407.0</td>
+      <td>415.0</td>
+      <td>Nucleoprotein</td>
+      <td>Lassa virus Josiah</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Positive-High</td>
+      <td>None</td>
+      <td>0.297</td>
+      <td>HLA-A*31:01</td>
+      <td>I</td>
+      <td>Positive</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>83230</td>
+      <td>Linear peptide</td>
+      <td>SGCYIHFFR</td>
+      <td>3076.0045</td>
+      <td>407.0</td>
+      <td>415.0</td>
+      <td>Nucleoprotein</td>
+      <td>Lassa virus Josiah</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Positive-Intermediate</td>
+      <td>None</td>
+      <td>56.800</td>
+      <td>HLA-A*11:01</td>
+      <td>I</td>
+      <td>Positive</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>83231</td>
+      <td>Linear peptide</td>
+      <td>SGCYIHFFR</td>
+      <td>3076.0045</td>
+      <td>407.0</td>
+      <td>415.0</td>
+      <td>Nucleoprotein</td>
+      <td>Lassa virus Josiah</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Positive-High</td>
+      <td>None</td>
+      <td>0.271</td>
+      <td>HLA-A*68:01</td>
+      <td>I</td>
+      <td>Positive</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>83238</td>
+      <td>Linear peptide</td>
+      <td>RALKYDFNH</td>
+      <td>3076.0056</td>
+      <td>149.0</td>
+      <td>157.0</td>
+      <td>glycoprotein precursor</td>
+      <td>Mammarenavirus brazilense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Positive-Intermediate</td>
+      <td>None</td>
+      <td>65.200</td>
+      <td>HLA-A*31:01</td>
+      <td>I</td>
+      <td>Positive</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>83239</td>
+      <td>Linear peptide</td>
+      <td>RALKYDFNH</td>
+      <td>3076.0056</td>
+      <td>149.0</td>
+      <td>157.0</td>
+      <td>glycoprotein precursor</td>
+      <td>Mammarenavirus brazilense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>5700.000</td>
+      <td>HLA-A*03:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>83241</td>
+      <td>Linear peptide</td>
+      <td>RALKYDFNH</td>
+      <td>3076.0056</td>
+      <td>149.0</td>
+      <td>157.0</td>
+      <td>glycoprotein precursor</td>
+      <td>Mammarenavirus brazilense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>6970.000</td>
+      <td>HLA-A*68:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>83247</td>
+      <td>Linear peptide</td>
+      <td>KCLNIMLGK</td>
+      <td>3076.0071</td>
+      <td>64.0</td>
+      <td>72.0</td>
+      <td>Z protein</td>
+      <td>Mammarenavirus brazilense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>12400.000</td>
+      <td>HLA-A*33:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>83250</td>
+      <td>Linear peptide</td>
+      <td>KCLNIMLGK</td>
+      <td>3076.0071</td>
+      <td>64.0</td>
+      <td>72.0</td>
+      <td>Z protein</td>
+      <td>Mammarenavirus brazilense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Positive-Low</td>
+      <td>None</td>
+      <td>3900.000</td>
+      <td>HLA-A*11:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>83287</td>
+      <td>Linear peptide</td>
+      <td>KRHSTKYHL</td>
+      <td>3076.0082</td>
+      <td>1943.0</td>
+      <td>1951.0</td>
+      <td>L protein</td>
+      <td>Mammarenavirus guanaritoense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>60300.000</td>
+      <td>HLA-A*24:02</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>83289</td>
+      <td>Linear peptide</td>
+      <td>KRHSTKYHL</td>
+      <td>3076.0082</td>
+      <td>1943.0</td>
+      <td>1951.0</td>
+      <td>L protein</td>
+      <td>Mammarenavirus guanaritoense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>33300.000</td>
+      <td>HLA-A*30:02</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>83305</td>
+      <td>Linear peptide</td>
+      <td>FYQKTGEKS</td>
+      <td>3076.0087</td>
+      <td>543.0</td>
+      <td>551.0</td>
+      <td>L protein</td>
+      <td>Mammarenavirus juninense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>58700.000</td>
+      <td>HLA-A*24:02</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>83307</td>
+      <td>Linear peptide</td>
+      <td>FYQKTGEKS</td>
+      <td>3076.0087</td>
+      <td>543.0</td>
+      <td>551.0</td>
+      <td>L protein</td>
+      <td>Mammarenavirus juninense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>40800.000</td>
+      <td>HLA-A*30:02</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>83328</td>
+      <td>Linear peptide</td>
+      <td>HYLCLNCLS</td>
+      <td>3076.0092</td>
+      <td>47.0</td>
+      <td>55.0</td>
+      <td>RING finger protein</td>
+      <td>Mammarenavirus lassaense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>14200.000</td>
+      <td>HLA-A*30:02</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>83334</td>
+      <td>Linear peptide</td>
+      <td>HYLCLNCLT</td>
+      <td>3076.0093</td>
+      <td>47.0</td>
+      <td>55.0</td>
+      <td>RING finger protein Z</td>
+      <td>Lassa virus Josiah</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Positive-Low</td>
+      <td>None</td>
+      <td>3020.000</td>
+      <td>HLA-A*30:02</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>83340</td>
+      <td>Linear peptide</td>
+      <td>EYHLLYQKT</td>
+      <td>3076.0094</td>
+      <td>538.0</td>
+      <td>546.0</td>
+      <td>RNA-directed RNA polymerase</td>
+      <td>Lymphocytic choriomeningitis virus (strain Armstrong)</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>35000.000</td>
+      <td>HLA-A*30:02</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>83361</td>
+      <td>Linear peptide</td>
+      <td>CRHCLNLLL</td>
+      <td>3076.0098</td>
+      <td>51.0</td>
+      <td>59.0</td>
+      <td>RING finger protein Z</td>
+      <td>Lymphocytic choriomeningitis virus (strain Armstrong)</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Positive-Low</td>
+      <td>None</td>
+      <td>772.000</td>
+      <td>HLA-A*01:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>83374</td>
+      <td>Linear peptide</td>
+      <td>LFQLIFFLT</td>
+      <td>3076.0102</td>
+      <td>43.0</td>
+      <td>51.0</td>
+      <td>glycoprotein precursor</td>
+      <td>Mammarenavirus brazilense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>22300.000</td>
+      <td>HLA-A*24:02</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>83391</td>
+      <td>Linear peptide</td>
+      <td>GYKETPFLT</td>
+      <td>3076.0105</td>
+      <td>1453.0</td>
+      <td>1461.0</td>
+      <td>L protein</td>
+      <td>Mammarenavirus brazilense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>65200.000</td>
+      <td>HLA-A*01:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>83427</td>
+      <td>Linear peptide</td>
+      <td>KYPNLNDLK</td>
+      <td>3076.0115</td>
+      <td>209.0</td>
+      <td>217.0</td>
+      <td>nucleocapsid protein</td>
+      <td>Mammarenavirus whitewaterense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>9570.000</td>
+      <td>HLA-A*30:02</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>83430</td>
+      <td>Linear peptide</td>
+      <td>KYPNLNDLK</td>
+      <td>3076.0115</td>
+      <td>209.0</td>
+      <td>217.0</td>
+      <td>nucleocapsid protein</td>
+      <td>Mammarenavirus whitewaterense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>41000.000</td>
+      <td>HLA-A*01:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>83482</td>
+      <td>Linear peptide</td>
+      <td>EGAQPGLLSY</td>
+      <td>3076.0124</td>
+      <td>117.0</td>
+      <td>126.0</td>
+      <td>nucleocapsid protein</td>
+      <td>Mammarenavirus guanaritoense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>23900.000</td>
+      <td>HLA-A*23:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>83601</td>
+      <td>Linear peptide</td>
+      <td>CQSVCEEFFH</td>
+      <td>3076.0149</td>
+      <td>1251.0</td>
+      <td>1260.0</td>
+      <td>L protein</td>
+      <td>Mammarenavirus guanaritoense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>21100.000</td>
+      <td>HLA-A*31:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>83602</td>
+      <td>Linear peptide</td>
+      <td>CQSVCEEFFH</td>
+      <td>3076.0149</td>
+      <td>1251.0</td>
+      <td>1260.0</td>
+      <td>L protein</td>
+      <td>Mammarenavirus guanaritoense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>15200.000</td>
+      <td>HLA-A*03:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>83603</td>
+      <td>Linear peptide</td>
+      <td>CQSVCEEFFH</td>
+      <td>3076.0149</td>
+      <td>1251.0</td>
+      <td>1260.0</td>
+      <td>L protein</td>
+      <td>Mammarenavirus guanaritoense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>41800.000</td>
+      <td>HLA-A*11:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>83607</td>
+      <td>Linear peptide</td>
+      <td>ECYVQRFFLR</td>
+      <td>3076.0151</td>
+      <td>526.0</td>
+      <td>535.0</td>
+      <td>L protein</td>
+      <td>Mammarenavirus guanaritoense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>17600.000</td>
+      <td>HLA-A*03:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>83621</td>
+      <td>Linear peptide</td>
+      <td>VTEFRRTAIH</td>
+      <td>3076.0155</td>
+      <td>23.0</td>
+      <td>32.0</td>
+      <td>Z protein</td>
+      <td>Mammarenavirus guanaritoense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>10700.000</td>
+      <td>HLA-A*31:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>83622</td>
+      <td>Linear peptide</td>
+      <td>VTEFRRTAIH</td>
+      <td>3076.0155</td>
+      <td>23.0</td>
+      <td>32.0</td>
+      <td>Z protein</td>
+      <td>Mammarenavirus guanaritoense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>33100.000</td>
+      <td>HLA-A*03:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>83624</td>
+      <td>Linear peptide</td>
+      <td>VTEFRRTAIH</td>
+      <td>3076.0155</td>
+      <td>23.0</td>
+      <td>32.0</td>
+      <td>Z protein</td>
+      <td>Mammarenavirus guanaritoense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>15300.000</td>
+      <td>HLA-A*68:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>83625</td>
+      <td>Linear peptide</td>
+      <td>FCKSCWFENK</td>
+      <td>3076.0163</td>
+      <td>30.0</td>
+      <td>39.0</td>
+      <td>RING finger protein Z</td>
+      <td>Lassa virus Josiah</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>9190.000</td>
+      <td>HLA-A*33:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>83627</td>
+      <td>Linear peptide</td>
+      <td>FCKSCWFENK</td>
+      <td>3076.0163</td>
+      <td>30.0</td>
+      <td>39.0</td>
+      <td>RING finger protein Z</td>
+      <td>Lassa virus Josiah</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>20000.000</td>
+      <td>HLA-A*03:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>83630</td>
+      <td>Linear peptide</td>
+      <td>RASLIPDATH</td>
+      <td>3076.0165</td>
+      <td>16.0</td>
+      <td>25.0</td>
+      <td>RING finger protein Z</td>
+      <td>Lassa virus Josiah</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>50700.000</td>
+      <td>HLA-A*33:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>83633</td>
+      <td>Linear peptide</td>
+      <td>RASLIPDATH</td>
+      <td>3076.0165</td>
+      <td>16.0</td>
+      <td>25.0</td>
+      <td>RING finger protein Z</td>
+      <td>Lassa virus Josiah</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>59100.000</td>
+      <td>HLA-A*11:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>83634</td>
+      <td>Linear peptide</td>
+      <td>RASLIPDATH</td>
+      <td>3076.0165</td>
+      <td>16.0</td>
+      <td>25.0</td>
+      <td>RING finger protein Z</td>
+      <td>Lassa virus Josiah</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>19600.000</td>
+      <td>HLA-A*68:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>83635</td>
+      <td>Linear peptide</td>
+      <td>IVTMFEALPH</td>
+      <td>3076.0166</td>
+      <td>4.0</td>
+      <td>13.0</td>
+      <td>Pre-glycoprotein polyprotein GP complex</td>
+      <td>Lymphocytic choriomeningitis virus (strain Armstrong)</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Positive-Intermediate</td>
+      <td>None</td>
+      <td>75.100</td>
+      <td>HLA-A*33:01</td>
+      <td>I</td>
+      <td>Positive</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>83637</td>
+      <td>Linear peptide</td>
+      <td>IVTMFEALPH</td>
+      <td>3076.0166</td>
+      <td>4.0</td>
+      <td>13.0</td>
+      <td>Pre-glycoprotein polyprotein GP complex</td>
+      <td>Lymphocytic choriomeningitis virus (strain Armstrong)</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>13900.000</td>
+      <td>HLA-A*11:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>83639</td>
+      <td>Linear peptide</td>
+      <td>IVTMFEALPH</td>
+      <td>3076.0166</td>
+      <td>4.0</td>
+      <td>13.0</td>
+      <td>Pre-glycoprotein polyprotein GP complex</td>
+      <td>Lymphocytic choriomeningitis virus (strain Armstrong)</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>5840.000</td>
+      <td>HLA-A*68:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>83659</td>
+      <td>Linear peptide</td>
+      <td>CEMNHVNSMH</td>
+      <td>3076.0177</td>
+      <td>229.0</td>
+      <td>238.0</td>
+      <td>glycoprotein precursor</td>
+      <td>Mammarenavirus brazilense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>48100.000</td>
+      <td>HLA-A*68:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>83661</td>
+      <td>Linear peptide</td>
+      <td>FRALKYDFNH</td>
+      <td>3076.0179</td>
+      <td>148.0</td>
+      <td>157.0</td>
+      <td>glycoprotein precursor</td>
+      <td>Mammarenavirus brazilense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>19800.000</td>
+      <td>HLA-A*03:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>83663</td>
+      <td>Linear peptide</td>
+      <td>FRALKYDFNH</td>
+      <td>3076.0179</td>
+      <td>148.0</td>
+      <td>157.0</td>
+      <td>glycoprotein precursor</td>
+      <td>Mammarenavirus brazilense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Positive-Low</td>
+      <td>None</td>
+      <td>4260.000</td>
+      <td>HLA-A*31:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>83664</td>
+      <td>Linear peptide</td>
+      <td>FRALKYDFNH</td>
+      <td>3076.0179</td>
+      <td>148.0</td>
+      <td>157.0</td>
+      <td>glycoprotein precursor</td>
+      <td>Mammarenavirus brazilense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Positive-Intermediate</td>
+      <td>None</td>
+      <td>431.000</td>
+      <td>HLA-A*68:01</td>
+      <td>I</td>
+      <td>Positive</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>83666</td>
+      <td>Linear peptide</td>
+      <td>LNTPYCNYTK</td>
+      <td>3076.0181</td>
+      <td>354.0</td>
+      <td>363.0</td>
+      <td>glycoprotein precursor</td>
+      <td>Mammarenavirus brazilense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>15300.000</td>
+      <td>HLA-A*03:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>83667</td>
+      <td>Linear peptide</td>
+      <td>LNTPYCNYTK</td>
+      <td>3076.0181</td>
+      <td>354.0</td>
+      <td>363.0</td>
+      <td>glycoprotein precursor</td>
+      <td>Mammarenavirus brazilense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>10800.000</td>
+      <td>HLA-A*11:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>83668</td>
+      <td>Linear peptide</td>
+      <td>LNTPYCNYTK</td>
+      <td>3076.0181</td>
+      <td>354.0</td>
+      <td>363.0</td>
+      <td>glycoprotein precursor</td>
+      <td>Mammarenavirus brazilense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>6410.000</td>
+      <td>HLA-A*31:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>83669</td>
+      <td>Linear peptide</td>
+      <td>LNTPYCNYTK</td>
+      <td>3076.0181</td>
+      <td>354.0</td>
+      <td>363.0</td>
+      <td>glycoprotein precursor</td>
+      <td>Mammarenavirus brazilense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Positive-Low</td>
+      <td>None</td>
+      <td>695.000</td>
+      <td>HLA-A*68:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>83677</td>
+      <td>Linear peptide</td>
+      <td>CSSLTEEFYH</td>
+      <td>3076.0184</td>
+      <td>1265.0</td>
+      <td>1274.0</td>
+      <td>L protein</td>
+      <td>Mammarenavirus brazilense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>8680.000</td>
+      <td>HLA-A*11:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>83678</td>
+      <td>Linear peptide</td>
+      <td>CSSLTEEFYH</td>
+      <td>3076.0184</td>
+      <td>1265.0</td>
+      <td>1274.0</td>
+      <td>L protein</td>
+      <td>Mammarenavirus brazilense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Positive-Low</td>
+      <td>None</td>
+      <td>3360.000</td>
+      <td>HLA-A*31:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>83679</td>
+      <td>Linear peptide</td>
+      <td>CSSLTEEFYH</td>
+      <td>3076.0184</td>
+      <td>1265.0</td>
+      <td>1274.0</td>
+      <td>L protein</td>
+      <td>Mammarenavirus brazilense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>31900.000</td>
+      <td>HLA-A*68:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>83680</td>
+      <td>Linear peptide</td>
+      <td>DFTLFIKTGH</td>
+      <td>3076.0186</td>
+      <td>1881.0</td>
+      <td>1890.0</td>
+      <td>L protein</td>
+      <td>Mammarenavirus brazilense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Positive-Intermediate</td>
+      <td>None</td>
+      <td>131.000</td>
+      <td>HLA-A*33:01</td>
+      <td>I</td>
+      <td>Positive</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>83682</td>
+      <td>Linear peptide</td>
+      <td>DFTLFIKTGH</td>
+      <td>3076.0186</td>
+      <td>1881.0</td>
+      <td>1890.0</td>
+      <td>L protein</td>
+      <td>Mammarenavirus brazilense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>58700.000</td>
+      <td>HLA-A*11:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>83691</td>
+      <td>Linear peptide</td>
+      <td>FKVAFSKHYK</td>
+      <td>3076.0189</td>
+      <td>2172.0</td>
+      <td>2181.0</td>
+      <td>L protein</td>
+      <td>Mammarenavirus brazilense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Positive-Intermediate</td>
+      <td>None</td>
+      <td>279.000</td>
+      <td>HLA-A*03:01</td>
+      <td>I</td>
+      <td>Positive</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>83692</td>
+      <td>Linear peptide</td>
+      <td>FKVAFSKHYK</td>
+      <td>3076.0189</td>
+      <td>2172.0</td>
+      <td>2181.0</td>
+      <td>L protein</td>
+      <td>Mammarenavirus brazilense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Positive-Low</td>
+      <td>None</td>
+      <td>2140.000</td>
+      <td>HLA-A*11:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>83696</td>
+      <td>Linear peptide</td>
+      <td>FLLNISYLCH</td>
+      <td>3076.019</td>
+      <td>698.0</td>
+      <td>707.0</td>
+      <td>L protein</td>
+      <td>Mammarenavirus brazilense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>11800.000</td>
+      <td>HLA-A*03:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>83697</td>
+      <td>Linear peptide</td>
+      <td>FLLNISYLCH</td>
+      <td>3076.019</td>
+      <td>698.0</td>
+      <td>707.0</td>
+      <td>L protein</td>
+      <td>Mammarenavirus brazilense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>46600.000</td>
+      <td>HLA-A*11:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>83698</td>
+      <td>Linear peptide</td>
+      <td>FLLNISYLCH</td>
+      <td>3076.019</td>
+      <td>698.0</td>
+      <td>707.0</td>
+      <td>L protein</td>
+      <td>Mammarenavirus brazilense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>5830.000</td>
+      <td>HLA-A*31:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>83710</td>
+      <td>Linear peptide</td>
+      <td>SRYFGNVRLR</td>
+      <td>3076.0193</td>
+      <td>517.0</td>
+      <td>526.0</td>
+      <td>RNA-directed RNA polymerase</td>
+      <td>Mammarenavirus tacaribeense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>9560.000</td>
+      <td>HLA-A*03:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>83711</td>
+      <td>Linear peptide</td>
+      <td>SRYFGNVRLR</td>
+      <td>3076.0193</td>
+      <td>517.0</td>
+      <td>526.0</td>
+      <td>RNA-directed RNA polymerase</td>
+      <td>Mammarenavirus tacaribeense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>30200.000</td>
+      <td>HLA-A*11:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>83713</td>
+      <td>Linear peptide</td>
+      <td>SRYFGNVRLR</td>
+      <td>3076.0193</td>
+      <td>517.0</td>
+      <td>526.0</td>
+      <td>RNA-directed RNA polymerase</td>
+      <td>Mammarenavirus tacaribeense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Positive-Low</td>
+      <td>None</td>
+      <td>4980.000</td>
+      <td>HLA-A*68:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>83714</td>
+      <td>Linear peptide</td>
+      <td>SRYFGNVRLR</td>
+      <td>3076.0193</td>
+      <td>517.0</td>
+      <td>526.0</td>
+      <td>RNA-directed RNA polymerase</td>
+      <td>Mammarenavirus tacaribeense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Positive-Low</td>
+      <td>None</td>
+      <td>1270.000</td>
+      <td>HLA-A*33:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>83727</td>
+      <td>Linear peptide</td>
+      <td>NTNLIKCSDH</td>
+      <td>3076.0199</td>
+      <td>50.0</td>
+      <td>59.0</td>
+      <td>Z protein</td>
+      <td>Mammarenavirus brazilense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>37500.000</td>
+      <td>HLA-A*31:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>83729</td>
+      <td>Linear peptide</td>
+      <td>NTNLIKCSDH</td>
+      <td>3076.0199</td>
+      <td>50.0</td>
+      <td>59.0</td>
+      <td>Z protein</td>
+      <td>Mammarenavirus brazilense</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>60300.000</td>
+      <td>HLA-A*33:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>83761</td>
+      <td>Linear peptide</td>
+      <td>PDLKTIHNIL</td>
+      <td>3076.0217</td>
+      <td>535.0</td>
+      <td>544.0</td>
+      <td>nucleoprotein</td>
+      <td>Mammarenavirus choriomeningitidis</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>10300.000</td>
+      <td>HLA-A*30:02</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>83765</td>
+      <td>Linear peptide</td>
+      <td>PDLKTVHNIL</td>
+      <td>3076.0218</td>
+      <td>535.0</td>
+      <td>544.0</td>
+      <td>Nucleoprotein</td>
+      <td>Lymphocytic choriomeningitis virus (strain Armstrong)</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>70300.000</td>
+      <td>HLA-A*24:02</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>83767</td>
+      <td>Linear peptide</td>
+      <td>PDLKTVHNIL</td>
+      <td>3076.0218</td>
+      <td>535.0</td>
+      <td>544.0</td>
+      <td>Nucleoprotein</td>
+      <td>Lymphocytic choriomeningitis virus (strain Armstrong)</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>10500.000</td>
+      <td>HLA-A*30:02</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>83770</td>
+      <td>Linear peptide</td>
+      <td>PDLKTVHNIL</td>
+      <td>3076.0218</td>
+      <td>535.0</td>
+      <td>544.0</td>
+      <td>Nucleoprotein</td>
+      <td>Lymphocytic choriomeningitis virus (strain Armstrong)</td>
+      <td>Homo sapiens (human)</td>
+      <td>purified MHC/competitive/radioactivity</td>
+      <td>dissociation constant KD (~IC50)</td>
+      <td>nM</td>
+      <td>Negative</td>
+      <td>None</td>
+      <td>52800.000</td>
+      <td>HLA-A*01:01</td>
+      <td>I</td>
+      <td>Negative</td>
+      <td>10</td>
+    </tr>
+  </tbody>
+</table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer-->
+    <footer class="py-5 bg-dark d-flex flex-column justify-content-center align-items-center" id="footer">
+        <div class="mb-2">
+            <a href="https://github.com/hansen-maria/BioProfileKit">
+                <img src="static/assets/github.svg" alt="Github" style="filter: brightness(0) invert(1);">
+            </a>
+        </div>
+        <div>
+            <p class="m-0 text-center text-white">Copyright &copy; JLU 2025</p>
+        </div>
+    </footer>
+</div>
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="../static/js/scripts.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<!-- DataTables -->
+<script src="https://cdn.datatables.net/2.3.1/js/dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/2.3.1/js/dataTables.bootstrap5.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/3.0.4/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/3.0.4/js/responsive.bootstrap5.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('#dup_table').DataTable({
+            "paging": true,
+            "searching": true,
+            "ordering": true,
+            "info": false,
+            "lengthChange": false,
+            "responsive": false,
+            "scrollX": 1200,
+            "scroller":true,
+            "scrollCollapse": true,
+            "pageLength":15,
+            stateSave: true
+        });
+    });
+</script>
+</body>
+</html>

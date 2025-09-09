@@ -4,7 +4,7 @@
 ## Overview
 
 BioProfileKit is a specialized bioinformatics tool that enables scientists to analyze large and diverse datasets. 
-Unlike traditional profilers, it offers customized analyses for genomics, proteomics, transcriptomics, and metabolomics, providing sequence analysis and reports on nucleotide or amino acid distribution and abundance. 
+Unlike traditional profilers, it offers customized analyzes for genomics, proteomics, transcriptomics, and metabolomics, providing sequence analysis and reports on nucleotide or amino acid distribution and abundance. 
 It includes advanced visualizations for pattern and anomaly detection, along with interactive dashboards showing key metrics. 
 Designed to be user-friendly, BioProfileKit is accessible to scientists without extensive data science skills.
 
@@ -45,4 +45,4 @@ Unless you explicitly state otherwise, any contribution intentionally submitted 
 
 ## Contact
 
-For inquiries or support regarding this project, you can reach out to the maintainers through GitHub issues.
+For inquiries or support regarding this project, you can reach out to the maintainers through GitHub issues or Discussion.

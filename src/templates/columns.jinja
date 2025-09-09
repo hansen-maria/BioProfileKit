@@ -128,11 +128,11 @@
                                 {% if col.correlation %}
                                     {% for corr in col.correlation %}
                                         {% if corr.1 < 0.5 %}
-                                            <span class="badge bg-danger">Low Correlation</span>
+                                            <span class="badge bg-success">Low Correlation</span>
                                         {% elif 0.5 <= corr.1 < 0.7 %}
                                             <span class="badge bg-warning">Moderate Correlation</span>
                                         {% else %}
-                                            <span class="badge bg-success">High Correlation</span>
+                                            <span class="badge bg-danger">High Correlation</span>
                                         {% endif %}
                                     {% endfor %}
                                 {% endif %}
@@ -363,7 +363,7 @@
                                                                 <tr><td>Unique Categories</td><td>{{ cat.unique_categories }}</td></tr>
                                                                 <tr><td>Mode</td><td>{{ cat.mode }}</td></tr>
                                                                 <tr><td>Entropy</td><td>{{ cat.entropy }}</td></tr>
-                                                                <tr><td>Gini</td><td>{{ cat.gini }}</td></tr>
+                                                                <tr><td>Gini Coefficient</td><td>{{ cat.gini }}</td></tr>
                                                                 <tr><td>Simpson Diversity</td><td>{{ cat.simpson_diversity }}</td></tr>
                                                                 <tr><td>Min Category Length</td><td>{{ cat.min_category_length }}</td></tr>
                                                                 <tr><td>Max Category Length</td><td>{{ cat.max_category_length }}</td></tr>
