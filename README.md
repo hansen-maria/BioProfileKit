@@ -1,5 +1,6 @@
 # BioProfileKit
-
+[![Python: 3.13](https://img.shields.io/badge/Python-3.13-green.svg)](https://opensource.org/python/3.13) [![License: MIT](https://img.shields.io/badge/License-MIT-darkred.svg)](https://opensource.org/licenses/MIT) 
+ 
 ## Overview
 
 BioProfileKit is a specialized bioinformatics tool that enables scientists to analyze large and diverse datasets. 

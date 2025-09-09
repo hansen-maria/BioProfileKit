@@ -1,14 +1,11 @@
 import tempfile
-import warnings
 from collections import defaultdict, Counter
 from dataclasses import dataclass
 from itertools import chain
 from pathlib import Path
 from typing import Tuple
 from Bio import motifs
-with warnings.catch_warnings():
-    warnings.simplefilter("ignore")
-    from weblogo import *
+from weblogo import *
 import numpy as np
 import pandas as pd
 import peptides
