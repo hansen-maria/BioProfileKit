@@ -1,6 +1,6 @@
 # BioProfileKit
 [![Python: 3.13](https://img.shields.io/badge/Python-3.13-green.svg)](https://www.python.org/downloads/release/python-3130/) [![License: MIT](https://img.shields.io/badge/License-MIT-darkred.svg)](https://opensource.org/licenses/MIT) 
-[![GitHub Pages](https://img.shields.io/github/deployments/hansen-maria/BioProfileKit/gh-pages?label=github%20pages&style=for-the-badge&logo=github)](https://hansen-maria.github.io/BioProfileKit)
+[![GitHub Pages Status](https://img.shields.io/github/deployments/hansen-maria/BioProfileKit/gh-pages?label=github%20pages&style=for-the-badge&logo=github "GitHub Pages")](https://hansen-maria.github.io/BioProfileKit)
 
 
 
