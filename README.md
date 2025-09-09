@@ -1,12 +1,16 @@
 # BioProfileKit
 [![Python: 3.13](https://img.shields.io/badge/Python-3.13-green.svg)](https://www.python.org/downloads/release/python-3130/) [![License: MIT](https://img.shields.io/badge/License-MIT-darkred.svg)](https://opensource.org/licenses/MIT) 
- 
+[![GitHub Pages](https://img.shields.io/github/deployments/hansen-maria/BioProfileKit/gh-pages?label=github%20pages&style=for-the-badge&logo=github)](https://hansen-maria.github.io/BioProfileKit)
+
+
+
 ## Overview
 
 BioProfileKit is a specialized bioinformatics tool that enables scientists to analyze large and diverse datasets. 
 Unlike traditional profilers, it offers customized analyzes for genomics, proteomics, transcriptomics, and metabolomics, providing sequence analysis and reports on nucleotide or amino acid distribution and abundance. 
 It includes advanced visualizations for pattern and anomaly detection, along with interactive dashboards showing key metrics. 
 Designed to be user-friendly, BioProfileKit is accessible to scientists without extensive data science skills.
+Example Results: [BioProfileKit Example](https://hansen-maria.github.io/BioProfileKit/)
 
 ### Features
 - **EDA-Focused Analysis** - Offers a detailed overview of data structure, quality, and composition with automated detection of issues like missing values or correlations
